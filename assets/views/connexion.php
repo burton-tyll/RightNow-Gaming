@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             $getUsers = $users->read();
             $validUser = false;
             foreach($getUsers as $user){
-                if($username == $user['name'] && password_verify($password, $user['password'])){
+                if($username == $user['username'] && password_verify($password, $user['password'])){
                     $validUser = true;
                     break;
                 } else{
@@ -75,7 +75,7 @@ $database->disconnect();
                         <p class="p_connect">Me connecter</p>
                         <div class="btn_animation"></div>
                     </button>
-                    <a href="inscription.php" style="color: white">Vous n'avez pas de compte? Créez en un ici!</a>
+                    <a href="inscription.php">Vous n'avez pas de compte? Créez en un ici!</a>
                 </form>
             </div>
         </section>
