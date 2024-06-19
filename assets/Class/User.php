@@ -2,14 +2,19 @@
 
 require_once "../../Database.php";
 
-class User{
-    //Définition des variables
-    private $conn;
-
+class User extends Database {
     //Définition du constructeur
-    public function __construct(){
-        $db = new Database();
-        $this->conn = $db->connect();
+    public function __construct() {
+        // Appelle le constructeur de la classe parente pour initialiser la connexion
+        parent::__construct();
+        $this->conn = $this->connect();
+    }
+
+    public function addUser($username, $email, $password, $name, $firstname, $country){
+        // Préparer la requête d'insertion avec des paramètres de substitution
+        $query = "INSERT INTO user (username, email, password, name, firstname, country) VALUES (:username, :email, :password, :name, :firstname, :country)";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([":username" => $username, ":email" => $email, ":password" => $password, ":name" => $name, ":firstname" => $firstname, ":country" => $country]);
     }
 
     public function read(){
@@ -20,12 +25,11 @@ class User{
     }
 
     public function findByName($username){
-        $sql = 'SELECT * FROM user WHERE name = :username';
+        $sql = 'SELECT * FROM user WHERE username = :username';
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([':username' => $username]);
         return $stmt->fetchColumn();
     }
-
 }
 
 ?>
