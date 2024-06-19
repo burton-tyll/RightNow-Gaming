@@ -10,11 +10,11 @@ class User extends Database {
         $this->conn = $this->connect();
     }
 
-    public function addUser($username, $email, $password){
+    public function addUser($username, $email, $password, $name, $firstname, $country){
         // Préparer la requête d'insertion avec des paramètres de substitution
-        $query = "INSERT INTO user (username, email, password) VALUES (:username, :email, :password)";
+        $query = "INSERT INTO user (username, email, password, name, firstname, country) VALUES (:username, :email, :password, :name, :firstname, :country)";
         $stmt = $this->conn->prepare($query);
-        $stmt->execute([":username" => $username, "email" => $email, "password" => $password]);
+        $stmt->execute([":username" => $username, ":email" => $email, ":password" => $password, ":name" => $name, ":firstname" => $firstname, ":country" => $country]);
     }
 
     public function read(){
