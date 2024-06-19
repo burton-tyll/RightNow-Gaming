@@ -1,0 +1,103 @@
+main{
+    display: flex;
+}
+
+.formulaire{
+    width: 50%;
+    height: 100svh;
+    background-color: #282A28;
+}
+
+.wallpaper{
+    width: 50%;
+    height: 100svh;
+    background-image: url('../img/wallpaper.jpg');
+    background-size: cover;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.logo{
+    position: absolute;
+    width: 200px;
+    top: 10px;
+    left: 10px;
+}
+
+/*--------------*/
+/*----------------INSCRIPTION*/
+/*--------------*/
+
+#inscription{
+    display: flex;
+    align-items: center;
+}
+
+.champs{
+    display: grid;
+    gap: 20px;
+    justify-content: center;
+    grid-template-columns: repeat(2, 300px);
+}
+
+.champs input, .champs select{
+    padding: 10px;
+    border-radius: 5px;
+    height: 30px;
+    background-color: #222322;
+    border: 2px solid #474343;
+}
+
+.champs input:hover, .champs select:hover{
+    border: 3px solid #0FB953;
+}
+
+.boutons{
+    display: flex;
+    flex-direction: column;
+    width: 620px;
+}
+
+.conditions{
+    display: flex;
+    align-items: center;
+    color: #585353;
+}
+
+.conditions a{
+    color: white;
+}
+
+.agree{
+    width: 20px;
+    height: 20px;
+    background-color: #222322;
+    border: 2px solid #474343;
+}
+
+.send{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 56px;
+    padding: 25px;
+    border-radius: 5px;
+    background: linear-gradient(10deg,#7fedab,transparent) #0FB953;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+}
+
+#country {
+    height: 50px; 
+    padding: 10px; 
+    font-size: 16px; 
+    border: 1px solid #ccc; 
+}
+
+
