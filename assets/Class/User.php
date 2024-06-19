@@ -17,18 +17,29 @@ class User extends Database {
         $stmt->execute([":username" => $username, ":email" => $email, ":password" => $password, ":name" => $name, ":firstname" => $firstname, ":country" => $country]);
     }
 
+    public function getUser($by, $byvalue) {
+        // Prépare la requête avec le paramètre nommé :by
+        $query = "SELECT * FROM user WHERE $by = :byvalue";
+        $stmt = $this->conn->prepare($query);
+        
+        // Lie la valeur du paramètre nommé :byvalue
+        $stmt->bindValue(':byvalue', $byvalue);
+    
+        // Exécute la requête préparée
+        $stmt->execute();
+    
+        // Récupère la première ligne de résultat
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+        return $result; // Retourne le résultat sous forme de tableau associatif
+    }
+    
+
     public function read(){
         $sql = 'SELECT * FROM user';
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public function findByName($username){
-        $sql = 'SELECT * FROM user WHERE username = :username';
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute([':username' => $username]);
-        return $stmt->fetchColumn();
     }
 }
 
