@@ -90,12 +90,13 @@ if (json_last_error() !== JSON_ERROR_NONE) {
             <img src="../img/logo.png" alt="logo" class="logo">
             <form action="inscription.php" method="POST">
                 <div class="champs">
-                    <input type="email" placeholder="E-mail" name="email">
-                    <input type="password" placeholder="Votre mot de passe" name="password">
-                    <input type="text" placeholder="Prénom" name="firstname">
-                    <input type="text" placeholder="Nom" name="name">
-                    <input type="text" placeholder="Nom d'utilisateur" name="username">
+                    <input type="email" placeholder="E-mail" name="email" required>
+                    <input type="password" placeholder="Votre mot de passe" name="password" required>
+                    <input type="text" placeholder="Prénom" name="firstname" required>
+                    <input type="text" placeholder="Nom" name="name" required>
+                    <input type="text" placeholder="Nom d'utilisateur" name="username" required>
                     <select name="country" id="country">
+                        <option disabled selected>Choisissez un pays</option>
                         <?php
                         if ($countries) {
                             foreach ($countries as $country) {
