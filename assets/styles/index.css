@@ -1,0 +1,38 @@
+main{
+    background-color: #282A28;
+    min-height: 100svh;
+    width: 100%;
+}
+
+#nouveautés{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.section-title{
+    width: 80%;
+    display: flex;
+    justify-content: flex-start;
+    color: white;
+}
+
+.grid{
+    display: grid;
+    grid-template-columns: repeat(3, 400px);
+    gap: 20px;
+    width: 80%;
+}
+
+.grid-item-img{
+    width: 400px;
+    height: 300px;
+    border-radius: 5px;
+}
+
+.grid-item-infos{
+    display: flex;
+    justify-content: space-between;
+    color: white;
+}
