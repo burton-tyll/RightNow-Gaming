@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 $_SESSION['user'] = $username;
                 header('Location: ./homepage.php');
                 exit;
-            }
+            } 
         }
     } 
 }
@@ -57,7 +57,8 @@ $database->disconnect();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php include('../templates/global.php') ?>
     <link rel="stylesheet" href="../styles/authentification.css">
-    <script src="https://accounts.google.com/gsi/client" async></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
     <title>RightNow Gaming || Connexion</title>
 </head>
 
@@ -68,24 +69,7 @@ $database->disconnect();
                 <div class="external-connexion">
                     <h2>Se connecter</h2>
                     <div class="external-buttons">
-                        <button class="socialButton googleButton"><img src="../img/google.png" alt="googleImage"></button>
-                        <div id="g_id_onload"
-                            data-client_id="49695563635-74haunh3mh8gqso5fij3v93lirtuck9o.apps.googleusercontent.com"
-                            data-context="signin"
-                            data-ux_mode="popup"
-                            data-login_uri="http://localhost:80/index.php"
-                            data-auto_prompt="false">
-                        </div>
-
-                        <div class="g_id_signin"
-                            data-type="icon"
-                            data-shape="square"
-                            data-theme="outline"
-                            data-text="signin_with"
-                            data-size="large"
-                            data-locale="fr">
-                        </div>
-                        
+                        <button class="socialButton googleButton" id="googleSignInButton"><img src="../img/google.png" alt="googleImage"></button>
                         <button class="socialButton facebookButton"><img src="../img/facebook.png" alt="facebookImage"></button>
                         <button class="socialButton appleButton"><img src="../img/apple.png" alt="appleImage"></button>
                         <button class="socialButton discordButton"><img src="../img/discord.png" alt="discordImage"></button>

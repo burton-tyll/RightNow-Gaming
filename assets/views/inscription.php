@@ -5,6 +5,7 @@ require_once '../../Database.php';
 require_once '../Class/User.php';
 
 $error_message = null;
+$existant_account = null;
 
 $database = new Database();
 $user = new User();
@@ -24,17 +25,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($email, $password, $username) && $conn) {
         // Vérifier si le mot de passe répond aux exigences
         if (strlen($password) < 8 || !preg_match("#[0-9]+#", $password) || !preg_match("#[A-Z]+#", $password) || !preg_match("#[a-z]+#", $password) || !preg_match("/[!@#$%^&*()\-_=+]/", $password)) {
-            $error_message = "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.";
+            $error_message = "Votre mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.";
         } else {
             // Hachage du mot de passe
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-            // Requête d'ajout utilisateur dans la BDD
-            $user->addUser($username, $email, $hashed_password, $name, $firstname, $country);
-
-            // Rediriger l'utilisateur vers une page de confirmation
-            header("Location: connexion.php");
-            exit;
+            $userdb = $user->read();
+            if(!empty($userdb)){
+                foreach($userdb as $thisone){
+                    if($thisone['email'] == $email || $thisone['username'] == $username){
+                        $existant_account = 'Un compte est déjà inscrit à cette adresse, ou à ce nom.';
+                    }else{
+                        // Requête d'ajout utilisateur dans la BDD
+                        $user->addUser($username, $email, $hashed_password, $name, $firstname, $country);
+                        // Rediriger l'utilisateur vers une page de confirmation
+                        header("Location: connexion.php");
+                        exit;
+                    }
+                }
+            } else{
+                // Requête d'ajout utilisateur dans la BDD
+                $user->addUser($username, $email, $hashed_password, $name, $firstname, $country);
+                // Rediriger l'utilisateur vers une page de confirmation
+                header("Location: connexion.php");
+                exit;
+            }
         }
     } else {
         echo 'Échec de la connexion.';
@@ -89,23 +104,21 @@ if (json_last_error() !== JSON_ERROR_NONE) {
         <div class="formulaire" id="inscription">
             <img src="../img/logo.png" alt="logo" class="logo">
             <form action="inscription.php" method="POST">
+                <p style="color: red"><?php echo $existant_account; ?></p>
+                <p style="color: red"><?php echo $error_message; ?></p>
                 <div class="champs">
                     <input type="email" placeholder="E-mail" name="email" required>
                     <input type="password" placeholder="Votre mot de passe" name="password" required>
                     <input type="text" placeholder="Prénom" name="firstname" required>
                     <input type="text" placeholder="Nom" name="name" required>
                     <input type="text" placeholder="Nom d'utilisateur" name="username" required>
-                    <select name="country" id="country">
+                    <select name="country" id="country" required>
                         <option disabled selected>Choisissez un pays</option>
                         <?php
-                        if ($countries) {
                             foreach ($countries as $country) {
                                 $countryName = $country['name']; // Nom du pays
                                 echo "<option value=\"$countryName\">$countryName</option>";
                             }
-                        } else {
-                            echo '<option value="">Aucun pays disponible</option>';
-                        }
                         ?>
                     </select>
                 </div>

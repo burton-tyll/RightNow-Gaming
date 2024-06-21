@@ -182,9 +182,9 @@ form{
     justify-content: space-between;
 }
 
-.socialButton, .nsm7Bb-HzV7m-LgbsSe.Bz112c-LgbsSe{  /*Bouton Google*/
-    width: 90px !important;
-    height: 55px !important;
+.socialButton{ 
+    width: 90px;
+    height: 55px;
     border-radius: 5px;
     border: none ;
     cursor: pointer;
@@ -196,11 +196,6 @@ form{
 
 .socialButton img{
     width: 40px;
-}
-
-.nsm7Bb-HzV7m-LgbsSe-Bz112c{
-    width: 30px !important;
-    padding: 0 !important;
 }
 
 .googleButton{
