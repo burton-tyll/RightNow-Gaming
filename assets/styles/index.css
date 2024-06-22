@@ -18,20 +18,20 @@ main{
     color: white;
 }
 
-.grid{
+.games-grid{
     display: grid;
     grid-template-columns: repeat(3, 400px);
     gap: 20px;
     width: 80%;
 }
 
-.grid-item-img{
+.games-grid-item-img{
     width: 400px;
     height: 300px;
     border-radius: 5px;
 }
 
-.grid-item-infos{
+.games-grid-item-infos{
     display: flex;
     justify-content: space-between;
     color: white;
