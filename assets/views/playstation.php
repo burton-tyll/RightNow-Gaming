@@ -1,14 +1,14 @@
 <?php
-    require_once('./assets/Class/Game.php');
+    require_once('../Class/Game.php');
 
     $game = new Game();
 
     session_start();
 
-    $newGames = $game->getGamesOrderedByDate();
-    $bestSellers = $game->getGamesOrderedByRate();
+    $newGames = $game->getAllGamesByPlatformOrderedByDate(2);
+    $bestSellers = $game->getAllGamesByPlatformOrderedByRate(2);
+    $theBestGame = $game->getTheBestGameByPlateform(2);
 
-    $theBestGame = $game->getTheBestGame();
 
     function convertBlobToBase64($blob) {
         return 'data:image/jpeg;base64,' . base64_encode($blob);
@@ -22,25 +22,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-------GLOBAL ASSETS------>
-    <link rel="stylesheet" href="./assets/styles/global.css">
-    <link rel="icon" type="image/x-icon" href="./assets/img/favicon.png">
-    <script src="./assets/script/global.js" defer></script>
+    <?php include('../templates/global.php') ?>
     <!-------------------------->
-    <link rel="stylesheet" href="./assets/styles/index.css">
+    <link rel="stylesheet" href="../styles/index.css">
     <title>RightNow Gaming</title>
 </head>
 <body>
-    <header>
-        <nav>
-            <img src="./assets/img/logo.png" alt="logo" class="logo">
-            <ul>
-                <li><a href="./assets/views/pc.php"><img src="./assets/img/pc.png" alt="pc_logo"><p>PC</p></a></li>
-                <li><a href="./assets/views/playstation.php"><img src="./assets/img/playstation.png" alt="playstation_logo"><p>Playstation</p></a></li>
-                <li><a href="./assets/views/xbox.php"><img src="./assets/img/xbox.png" alt="xbox_logo"><p>Xbox</p></a></li>
-                <li><a href="./assets/views/nintendo.php"><img src="./assets/img/nintendo.png" alt="nintendo_logo"><p>Nintendo</p></a></li>
-            </ul>
-        </nav>
-    </header>
+    <?php include('../templates/header.php') ?>
     <!--Accueil-->
     <main>
         <section id="accueil" style="background-image: url('<?php echo convertBlobToBase64($theBestGame[0]['image']); ?>'); background-size: cover">
