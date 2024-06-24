@@ -31,6 +31,17 @@
     <title>RightNow Gaming</title>
 </head>
 <body>
+    <header>
+        <nav>
+            <img src="./assets/img/logo.png" alt="logo" class="logo">
+            <ul>
+                <li><a href="/pc"><img src="./assets/img/pc.png" alt="pc_logo"><p>PC</p></a></li>
+                <li><a href="/playstation"><img src="./assets/img/playstation.png" alt="playstation_logo"><p>Playstation</p></a></li>
+                <li><a href="/xbox"><img src="./assets/img/xbox.png" alt="xbox_logo"><p>Xbox</p></a></li>
+                <li><a href="/nintendo"><img src="./assets/img/nintendo.png" alt="nintendo_logo"><p>Nintendo</p></a></li>
+            </ul>
+        </nav>
+    </header>
     <main>
         <section id="accueil" style="background-image: url('<?php echo convertBlobToBase64($theBestGame[0]['image']); ?>'); background-size: cover">
 
