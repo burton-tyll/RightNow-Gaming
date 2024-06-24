@@ -1,38 +1,86 @@
-main{
+main {
     background-color: #282A28;
-    min-height: 100svh;
+    min-height: 100vh;
     width: 100%;
 }
 
-#nouveautés{
+h1{
+    font-size: 2.5rem;
+}
+
+#accueil{
+    height: 75vh;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 85%);
+    background-attachment: fixed;
+}
+
+#nouveautés, #meilleures-ventes {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.section-title{
+.section-title {
     width: 80%;
     display: flex;
     justify-content: flex-start;
     color: white;
 }
 
-.games-grid{
+#nouveautés .games-grid {
     display: grid;
     grid-template-columns: repeat(3, 400px);
     gap: 20px;
     width: 80%;
 }
 
-.games-grid-item-img{
+#nouveautés .games-grid-item-img {
     width: 400px;
-    height: 300px;
+    min-height: 230px;
     border-radius: 5px;
 }
 
-.games-grid-item-infos{
+#nouveautés .games-grid-item-infos {
     display: flex;
     justify-content: space-between;
     color: white;
+    font-size: 1.2rem;
+}
+
+/* MEILLEURES VENTES */
+
+#meilleures-ventes .games-grid {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 60% 40%;
+    grid-template-rows: repeat(2, 1fr);
+    margin-bottom: 20px;
+    width: 80%;
+}
+
+#meilleures-ventes .img-large {
+    grid-row: span 2;
+}
+
+#meilleures-ventes .games-grid-item {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between; 
+    align-items: center; 
+}
+
+#meilleures-ventes .games-grid-item-img {
+    width: 100%;
+    flex-grow: 1; 
+    border-radius: 5px;
+}
+
+#meilleures-ventes .games-grid-item-infos {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    color: white;
+    font-size: 1.2rem;
 }

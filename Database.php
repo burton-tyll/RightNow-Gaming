@@ -6,9 +6,12 @@
         private $db_name  = 'rightnowgaming';
         private $username = 'root';
         private $password = '';
-        private $conn;
+        protected $conn;
 
         // Méthode pour établir la connexion
+        public function __construct(){
+            $this->connect();
+        }
         public function connect() {
             $this->conn = null;
 
