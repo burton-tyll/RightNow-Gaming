@@ -46,8 +46,8 @@ nav{
 }
 
 nav ul{
-    background-color: #282626b1;
-    backdrop-filter: blur(60px) saturate(100%);
+    background-color: #0000000b;
+    backdrop-filter: blur(10px);
     display: flex;
     justify-content: space-around;
     width: fit-content;
