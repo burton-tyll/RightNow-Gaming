@@ -13,4 +13,24 @@ a, li{
 /*----------------HEADER*/
 /*--------------*/
 
+nav{
+    background-color: #1A1B1E;
+}
 
+nav ul{
+    display: flex;
+    justify-content: space-around;
+    width: fit-content;
+    margin: 0;
+    border: 2px solid white;
+    border-radius: 10px;
+}
+
+nav a, li{
+    color: white;
+    padding: 10px;
+}
+
+li{
+    display: flex;
+}
