@@ -102,7 +102,7 @@ if (json_last_error() !== JSON_ERROR_NONE) {
 <body>
     <main>
         <div class="formulaire" id="inscription">
-            <img src="../img/logo.png" alt="logo" class="logo">
+            <a href="../../index.php"><img src="../img/logo.png" alt="logo" class="logo"></a>
             <form action="inscription.php" method="POST">
                 <p style="color: red"><?php echo $existant_account; ?></p>
                 <p style="color: red"><?php echo $error_message; ?></p>
