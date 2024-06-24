@@ -13,13 +13,24 @@ a, li{
 /*----------------HEADER*/
 /*--------------*/
 
+header{
+    top: 0;
+    z-index: 999;
+    position: fixed;
+    width: 100%;
+}
+
 nav{
-    background-color: #1A1B1E;
+    background-color: #1a1b1e00;
     display: flex;
     justify-content: center;
     align-items: center;
     height: fit-content;
     padding: 30px 0;
+}
+
+.scrolled{
+    background-color: #1A1B1E;
 }
 
 .logo{
