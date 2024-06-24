@@ -23,13 +23,7 @@ function handleCredentialResponse(response) {
   }
 
 
-document.getElementById('loadImage').addEventListener('click', () => {
-    const img = document.getElementById('randomImage');
-    img.src = `https://picsum.photos/200/300?random=${new Date().getTime()}`;
-});
-
-
-
+//CHANGEMENT DE HEADER AU SCROLL
 
 document.addEventListener('DOMContentLoaded', () => {
     const nav = document.querySelector('nav');
