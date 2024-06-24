@@ -33,6 +33,12 @@ nav{
     background-color: #1A1B1E;
 }
 
+.scrolled ul{
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    box-shadow: none;
+}
+
 .logo{
     width: 200px;
     left: 0;
@@ -40,14 +46,15 @@ nav{
 }
 
 nav ul{
-    background-color: #2A2C31;
+    background-color: #282626b1;
+    backdrop-filter: blur(60px) saturate(100%);
     display: flex;
     justify-content: space-around;
     width: fit-content;
     margin: 0;
     border: 2px solid black;
     box-shadow: 1px 3px 2px 0px rgb(0, 0, 0);
-    border-radius: 20px;
+    border-radius: 60px;
     height: fit-content;
 }
 
@@ -70,5 +77,6 @@ li p{
 }
 
 nav a:hover{
-    background-color: grey;
+    background-color: rgb(19, 18, 18);
+    backdrop-filter: blur(30px);
 }
