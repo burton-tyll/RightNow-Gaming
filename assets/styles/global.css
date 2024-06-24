@@ -16,4 +16,51 @@ a, li{
 /*----------------HEADER*/
 /*--------------*/
 
+nav{
+    background-color: #1A1B1E;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    padding: 30px 0;
+}
 
+.logo{
+    width: 200px;
+    left: 0;
+    position: absolute;
+}
+
+nav ul{
+    background-color: #2A2C31;
+    display: flex;
+    justify-content: space-around;
+    width: fit-content;
+    margin: 0;
+    border: 2px solid black;
+    box-shadow: 1px 3px 2px 0px rgb(0, 0, 0);
+    border-radius: 20px;
+    height: fit-content;
+}
+
+nav a, li{
+    color: white;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 40px;
+}
+
+li img{
+    width: 25px;
+    height: 25px;
+}
+
+li p{
+    margin: 0;
+}
+
+nav a:hover{
+    background-color: grey;
+}
