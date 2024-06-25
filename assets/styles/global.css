@@ -97,3 +97,19 @@ nav a:hover:not(.logo){
     background-color: rgb(19, 18, 18);
     backdrop-filter: blur(30px);
 }
+
+.profil-dropdown{
+    position: absolute;
+    width: 200px;
+    right: 10px;
+    border-radius: 5px;
+    padding: 0;
+    background-color: grey;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profil-dropdown a{
+    padding: 10px;
+}
