@@ -62,7 +62,8 @@
                 <li><a href="./assets/views/nintendo.php"><img src="./assets/img/nintendo.png" alt="nintendo_logo"><p>Nintendo</p></a></li>
             </ul>
             <ul class="profil-dropdown">
-            <li>Profil</li>
+            <li><a href="">Profil</a></li>
+            <li><a href="">Mes achats</a></li>
             <li>
                 <?php if ($status == 'Connexion'): ?>
                     <a href="./assets/views/connexion.php"><?php echo $status; ?></a>

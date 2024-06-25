@@ -31,8 +31,12 @@
             <li><a href="./xbox.php"><img src="../img/xbox.png" alt="xbox_logo"><p>Xbox</p></a></li>
             <li><a href="./nintendo.php"><img src="../img/nintendo.png" alt="nintendo_logo"><p>Nintendo</p></a></li>
         </ul>
+        <div class="user-buttons">
+            <img src="../img/user.png" alt="userImage" class="userButton">
+        </div>
         <ul class="profil-dropdown">
-            <li>Profil</li>
+            <li><a href="">Profil</a></li>
+            <li><a href="">Mes achats</a></li>
             <li>
                 <?php if ($status == 'Connexion'): ?>
                     <a href="connexion.php"><?php echo $status; ?></a>
