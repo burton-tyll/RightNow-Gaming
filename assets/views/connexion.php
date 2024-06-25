@@ -65,7 +65,7 @@ $database->disconnect();
 <body>
     <main>
         <div class="formulaire" id="connexion">
-            <a href="../../index.php"><img src="../img/logo.png" alt="logo" class="logo"></a>
+            <a href="../../index.php"><img src="../img/logo.png" alt="logo" class="authentificationlogo"></a>
             <form action="connexion.php" method="POST" id="connexionForm">
                 <div class="external-connexion">
                     <h2>Se connecter</h2>

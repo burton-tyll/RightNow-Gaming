@@ -6,6 +6,7 @@ require_once '../Class/User.php';
 
 $error_message = null;
 $existant_account = null;
+$countryEmptyMessage = null;
 
 $database = new Database();
 $user = new User();
@@ -19,7 +20,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $firstname = $_POST['firstname'];
     $name = $_POST['name'];
-    $country = $_POST['country'];
+    if(isset($_POST['country'])){
+        $country = $_POST['country'];
+    } 
 
     // Vérifier si la connexion est établie
     if (isset($email, $password, $username) && $conn) {
@@ -37,10 +40,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $existant_account = 'Un compte est déjà inscrit à cette adresse, ou à ce nom.';
                     }else{
                         // Requête d'ajout utilisateur dans la BDD
-                        $user->addUser($username, $email, $hashed_password, $name, $firstname, $country);
-                        // Rediriger l'utilisateur vers une page de confirmation
-                        header("Location: connexion.php");
-                        exit;
+                        if(!empty($country)){
+                            $user->addUser($username, $email, $hashed_password, $name, $firstname, $country);
+                            // Rediriger l'utilisateur vers une page de confirmation
+                            header("Location: connexion.php");
+                            exit;
+                        } else{
+                            $countryEmptyMessage = 'Merci de bien vouloir sélectionner un pays!';
+                        }
                     }
                 }
             } else{
@@ -102,10 +109,11 @@ if (json_last_error() !== JSON_ERROR_NONE) {
 <body>
     <main>
         <div class="formulaire" id="inscription">
-            <a href="../../index.php"><img src="../img/logo.png" alt="logo" class="logo"></a>
+            <a href="../../index.php"><img src="../img/logo.png" alt="logo" class="authentificationlogo"></a>
             <form action="inscription.php" method="POST">
-                <p style="color: red"><?php echo $existant_account; ?></p>
-                <p style="color: red"><?php echo $error_message; ?></p>
+                <p style="color: red; font-size: 1.4rem"><?php echo $existant_account; ?></p>
+                <p style="color: red; font-size: 1.4rem"><?php echo $error_message; ?></p>
+                <p style="color: red; font-size: 1.4rem"><?php echo $countryEmptyMessage; ?></p>
                 <div class="champs">
                     <input type="email" placeholder="E-mail" name="email" required>
                     <input type="password" placeholder="Votre mot de passe" name="password" required>
