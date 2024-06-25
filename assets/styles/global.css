@@ -55,6 +55,7 @@ nav{
     width: 200px;
     left: 0;
     position: absolute;
+    cursor: pointer;
 }
 
 nav ul{
