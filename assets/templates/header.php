@@ -24,6 +24,11 @@
 
     //GESTIONNAIRE D'ADMINISTRATION
 
+    if (isset($_SESSION['admin'])){
+        var_dump('vous êtes administrateur');
+    }else{
+        var_dump('vous n\'êtes pas administrateur');
+    }
     
 
 ?>
