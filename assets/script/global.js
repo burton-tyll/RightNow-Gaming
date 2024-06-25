@@ -39,3 +39,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('scroll', handleScroll);
 });
+
+// Initialisation du dropdown
+
+document.getElementsByClassName('userButton')[0].addEventListener('click', function() {
+    var dropdown = document.getElementsByClassName('profil-dropdown')[0];
+    dropdown.classList.toggle('showDropdown');
+});
+

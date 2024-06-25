@@ -63,7 +63,7 @@ nav{
 }
 
 nav ul{
-    background-color: #0000000b;
+    background-color: rgba(0, 0, 0, 0.226);
     backdrop-filter: blur(10px);
     display: flex;
     justify-content: space-around;
@@ -96,4 +96,40 @@ li p{
 nav a:hover:not(.logo){
     background-color: rgb(19, 18, 18);
     backdrop-filter: blur(30px);
+}
+
+.profil-dropdown{
+    position: absolute;
+    width: 200px;
+    right: 10px;
+    top: 75px;
+    border-radius: 10px;
+    padding: 0;
+    background: linear-gradient(to bottom, #06be0679, #07ff519a);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    display: none;
+}
+
+.profil-dropdown a{
+    padding: 10px;
+    width: 80px;
+    justify-content: center;
+}
+
+.showDropdown{
+    display: flex;
+}
+
+.user-buttons{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.userButton{
+    width: 60px;
+    border-radius: 60px;
+    cursor: pointer;
 }

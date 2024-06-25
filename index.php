@@ -13,6 +13,28 @@
     function convertBlobToBase64($blob) {
         return 'data:image/jpeg;base64,' . base64_encode($blob);
     }
+
+    //HEADER
+
+    function getStatus() {
+        if (!isset($_SESSION['user'])) {
+            return 'Connexion';
+        } else {
+            return 'Déconnexion';
+        }
+    }
+    
+    function disconnect() {
+        session_destroy();
+        header("Location: ./assets/views/connexion.php"); // Redirection après déconnexion
+        exit();
+    }
+    
+    if (isset($_GET['action']) && $_GET['action'] == 'logout') {
+        disconnect();
+    } 
+    $status = getStatus();
+
 ?>
 
 
@@ -39,6 +61,20 @@
                 <li><a href="./assets/views/xbox.php"><img src="./assets/img/xbox.png" alt="xbox_logo"><p>Xbox</p></a></li>
                 <li><a href="./assets/views/nintendo.php"><img src="./assets/img/nintendo.png" alt="nintendo_logo"><p>Nintendo</p></a></li>
             </ul>
+            <div class="user-buttons">
+                <img src="./assets/img/user.png" alt="userImage" class="userButton">
+            </div>
+            <ul class="profil-dropdown">
+            <li><a href="">Profil</a></li>
+            <li><a href="">Mes achats</a></li>
+            <li>
+                <?php if ($status == 'Connexion'): ?>
+                    <a href="./assets/views/connexion.php"><?php echo $status; ?></a>
+                <?php else: ?>
+                    <a href="?action=logout"><?php echo $status; ?></a>
+                <?php endif; ?>
+            </li>
+        </ul>
         </nav>
     </header>
     <!--Accueil-->
