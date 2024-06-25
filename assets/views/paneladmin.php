@@ -76,6 +76,13 @@
     </header>
     <main>
         <section id="adminSection">
+            <div class="sideMenu">
+                <ul>
+                    <li><a href="?users">Gérer des utilisateurs</a></li>
+                    <li><a href="?products">Gérer des produits</a></li>
+                    <li><a href="?orders">Gérer des commandes</a></li>
+                </ul>
+            </div>
             <div class="content">
                 <?php if(isset($_GET['users'])): ?>
                     <table>
@@ -98,13 +105,15 @@
                                         $userRole = "Utilisateur";
                                     } 
                                     echo
-                                    '<tr>
-                                        <td>' . $thisone['id'] . '</td>
-                                        <td>' . $thisone['username'] . '</td>
-                                        <td>' . $thisone['email'] . '</td>
-                                        <td>' . $thisone['adress'] . '</td>
-                                        <td>' . $userRole . '</td>
-                                    </tr>';
+                                    '
+                                    <tr>
+                                        <td><a href="./user-management?' . $thisone['username'] . '">' . $thisone['id'] . '</a></td>
+                                        <td><a href="./user-management?' . $thisone['username'] . '">' . $thisone['username'] . '</a></td>
+                                        <td><a href="./user-management?' . $thisone['username'] . '">' . $thisone['email'] . '</a></td>
+                                        <td><a href="./user-management?' . $thisone['username'] . '">' . $thisone['adress'] . '</a></td>
+                                        <td><a href="./user-management?' . $thisone['username'] . '">' . $userRole . '</a></td>
+                                    </tr>
+                                    ';
                                 }
                             ?>
                         </tbody>

@@ -75,7 +75,7 @@ nav ul{
     height: fit-content;
 }
 
-nav a, li{
+nav a, nav li{
     color: white;
     padding: 10px;
     display: flex;
