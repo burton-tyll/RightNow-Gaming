@@ -28,14 +28,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
             foreach($getUsers as $user){
                 //Gestion du cas ou l'utilisateur est trouvé et administrateur
-                if($username == $user['username'] && password_verify($password, $user['password']) && $user['admin'] = 1){
+                if($username == $user['username'] && password_verify($password, $user['password'])){
                     $validUser = true;
-                    $admin = true;
-                    break;
-                }
-                //Gestion du cas ou l'utilisateur est trouvé mais pas administrateur
-                elseif($username == $user['username'] && password_verify($password, $user['password'])){
-                    $validUser = true;
+                    $admin = $user['admin'];
                     break;
                 }
                 //Gestion du cas ou l'utilisateur n'est pas trouvé
@@ -43,15 +38,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                     $connexion_error = "Nom d'utilisateur ou mot de passe incorrect, veuillez réessayer!";
                 }
             }
-            if($validUser && $admin){
+            if($validUser){
                 session_start();
                 $_SESSION['user'] = $username;
-                $_SESSION['admin'] = true;
-                header('Location: ./homepage.php');
-                exit;
-            } else{
-                session_start();
-                $_SESSION['user'] = $username;
+                if($admin == 1){
+                    $_SESSION['admin'] = true;
+                }
                 header('Location: ../../index.php');
                 exit;
             }
@@ -97,6 +89,7 @@ $database->disconnect();
                         <div class="separator-line"></div>
                     </div>
                 </div>
+                <p style="color: red; font-size: 1.4rem"><?php echo $connexion_error ?></p>
                 <div class="champs">
                     <input type="text" placeholder="Nom d'utilisateur" name="username" required>
                     <input type="password" placeholder="Votre mot de passe" name="password" required>
