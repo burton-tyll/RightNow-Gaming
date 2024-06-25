@@ -1,4 +1,7 @@
 <?php
+    //---------------
+    //---------------GESTIONNAIRE DE CONNEXION UTILSATEUR
+    //---------------
 
     function getStatus() {
         if (!isset($_SESSION['user'])) {
@@ -18,6 +21,10 @@
         disconnect();
     } 
     $status = getStatus();
+
+    //GESTIONNAIRE D'ADMINISTRATION
+
+    
 
 ?>
 
