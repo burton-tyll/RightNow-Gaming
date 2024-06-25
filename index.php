@@ -10,7 +10,7 @@
 <body>
     <header>
         <nav>
-            <img src="./assets/img/logo.png" alt="logo" class="logo">
+            <a href="#" class="logo"><img src="./assets/img/logo.png" alt="logo"></a>
             <ul>
                 <li><a href="./assets/views/pc.php"><img src="./assets/img/pc.png" alt="pc_logo"><p>PC</p></a></li>
                 <li><a href="./assets/views/playstation.php"><img src="./assets/img/playstation.png" alt="playstation_logo"><p>Playstation</p></a></li>

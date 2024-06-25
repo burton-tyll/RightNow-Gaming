@@ -49,10 +49,14 @@ nav{
     transition: 0.2s;
 }
 
-.logo{
+.logo, .logo img{
     width: 200px;
     left: 0;
     position: absolute;
+}
+
+.logo{
+    height: 100%;
 }
 
 nav ul{
@@ -86,7 +90,7 @@ li p{
     margin: 0;
 }
 
-nav a:hover{
+nav a:hover:not(.logo){
     background-color: rgb(19, 18, 18);
     backdrop-filter: blur(30px);
 }
