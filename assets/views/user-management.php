@@ -6,6 +6,8 @@
 
     $users = $user->read();
 
+    session_start();
+
     //HEADER
 
     function getStatus() {
@@ -40,7 +42,9 @@
     $role = getRole();
 
     //GESTIONNAIRE UTILISATEURS
-
+    if(isset($_GET['delete'])){
+        $user->deleteUser($_GET['delete']);
+    }
 
 ?>
 
@@ -89,7 +93,10 @@
                     </div>
                     <button>Promouvoir administrateur</button>
                     <button>Réinitialiser le mot de passe</button>
-                    <button class="delete">Supprimer</button>
+                    <form action="user-management.php" method="GET">
+                        <input type="hidden" name="delete" value="<?php if(isset($_GET['username'])){echo $_GET['username'];} ?>">
+                        <button type="submit" class="delete">Supprimer</button>
+                    </form>
                 </div>
             </div>
         </section>

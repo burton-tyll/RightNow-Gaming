@@ -107,11 +107,11 @@
                                     echo
                                     '
                                     <tr>
-                                        <td><a href="./user-management?' . $thisone['username'] . '">' . $thisone['id'] . '</a></td>
-                                        <td><a href="./user-management?' . $thisone['username'] . '">' . $thisone['username'] . '</a></td>
-                                        <td><a href="./user-management?' . $thisone['username'] . '">' . $thisone['email'] . '</a></td>
-                                        <td><a href="./user-management?' . $thisone['username'] . '">' . $thisone['adress'] . '</a></td>
-                                        <td><a href="./user-management?' . $thisone['username'] . '">' . $userRole . '</a></td>
+                                        <td><a href="./user-management?username=' . $thisone['username'] . '">' . $thisone['id'] . '</a></td>
+                                        <td><a href="./user-management?username=' . $thisone['username'] . '">' . $thisone['username'] . '</a></td>
+                                        <td><a href="./user-management?username=' . $thisone['username'] . '">' . $thisone['email'] . '</a></td>
+                                        <td><a href="./user-management?username=' . $thisone['username'] . '">' . $thisone['adress'] . '</a></td>
+                                        <td><a href="./user-management?username=' . $thisone['username'] . '">' . $userRole . '</a></td>
                                     </tr>
                                     ';
                                 }
