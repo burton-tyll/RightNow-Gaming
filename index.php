@@ -35,6 +35,18 @@
     } 
     $status = getStatus();
 
+    //GESTIONNAIRE D'ADMINISTRATION
+
+    function getRole(){
+        if (isset($_SESSION['admin'])){
+            return 'Admin';
+        }else{
+            return 'User';
+        }
+    }
+
+    $role = getRole();
+
 ?>
 
 
@@ -66,6 +78,9 @@
             </div>
             <ul class="profil-dropdown">
             <li><a href="">Profil</a></li>
+            <?php if ($role == 'Admin'): ?>
+                <li><a href="paneladmin.php">Panel admin</a></li>
+            <?php endif ?>
             <li><a href="">Mes achats</a></li>
             <li>
                 <?php if ($status == 'Connexion'): ?>

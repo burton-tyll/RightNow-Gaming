@@ -24,12 +24,15 @@
 
     //GESTIONNAIRE D'ADMINISTRATION
 
-    if (isset($_SESSION['admin'])){
-        var_dump('vous êtes administrateur');
-    }else{
-        var_dump('vous n\'êtes pas administrateur');
+    function getRole(){
+        if (isset($_SESSION['admin'])){
+            return 'Admin';
+        }else{
+            return 'User';
+        }
     }
-    
+
+    $role = getRole();
 
 ?>
 
@@ -48,6 +51,9 @@
         </div>
         <ul class="profil-dropdown">
             <li><a href="">Profil</a></li>
+            <?php if ($role == 'Admin'): ?>
+                <li><a href="paneladmin.php">Panel admin</a></li>
+            <?php endif ?>
             <li><a href="">Mes achats</a></li>
             <li>
                 <?php if ($status == 'Connexion'): ?>
