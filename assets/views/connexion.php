@@ -25,20 +25,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         } else {
             $getUsers = $users->read();
             $validUser = false;
+
             foreach($getUsers as $user){
-                if($username == $user['username'] && password_verify($password, $user['password'])){
+                //Gestion du cas ou l'utilisateur est trouvé et administrateur
+                if($username == $user['username'] && password_verify($password, $user['password']) && $user['admin'] = 1){
+                    $validUser = true;
+                    $admin = true;
+                    break;
+                }
+                //Gestion du cas ou l'utilisateur est trouvé mais pas administrateur
+                elseif($username == $user['username'] && password_verify($password, $user['password'])){
                     $validUser = true;
                     break;
-                } else{
+                }
+                //Gestion du cas ou l'utilisateur n'est pas trouvé
+                else{
                     $connexion_error = "Nom d'utilisateur ou mot de passe incorrect, veuillez réessayer!";
                 }
             }
-            if($validUser){
+            if($validUser && $admin){
+                session_start();
+                $_SESSION['user'] = $username;
+                $_SESSION['admin'] = true;
+                header('Location: ./homepage.php');
+                exit;
+            } else{
                 session_start();
                 $_SESSION['user'] = $username;
                 header('Location: ./homepage.php');
                 exit;
-            } 
+            }
         }
     } 
 }
