@@ -44,7 +44,7 @@ class User extends Database {
     public function deleteUser($username){
         $query = "DELETE FROM user WHERE username = :username";
         $stmt = $this->conn->prepare($query);
-        $stmt->execute();
+        $stmt->execute([':username' => $username]);
     }
 }
 
