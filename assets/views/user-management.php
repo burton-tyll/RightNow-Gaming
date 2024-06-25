@@ -44,6 +44,9 @@
     //GESTIONNAIRE UTILISATEURS
     if(isset($_GET['delete'])){
         $user->deleteUser($_GET['delete']);
+        echo '<script>alert("L\'utilisateur a été supprimé avec succès")</script>';
+        header('Location: ./paneladmin.php?users');
+        exit;
     }
 
 ?>
