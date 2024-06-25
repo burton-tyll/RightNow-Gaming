@@ -33,13 +33,18 @@ class User extends Database {
     
         return $result; // Retourne le résultat sous forme de tableau associatif
     }
-    
 
     public function read(){
         $sql = 'SELECT * FROM user';
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function deleteUser($username){
+        $query = "DELETE * FROM user WHERE username = :username";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
     }
 }
 
