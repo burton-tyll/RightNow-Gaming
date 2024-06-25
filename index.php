@@ -79,7 +79,7 @@
             <ul class="profil-dropdown">
             <li><a href="">Profil</a></li>
             <?php if ($role == 'Admin'): ?>
-                <li><a href="paneladmin.php">Panel admin</a></li>
+                <li><a href="./assets/views/paneladmin.php">Panel admin</a></li>
             <?php endif ?>
             <li><a href="">Mes achats</a></li>
             <li>
