@@ -1,7 +1,7 @@
 
 <header>
     <nav>
-        <a href="../../index.php"><img src="../img/logo.png" alt="logo" class="logo"></a>
+        <a href="../../index.php" class="logo"><img src="../img/logo.png" alt="logo"></a>
         <ul>
             <li><a href="./pc.php"><img src="../img/pc.png" alt="pc_logo"><p>PC</p></a></li>
             <li><a href="./playstation.php"><img src="../img/playstation.png" alt="playstation_logo"><p>Playstation</p></a></li>
