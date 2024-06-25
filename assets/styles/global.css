@@ -63,7 +63,7 @@ nav{
 }
 
 nav ul{
-    background: url('../img/apple.png');
+    background-color: #0000000b;
     backdrop-filter: blur(10px);
     display: flex;
     justify-content: space-around;
