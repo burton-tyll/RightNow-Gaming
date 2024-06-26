@@ -37,28 +37,28 @@ nav{
     position: relative;
 }
 
-.sideMenu{
+.menu{
     width: 100%;
 }
 
-.sideMenu a{
+.menu a{
     color: white;
     padding: 10px;
     width: 100%;
     font-size: 1.5rem;
 }
 
-.sideMenu li:hover{
+.menu li:hover{
     background-color: #0FB953;
 }
 
-.sideMenu ul{
+.menu ul{
     width: 100%;
     padding: 0;
     display: flex;
 }
 
-.sideMenu li{
+.menu li{
     padding: 10px;
 }
 

@@ -82,7 +82,7 @@
     </header>
     <main>
         <section id="adminSection">
-            <div class="sideMenu">
+            <div class="menu">
                 <ul>
                     <li><a id="userPage" href="?users">Gérer des utilisateurs</a></li>
                     <li><a id="productPage" href="?products">Gérer des produits</a></li>
