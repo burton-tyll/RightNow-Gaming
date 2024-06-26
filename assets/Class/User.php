@@ -1,7 +1,7 @@
 <?php
 
 require_once "../../Database.php";
-require_once "../Class/Libraries.php";
+require_once "Libraries.php";
 
 class User extends Database {
     //Définition du constructeur
