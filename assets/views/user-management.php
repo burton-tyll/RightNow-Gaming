@@ -49,6 +49,11 @@
         exit;
     }
 
+    if(isset($_GET['upgrade'])){
+        $user->upgradeToAdmin($_GET['upgrade']);
+        echo '<script>alert("L\'utilisateur a été promu Administrateur!")</script>';
+    }
+
 ?>
 
 
@@ -92,10 +97,13 @@
                 <div class="actions">
                     <div>
                         <img src="../img/user.png" alt="userImage" class="user-img">
-                        <h2>burton-tyll</h2>
+                        <h2><?php if(isset($_GET['username'])){echo $_GET['username'];} ?></h2>
                     </div>
                     <button>Promouvoir administrateur</button>
-                    <button>Réinitialiser le mot de passe</button>
+                    <form action="user-management.php" method="GET">
+                        <input type="hidden" name="upgrade" value="<?php if(isset($_GET['username'])){echo $_GET['username'];} ?>">
+                        <button type="submit">Réinitialiser le mot de passe</button>
+                    </form>
                     <form action="user-management.php" method="GET">
                         <input type="hidden" name="delete" value="<?php if(isset($_GET['username'])){echo $_GET['username'];} ?>">
                         <button type="submit" class="delete">Supprimer</button>
