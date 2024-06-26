@@ -8,7 +8,7 @@ nav{
     background-color: #1A1B1E;
 }
 
-#adminSection, #gestionnaire{
+#adminSection, #gestionnaire, #addGame{
     padding-top: 130px;
     display: flex;
 }
@@ -155,5 +155,10 @@ td{
     width: 60px;
 }
 
+/*---------Ajouter des jeux-----------*/
 
+#addGame .formulaire{
+    display: flex;
+    flex-direction: column;
+}
 
