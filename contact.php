@@ -14,10 +14,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <?php include('./assets/templates/global.php') ?>
+
+    <!-------GLOBAL ASSETS------>
+    <link rel="stylesheet" href="./assets/styles/global.css">
+    <link rel="icon" type="image/x-icon" href="./assets/img/favicon.png">
+    <script src="./assets/script/global.js" defer></script>
+    <!-------------------------->
+    
     <title>Formulaire de contact</title>
 </head>
 <body>
+    <?php include('../templates/header.php') ?>
+    <!--Accueil-->
     <h1>Nous contacter</h1>
     <form action="contact.php" method="post">
         <label for="email">Email:</label>
