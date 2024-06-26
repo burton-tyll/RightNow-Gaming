@@ -99,11 +99,11 @@
                         <img src="../img/user.png" alt="userImage" class="user-img">
                         <h2><?php if(isset($_GET['username'])){echo $_GET['username'];} ?></h2>
                     </div>
-                    <button>Promouvoir administrateur</button>
                     <form action="user-management.php" method="GET">
                         <input type="hidden" name="upgrade" value="<?php if(isset($_GET['username'])){echo $_GET['username'];} ?>">
-                        <button type="submit">Réinitialiser le mot de passe</button>
+                        <button type="submit">Promouvoir administrateur</button>
                     </form>
+                    <button type="submit">Réinitialiser le mot de passe</button>
                     <form action="user-management.php" method="GET">
                         <input type="hidden" name="delete" value="<?php if(isset($_GET['username'])){echo $_GET['username'];} ?>">
                         <button type="submit" class="delete">Supprimer</button>
