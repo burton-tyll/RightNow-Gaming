@@ -46,6 +46,13 @@ class User extends Database {
         $stmt = $this->conn->prepare($query);
         $stmt->execute([':username' => $username]);
     }
+
+    public function upgradeToAdmin($username){
+        $query = "UPDATE user SET admin = 1 WHERE username = :username";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([':username' => $username]);
+    }
+    
 }
 
 ?>
