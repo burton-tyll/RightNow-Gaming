@@ -4,10 +4,12 @@ require_once "../../Database.php";
 
 class User extends Database {
     //Définition du constructeur
+    private $libraries;
     public function __construct() {
         // Appelle le constructeur de la classe parente pour initialiser la connexion
         parent::__construct();
         $this->conn = $this->connect();
+        $this->libraries = new Libraries();
     }
 
     /*---------*/
@@ -15,10 +17,18 @@ class User extends Database {
     /*---------*/
 
     public function addUser($username, $email, $password, $name, $firstname, $country){
+
         // Préparer la requête d'insertion avec des paramètres de substitution
         $query = "INSERT INTO user (username, email, password, name, first_name, country) VALUES (:username, :email, :password, :name, :firstname, :country)";
         $stmt = $this->conn->prepare($query);
-        $stmt->execute([":username" => $username, ":email" => $email, ":password" => $password, ":name" => $name, ":firstname" => $firstname, ":country" => $country]);
+        $stmt->bindParam(':username', $this->libraries->secure($username));
+        $stmt->bindParam(':email', $this->libraries->secure($email));
+        $stmt->bindParam(':password', $this->libraries->secure($password));
+        $stmt->bindParam(':name', $this->libraries->secure($name));
+        $stmt->bindParam(':firstname', $this->libraries->secure($firstname));
+        $stmt->bindParam(':country', $this->libraries->secure($country));
+
+        $stmt->execute();
     }
 
     /*---------*/
