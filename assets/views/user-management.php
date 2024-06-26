@@ -64,7 +64,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php include('../templates/global.php') ?>
     <link rel="stylesheet" href="../styles/paneladmin.css">
-    <a><img src="" alt="bouton_retour"></a>
     <title>Gestion utilisateurs</title>
 </head>
 <body>
@@ -94,6 +93,7 @@
     <main>
         <section id="gestionnaire">
             <div class="content">
+                <a class="back" href="paneladmin.php"><img src="../img/back.png" alt="bouton_retour"></a>
                 <h1>Gestionnaire utilisateurs</h1>
                 <div class="actions">
                     <div>

@@ -10,24 +10,23 @@ function handleCredentialResponse(response) {
     window.location.href = 'http://localhost:80/RightNow-Gaming/index.php';
   }
 
-  window.onload = function () {
-    google.accounts.id.initialize({
-      client_id: '49695563635-74haunh3mh8gqso5fij3v93lirtuck9o.apps.googleusercontent.com',
-      callback: handleCredentialResponse
-    });
+//   window.onload = function () {
+//     google.accounts.id.initialize({
+//       client_id: '49695563635-74haunh3mh8gqso5fij3v93lirtuck9o.apps.googleusercontent.com',
+//       callback: handleCredentialResponse
+//     });
 
-    document.getElementById('googleSignInButton').onclick = function() {
-      google.accounts.id.prompt();
-    };
+//     document.getElementById('googleSignInButton').onclick = function() {
+//       google.accounts.id.prompt();
+//     };
 
-  }
+//   }
 
 
 //CHANGEMENT DE HEADER AU SCROLL
 
 document.addEventListener('DOMContentLoaded', () => {
     const nav = document.querySelector('nav');
-    console.log(nav); // Vérifie si nav est null ou non
 
     function handleScroll() {
         if (window.scrollY > 50) {
@@ -47,3 +46,38 @@ document.getElementsByClassName('userButton')[0].addEventListener('click', funct
     dropdown.classList.toggle('showDropdown');
 });
 
+//-------------
+//-------------PANEL ADMIN
+//-------------
+
+//Page params getter
+function getParamPage(){
+    //On récupère l'url active
+    const params = new URLSearchParams(window.location.search);
+
+    const url = [];
+    for (let paramName of params.keys()) {
+        url.push(paramName);
+    }
+
+    return(url[0]);
+}
+
+const active = getParamPage();
+
+function showActivePage(active) {
+    //On récupère les boutons
+    const userButton = document.getElementById('userPage');
+    const productButton = document.getElementById('productPage');
+    const orderButton = document.getElementById('orderPage');
+
+    if (active === 'users') {
+        userButton.classList.add('activeButton');
+    } else if (active === 'products') {
+        productButton.classList.add('activeButton');
+    } else if (active === 'orders') {
+        orderButton.classList.add('activeButton');
+    }
+}
+
+showActivePage(active);
