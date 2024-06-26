@@ -37,6 +37,13 @@
                     $stmt->execute(['id_platform' => $id_platform]);
                     return $stmt->fetchAll(PDO::FETCH_ASSOC);
                 }
+
+                public function getGamePlateform($id_game){
+                    $query = 'SELECT name FROM platform JOIN game_platform ON platform.id = game_platform.id_platform WHERE game_platform.id_game = :id_game';
+                    $stmt = $this->conn->prepare($query);
+                    $stmt->execute(['id_game' => $id_game]);
+                    return $stmt->fetchColumn();
+                }
     }
 
 ?>
