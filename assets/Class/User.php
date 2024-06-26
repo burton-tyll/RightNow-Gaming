@@ -1,7 +1,7 @@
 <?php
 
 require_once "../../Database.php";
-require_once "../Class/Libraries.php";
+require_once "Libraries.php";
 
 class User extends Database {
     //Définition du constructeur
@@ -18,16 +18,24 @@ class User extends Database {
     /*---------*/
 
     public function addUser($username, $email, $password, $name, $firstname, $country){
+        $username = $this->libraries->secure($username);
+        $email = $this->libraries->secure($email);
+        $password = $this->libraries->secure($password);
+        $name = $this->libraries->secure($name);
+        $firstname = $this->libraries->secure($firstname);
+        $country = $this->libraries->secure($country);
+        $admin = 0; //Equivaut à un utilisateur lambda
 
         // Préparer la requête d'insertion avec des paramètres de substitution
-        $query = "INSERT INTO user (username, email, password, name, first_name, country) VALUES (:username, :email, :password, :name, :firstname, :country)";
+        $query = "INSERT INTO user (username, email, password, name, first_name, country, admin) VALUES (:username, :email, :password, :name, :firstname, :country, :admin)";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':username', $this->libraries->secure($username));
-        $stmt->bindParam(':email', $this->libraries->secure($email));
-        $stmt->bindParam(':password', $this->libraries->secure($password));
-        $stmt->bindParam(':name', $this->libraries->secure($name));
-        $stmt->bindParam(':firstname', $this->libraries->secure($firstname));
-        $stmt->bindParam(':country', $this->libraries->secure($country));
+        $stmt->bindParam(':username', $username);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':password', $password);
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':firstname', $firstname);
+        $stmt->bindParam(':country', $country);
+        $stmt->bindParam(':admin', $admin);
 
         $stmt->execute();
     }
