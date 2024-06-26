@@ -10,6 +10,10 @@ class User extends Database {
         $this->conn = $this->connect();
     }
 
+    /*---------*/
+    /*----------CREATE--------*/
+    /*---------*/
+
     public function addUser($username, $email, $password, $name, $firstname, $country){
         // Préparer la requête d'insertion avec des paramètres de substitution
         $query = "INSERT INTO user (username, email, password, name, first_name, country) VALUES (:username, :email, :password, :name, :firstname, :country)";
@@ -17,21 +21,17 @@ class User extends Database {
         $stmt->execute([":username" => $username, ":email" => $email, ":password" => $password, ":name" => $name, ":firstname" => $firstname, ":country" => $country]);
     }
 
+    /*---------*/
+    /*----------READ--------*/
+    /*---------*/
+
     public function getUser($by, $byvalue) {
-        // Prépare la requête avec le paramètre nommé :by
         $query = "SELECT * FROM user WHERE $by = :byvalue";
         $stmt = $this->conn->prepare($query);
-        
-        // Lie la valeur du paramètre nommé :byvalue
         $stmt->bindValue(':byvalue', $byvalue);
-    
-        // Exécute la requête préparée
         $stmt->execute();
-    
-        // Récupère la première ligne de résultat
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-    
-        return $result; // Retourne le résultat sous forme de tableau associatif
+        return $result; 
     }
 
     public function read(){
@@ -41,14 +41,22 @@ class User extends Database {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function deleteUser($username){
-        $query = "DELETE FROM user WHERE username = :username";
+    /*---------*/
+    /*----------UPDATE--------*/
+    /*---------*/
+
+    public function upgradeToAdmin($username){
+        $query = "UPDATE user SET admin = 1 WHERE username = :username";
         $stmt = $this->conn->prepare($query);
         $stmt->execute([':username' => $username]);
     }
 
-    public function upgradeToAdmin($username){
-        $query = "UPDATE user SET admin = 1 WHERE username = :username";
+    /*---------*/
+    /*----------DELETE--------*/
+    /*---------*/
+
+    public function deleteUser($username){
+        $query = "DELETE FROM user WHERE username = :username";
         $stmt = $this->conn->prepare($query);
         $stmt->execute([':username' => $username]);
     }
