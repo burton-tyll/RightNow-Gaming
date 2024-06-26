@@ -2,7 +2,7 @@
 
     require_once(__DIR__ . '/../../Database.php');
 
-    class Game_plateform extends Database{
+    class Game_platform extends Database{
                 //Définition du constructeur
                 public function __construct() {
                     // Appelle le constructeur de la classe parente pour initialiser la connexion
