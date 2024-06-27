@@ -130,7 +130,7 @@ if (isset($_POST['submit'])) {
             <form action="addGame.php" method="post" enctype="multipart/form-data" class="formulaire">
                 <div class="chooseFile">
                     <label for="file">Choisir une image :</label>
-                    <input type="file" name="file" id="file" accept=".png, .jpg, .jpeg, .webp" required>
+                    <input type="file" name="file" id="file" accept=".png, .jpg, .jpeg, .webp, .avif" required>
                 </div>
                 <input type="text" name="name" placeholder="Nom" required>
                 <input type="text" name="description" placeholder="Description" required>
