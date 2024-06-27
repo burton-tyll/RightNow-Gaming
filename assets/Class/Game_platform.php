@@ -9,6 +9,24 @@
                     parent::__construct();
                     $this->conn = $this->connect();
                 }
+
+                public function getAllPlatforms() {
+                    $query = 'SELECT * FROM platform';
+                    $stmt = $this->conn->prepare($query);
+                    $stmt->execute();
+                    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+                }
+
+                public function addGameToPlatform($id_game, $id_platform) {
+                    $query = 'INSERT INTO game_platform (id_game, id_platform) VALUES (:id_game, :id_platform)';
+                    $stmt = $this->conn->prepare($query);
+                    $stmt->execute([
+                        ':id_game' => $id_game,
+                        ':id_platform' => $id_platform
+                    ]);
+
+                    // return(true);
+                }
                 
                 public function getAllGamesByPlateform($id_platform){
                     $query = 'SELECT id_game FROM game_platform WHERE id_platform = :id_platform';

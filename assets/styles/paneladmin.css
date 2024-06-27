@@ -8,12 +8,12 @@ nav{
     background-color: #1A1B1E;
 }
 
-#adminSection, #gestionnaire{
+#adminSection, #gestionnaire, #addGame{
     padding-top: 130px;
     display: flex;
 }
 
-#adminSection{
+#adminSection, #addGame{
     flex-direction: column;
 }
 
@@ -37,28 +37,28 @@ nav{
     position: relative;
 }
 
-.sideMenu{
+.menu{
     width: 100%;
 }
 
-.sideMenu a{
+.menu a{
     color: white;
     padding: 10px;
     width: 100%;
     font-size: 1.5rem;
 }
 
-.sideMenu li:hover{
+.menu li:hover{
     background-color: #0FB953;
 }
 
-.sideMenu ul{
+.menu ul{
     width: 100%;
     padding: 0;
     display: flex;
 }
 
-.sideMenu li{
+.menu li{
     padding: 10px;
 }
 
@@ -155,5 +155,36 @@ td{
     width: 60px;
 }
 
+/*---------Ajouter des jeux-----------*/
 
+#addGame .formulaire{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+#addGame h1{
+    text-align: center;
+    font-size: 3rem;
+    color: white;
+    margin-bottom: 5px;
+}
+
+#addGame input, #addGame select, #addGame button, .chooseFile{
+    width: 60%;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+.chooseFile{
+    background-color: white;
+}
+
+.submitButton{
+    background-color: #0FB953;
+    color: white;
+    cursor: pointer;
+}
 
