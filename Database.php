@@ -5,7 +5,7 @@
         private $host = 'localhost';
         private $db_name  = 'rightnowgaming';
         private $username = 'root';
-        private $password = '';
+        private $password = 'root';
         protected $conn;
 
         // Méthode pour établir la connexion
