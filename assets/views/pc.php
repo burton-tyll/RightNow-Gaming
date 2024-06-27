@@ -41,20 +41,25 @@
             <div class="games-grid">
                 <?php
                     $count = 0;
-                    foreach($newGames as $game){
-                        if($count >= 6){break;}
-                        echo ('
+                    foreach($newGames as $game):
+                        if($count >= 6){break;}?>
                         <div class="games-grid-item">
-                            <img id="randomImage" src="'.convertBlobToBase64($game['image']).'" alt="gameImage" class="games-grid-item-img">
+                            <img src="<?php echo convertBlobToBase64($game['image']) ?>" alt="gameImage" class="games-grid-item-img">
                             <div class="games-grid-item-infos">
-                                <p>'.$game['name'].'</p>
-                                <p>'.$game['price'].'€</p>
+                                <p><?php echo$game['name']?></p>
+                                <?php 
+                                    if($game['special_offer'] != 0) {
+                                        $price = $game['price'] - $game['price'] * ($game['special_offer'] / 100);
+                                        echo '<div class="promo">-'. $game['special_offer'] .'%</div>';
+                                    }
+                                ?>
+                                <p class="prices"><?php echo isset($price) ? $price .'€' : $game['price'].'€'; ?></p>
                             </div>
                         </div>
-                        ');
+                    <?php endforeach ?>
+                    <?php
                         $count ++;
-                    }
-                ?>
+                    ?>
         </section>
         <section id="meilleures-ventes">
             <div class="section-title">
@@ -63,22 +68,30 @@
             <div class="games-grid">
             <?php
                     $count = 0;
-                    foreach($bestSellers as $game){
+                    foreach($bestSellers as $game):
                         if($count >= 3){break;}
                         $class = $count == 0 ? 'img-large' : '';
-                        echo ('
-                        <div class="games-grid-item ' . $class . '">
-                            <img id="randomImage" src="'.convertBlobToBase64($game['image']).'" alt="gameImage" class="games-grid-item-img">
+                        ?>
+                        <div class="<?php echo 'games-grid-item '.$class;?>">
+                            <img src="<?php echo convertBlobToBase64($game['image']) ?>" alt="gameImage" class="games-grid-item-img">
                             <div class="games-grid-item-infos">
-                                <p>'.$game['name'].'</p>
-                                <p>'.$game['price'].'€</p>
+                                <p><?php echo$game['name']?></p>
+                                <?php 
+                                    if($game['special_offer'] != 0) {
+                                        $price = $game['price'] - $game['price'] * ($game['special_offer'] / 100);
+                                        echo '<div class="promo">-'. $game['special_offer'] .'%</div>';
+                                    }
+                                ?>
+                                <p class="prices"><?php echo isset($price) ? $price .'€' : $game['price'].'€'; ?></p>
                             </div>
                         </div>
-                        ');
+                    <?php
                         $count ++;
-                    }
-                ?>
+                    ?>
+                    <?php endforeach ?>
+                    
             </div>
+
         </section>
     </main>
 </body>
