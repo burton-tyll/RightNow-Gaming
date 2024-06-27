@@ -1,11 +1,14 @@
 <?php
-require_once('../Class/Game.php');
-require_once('../Class/Game_platform.php');
+    require_once('../Class/Game.php');
+    require_once('../Class/Game_platform.php');
+    require_once('../Class/Genre.php');
 
-$game = new Game();
-$platform = new Game_platform();
+    $game = new Game();
+    $platform = new Game_platform();
+    $genre = new Genre();
 
-$allPlatforms = $platform->getAllPlatforms();
+    $allGenres = $genre->getAllGenres();
+    $allPlatforms = $platform->getAllPlatforms();
 
     //HEADER
 
@@ -40,53 +43,55 @@ $allPlatforms = $platform->getAllPlatforms();
 
     $role = getRole();
 
-//Gestion du formulaire
+    //Gestion du formulaire
 
-if (isset($_POST['submit'])) {
-    if (isset($_FILES['file']) && $_FILES['file']['error'] === UPLOAD_ERR_OK) {
-        $file = $_FILES['file'];
-        
-        // Vérifier le type de fichier
-        $fileType = mime_content_type($file['tmp_name']);
-        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
-        
-        if (in_array($fileType, $allowedTypes)) {
-            // Lire le contenu du fichier
-            $imageData = file_get_contents($file['tmp_name']);
+    if (isset($_POST['submit'])) {
+        if (isset($_FILES['file']) && $_FILES['file']['error'] === UPLOAD_ERR_OK) {
+            $file = $_FILES['file'];
             
-            if (isset($_POST['name']) && isset($_POST['description']) && isset($_POST['price']) && 
-                isset($_POST['special_offer']) && isset($_POST['studio']) && isset($_POST['quantity']) && 
-                isset($_POST['release_date']) && isset($_POST['rate'])) {
+            // Vérifier le type de fichier
+            $fileType = mime_content_type($file['tmp_name']);
+            $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+            
+            if (in_array($fileType, $allowedTypes)) {
+                // Lire le contenu du fichier
+                $imageData = file_get_contents($file['tmp_name']);
                 
-                $name = $_POST['name'];
-                $description = $_POST['description'];
-                $price = $_POST['price'];
-                $special_offer = $_POST['special_offer'];
-                $studio = $_POST['studio'];
-                $quantity = $_POST['quantity'];
-                $release_date = $_POST['release_date'];
-                $rate = $_POST['rate'];
-                $id_platform = $_POST['platform'];
+                if (isset($_POST['name']) && isset($_POST['description']) && isset($_POST['price']) && 
+                    isset($_POST['special_offer']) && isset($_POST['studio']) && isset($_POST['quantity']) && 
+                    isset($_POST['release_date']) && isset($_POST['rate']) && isset($_POST['platform']) && isset($_POST['genre'])) {
+                    
+                    $name = $_POST['name'];
+                    $description = $_POST['description'];
+                    $price = $_POST['price'];
+                    $special_offer = $_POST['special_offer'];
+                    $studio = $_POST['studio'];
+                    $quantity = $_POST['quantity'];
+                    $release_date = $_POST['release_date'];
+                    $rate = $_POST['rate'];
+                    $id_platform = $_POST['platform'];
+                    $id_genre = $_POST['genre'];
 
-                // Ajouter le jeu et récupérer son ID
-                $gameId = $game->addGame($imageData, $name, $description, $price, $special_offer, $studio, $quantity, $release_date, $rate);
+                    // Ajouter le jeu et récupérer son ID
+                    $gameId = $game->addGame($imageData, $name, $description, $price, $special_offer, $studio, $quantity, $release_date, $rate);
 
-                if ($gameId) {
-                    $platform->addGameToPlatform($gameId, $id_platform);
-                    echo "Le jeu a été ajouté avec succès avec l'ID : " . $gameId;
+                    if ($gameId) {
+                        $platform->addGameToPlatform($gameId, $id_platform);
+                        $genre->addGameToGenre($gameId, $id_genre);
+                        echo "Le jeu a été ajouté avec succès avec l'ID : " . $gameId;
+                    } else {
+                        echo "Erreur lors de l'ajout du jeu.";
+                    }
                 } else {
-                    echo "Erreur lors de l'ajout du jeu.";
+                    echo "Veuillez remplir tous les champs du formulaire.";
                 }
             } else {
-                echo "Veuillez remplir tous les champs du formulaire.";
+                echo "Seules les images JPEG, PNG et GIF sont autorisées.";
             }
         } else {
-            echo "Seules les images JPEG, PNG et GIF sont autorisées.";
+            echo "Erreur lors de l'upload du fichier.";
         }
-    } else {
-        echo "Erreur lors de l'upload du fichier.";
     }
-}
 ?>
 
 
@@ -142,6 +147,12 @@ if (isset($_POST['submit'])) {
                     <?php foreach($allPlatforms as $thisone): ?>
                         <option value="<?php echo($thisone['id']); ?>"><?php echo($thisone['name']); ?></option>
                     <?php endforeach; ?>
+                </select>
+                <select name="genre" id="genre">
+                        <option value="">Choisir un genre de jeu</option>
+                        <?php foreach($allGenres as $thisone): ?>
+                            <option value="<?php echo($thisone['id']); ?>"><?php echo($thisone['name']); ?></option>
+                        <?php endforeach; ?>
                 </select>
                 <input type="number" name="quantity" placeholder="Quantité" required>
                 <input type="date" name="release_date" placeholder="Date de sortie" required>

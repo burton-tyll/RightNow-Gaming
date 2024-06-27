@@ -3,10 +3,12 @@
     require_once('../Class/User.php');
     require_once('../Class/Game.php');
     require_once('../Class/Game_platform.php');
+    require_once('../Class/Genre.php');
 
     $user = new User();
     $game = new Game();
     $game_platform = new Game_platform();
+    $game_genre = new Genre();
 
     $games = $game->getAllGames();
 
@@ -163,7 +165,7 @@
                                         <td><a href="./product-management?id=' . $thisone['id'] . '">' . $thisone['sales'] . '</a></td>
                                         <td><a href="./product-management?id=' . $thisone['id'] . '">' . $thisone['release_date'] . '</a></td>
                                         <td><a href="./product-management?id=' . $thisone['id'] . '">' . $thisone['rate'] . '</a></td>
-                                        <td><a href="./product-management?id=' . $thisone['id'] . '">Catégorie à venir</a></td>
+                                        <td><a href="./product-management?id=' . $thisone['id'] . '">' . $game_genre->getGameGenre($thisone['id']) . '</a></td>
                                         <td><a href="./product-management?id=' . $thisone['id'] . '">' . $game_platform->getGamePlateform($thisone['id']) . '</a></td>
                                     </tr>
                                     ';
