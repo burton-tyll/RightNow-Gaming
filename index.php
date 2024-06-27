@@ -136,7 +136,7 @@
                     $class = $count == 0 ? 'img-large' : '';
                 ?>
                 <div class="<?php echo 'games-grid-item ' . $class; ?>">
-                    <img src="<?php echo convertBlobToBase64($game['image']) ?>" alt="gameImage" class="games-grid-item-img">
+                    <div class="resizeContainer"><img src="<?php echo convertBlobToBase64($game['image']) ?>" alt="gameImage" class="games-grid-item-img"></div>
                     <div class="games-grid-item-infos">
                         <p><?php echo $game['name'] ?></p>
                         <?php 
