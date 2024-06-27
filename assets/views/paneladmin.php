@@ -123,13 +123,13 @@
                                     echo
                                     '
                                     <tr>
-                                        <td><a href="./user-management?username=' . $thisone['username'] . '">' . $thisone['id'] . '</a></td>
-                                        <td><a href="./user-management?username=' . $thisone['username'] . '">' . $thisone['username'] . '</a></td>
-                                        <td><a href="./user-management?username=' . $thisone['username'] . '">' . $thisone['first_name'] . '</a></td>
-                                        <td><a href="./user-management?username=' . $thisone['username'] . '">' . $thisone['name'] . '</a></td>
-                                        <td><a href="./user-management?username=' . $thisone['username'] . '">' . $thisone['email'] . '</a></td>
-                                        <td><a href="./user-management?username=' . $thisone['username'] . '">' . $thisone['adress'] . '</a></td>
-                                        <td><a href="./user-management?username=' . $thisone['username'] . '">' . $userRole . '</a></td>
+                                        <td><a href="./user-management.php?username=' . $thisone['username'] . '">' . $thisone['id'] . '</a></td>
+                                        <td><a href="./user-management.php?username=' . $thisone['username'] . '">' . $thisone['username'] . '</a></td>
+                                        <td><a href="./user-management.php?username=' . $thisone['username'] . '">' . $thisone['first_name'] . '</a></td>
+                                        <td><a href="./user-management.php?username=' . $thisone['username'] . '">' . $thisone['name'] . '</a></td>
+                                        <td><a href="./user-management.php?username=' . $thisone['username'] . '">' . $thisone['email'] . '</a></td>
+                                        <td><a href="./user-management.php?username=' . $thisone['username'] . '">' . $thisone['adress'] . '</a></td>
+                                        <td><a href="./user-management.php?username=' . $thisone['username'] . '">' . $userRole . '</a></td>
                                     </tr>
                                     ';
                                 }
