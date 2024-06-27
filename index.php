@@ -107,7 +107,7 @@
                 foreach($newGames as $game):
                     if($count >= 6) { break; } ?>
                     <div class="games-grid-item">
-                        <img src="<?php echo convertBlobToBase64($game['image']) ?>" alt="gameImage" class="games-grid-item-img">
+                        <div class="resizeContainer"><img src="<?php echo convertBlobToBase64($game['image']) ?>" alt="gameImage" class="games-grid-item-img"></div>
                         <div class="games-grid-item-infos">
                             <p><?php echo $game['name'] ?></p>
                             <?php 
