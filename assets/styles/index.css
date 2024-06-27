@@ -31,7 +31,7 @@ h1{
 #nouveautés .games-grid {
     display: grid;
     grid-template-columns: repeat(3, 400px);
-    gap: 20px;
+    gap: 40px;
     width: 80%;
 }
 
@@ -39,6 +39,14 @@ h1{
     width: 400px;
     min-height: 230px;
     border-radius: 5px;
+}
+
+.games-grid-item-infos p{
+    margin-top: 5px !important;
+}
+
+.games-grid-item{
+    position: relative;
 }
 
 #nouveautés .games-grid-item-infos {
@@ -83,4 +91,22 @@ h1{
     justify-content: space-between;
     color: white;
     font-size: 1.2rem;
+}
+
+.prices{
+    font-size: 1.4rem;
+    font-weight: bolder;
+}
+
+.promo{
+    position: absolute;
+    bottom: 66px;
+    left: -2px;
+    width: 75px;
+    height: 35px;
+    background-color: #0FB953;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

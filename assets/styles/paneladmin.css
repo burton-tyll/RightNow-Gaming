@@ -1,0 +1,190 @@
+main {
+    background-color: #282A28;
+    min-height: 100vh;
+    width: 100%;
+}
+
+nav{
+    background-color: #1A1B1E;
+}
+
+#adminSection, #gestionnaire, #addGame{
+    padding-top: 130px;
+    display: flex;
+}
+
+#adminSection, #addGame{
+    flex-direction: column;
+}
+
+.admin_title{
+    font-size: 3rem;
+    margin: 0;
+    color: #0FB953;
+}
+
+#adminSection .content{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+#gestionnaire .content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    position: relative;
+}
+
+.menu{
+    width: 100%;
+}
+
+.menu a{
+    color: white;
+    padding: 10px;
+    width: 100%;
+    font-size: 1.5rem;
+}
+
+.menu li:hover{
+    background-color: #0FB953;
+}
+
+.menu ul{
+    width: 100%;
+    padding: 0;
+    display: flex;
+}
+
+.menu li{
+    padding: 10px;
+}
+
+.activeButton{
+    background-color: #0FB953;
+}
+
+
+/*-------TABLE-------*/
+
+table{
+    width: 100%;
+}
+
+td a{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    color: white;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+th{
+    padding: 20px;
+}
+
+tr{
+    background-color: #1A1B1E;
+}
+
+tbody tr:hover{
+    background-color: #0FB953;
+    cursor: pointer;
+}
+
+th{
+    color: #0FB953;
+}
+
+td{
+    color: white;
+}
+
+/*---------GESTIONNAIRE UTILISATEURS-----------*/
+
+#gestionnaire h1{
+    font-size: 3rem;
+    color: white;
+}
+
+.actions{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #383838;
+    width: 60%;
+    height: 60svh;
+    border-radius: 10px;
+}
+
+.actions button{
+    width: 200px;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 5px 0;
+    cursor: pointer;
+    background-color: black;
+    color: white;
+}
+
+.delete{
+    background-color: red !important;
+}
+
+.actions h2{
+    margin-top: 0;
+    color: white;
+}
+
+.user-img{
+    width: 100px;
+    border-radius: 60px;
+}
+
+.back{
+    position: absolute;
+    top: 30px;
+    left: 30px;
+}
+
+.back img{
+    width: 60px;
+}
+
+/*---------Ajouter des jeux-----------*/
+
+#addGame .formulaire{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+#addGame h1{
+    text-align: center;
+    font-size: 3rem;
+    color: white;
+    margin-bottom: 5px;
+}
+
+#addGame input, #addGame select, #addGame button, .chooseFile{
+    width: 60%;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+.chooseFile{
+    background-color: white;
+}
+
+.submitButton{
+    background-color: #0FB953;
+    color: white;
+    cursor: pointer;
+}
+

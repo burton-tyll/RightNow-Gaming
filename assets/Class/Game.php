@@ -8,6 +8,27 @@
             $this->conn = $this->connect();
         }
 
+        public function addGame($image, $name, $description, $price, $special_offer, $studio, $quantity, $release_date, $rate){
+            $query = 'INSERT INTO game (image, name, description, price, special_offer, studio, quantity, release_date, rate) VALUES (:image, :name, :description, :price, :special_offer, :studio, :quantity, :release_date, :rate)';
+            $stmt = $this->conn->prepare($query);
+
+            // Liaison des paramètres
+            $stmt->bindParam(':image', $image);
+            $stmt->bindParam(':name', $name);
+            $stmt->bindParam(':description', $description);
+            $stmt->bindParam(':price', $price);
+            $stmt->bindParam(':special_offer', $special_offer);
+            $stmt->bindParam(':studio', $studio);
+            $stmt->bindParam(':quantity', $quantity);
+            $stmt->bindParam(':release_date', $release_date);
+            $stmt->bindParam(':rate', $rate);
+
+            $stmt->execute();
+            $gameId = $this->conn->lastInsertId();
+
+            return($gameId);
+        }
+
         public function getAllGames(){
             $query = 'SELECT * FROM game';
             $stmt = $this->conn->prepare($query);
@@ -42,6 +63,5 @@
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
-
     }
 ?>

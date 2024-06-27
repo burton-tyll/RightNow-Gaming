@@ -14,6 +14,39 @@
         return 'data:image/jpeg;base64,' . base64_encode($blob);
     }
 
+    //HEADER
+
+    function getStatus() {
+        if (!isset($_SESSION['user'])) {
+            return 'Connexion';
+        } else {
+            return 'Déconnexion';
+        }
+    }
+    
+    function disconnect() {
+        session_destroy();
+        header("Location: ./assets/views/connexion.php"); // Redirection après déconnexion
+        exit();
+    }
+    
+    if (isset($_GET['action']) && $_GET['action'] == 'logout') {
+        disconnect();
+    } 
+    $status = getStatus();
+
+    //GESTIONNAIRE D'ADMINISTRATION
+
+    function getRole(){
+        if (isset($_SESSION['admin'])){
+            return 'Admin';
+        }else{
+            return 'User';
+        }
+    }
+
+    $role = getRole();
+
 ?>
 
 
@@ -33,15 +66,33 @@
 <body>
     <header>
         <nav>
-            <img src="./assets/img/logo.png" alt="logo" class="logo">
+            <a href="#" class="logo"><img src="./assets/img/logo.png" alt="logo"></a>
             <ul>
-                <li><a href="/pc"><img src="./assets/img/pc.png" alt="pc_logo"><p>PC</p></a></li>
-                <li><a href="/playstation"><img src="./assets/img/playstation.png" alt="playstation_logo"><p>Playstation</p></a></li>
-                <li><a href="/xbox"><img src="./assets/img/xbox.png" alt="xbox_logo"><p>Xbox</p></a></li>
-                <li><a href="/nintendo"><img src="./assets/img/nintendo.png" alt="nintendo_logo"><p>Nintendo</p></a></li>
+                <li><a href="./assets/views/pc.php"><img src="./assets/img/pc.png" alt="pc_logo"><p>PC</p></a></li>
+                <li><a href="./assets/views/playstation.php"><img src="./assets/img/playstation.png" alt="playstation_logo"><p>Playstation</p></a></li>
+                <li><a href="./assets/views/xbox.php"><img src="./assets/img/xbox.png" alt="xbox_logo"><p>Xbox</p></a></li>
+                <li><a href="./assets/views/nintendo.php"><img src="./assets/img/nintendo.png" alt="nintendo_logo"><p>Nintendo</p></a></li>
             </ul>
+            <div class="user-buttons">
+                <img src="./assets/img/user.png" alt="userImage" class="userButton">
+            </div>
+            <ul class="profil-dropdown">
+            <li><a href="">Profil</a></li>
+            <?php if ($role == 'Admin'): ?>
+                <li><a href="./assets/views/paneladmin.php">Panel admin</a></li>
+            <?php endif ?>
+            <li><a href="">Mes achats</a></li>
+            <li>
+                <?php if ($status == 'Connexion'): ?>
+                    <a href="./assets/views/connexion.php"><?php echo $status; ?></a>
+                <?php else: ?>
+                    <a href="?action=logout"><?php echo $status; ?></a>
+                <?php endif; ?>
+            </li>
+        </ul>
         </nav>
     </header>
+    <!--Accueil-->
     <main>
         <section id="accueil" style="background-image: url('<?php echo convertBlobToBase64($theBestGame[0]['image']); ?>'); background-size: cover">
 
@@ -51,22 +102,27 @@
                 <h1>Nouveautés</h1>
             </div>
             <div class="games-grid">
-                <?php
-                    $count = 0;
-                    foreach($newGames as $game){
-                        if($count >= 6){break;}
-                        echo ('
-                        <div class="games-grid-item">
-                            <img id="randomImage" src="'.convertBlobToBase64($game['image']).'" alt="gameImage" class="games-grid-item-img">
-                            <div class="games-grid-item-infos">
-                                <p>'.$game['name'].'</p>
-                                <p>'.$game['price'].'€</p>
-                            </div>
+            <?php
+                $count = 0;
+                foreach($newGames as $game):
+                    if($count >= 6) { break; } ?>
+                    <div class="games-grid-item">
+                        <img src="<?php echo convertBlobToBase64($game['image']) ?>" alt="gameImage" class="games-grid-item-img">
+                        <div class="games-grid-item-infos">
+                            <p><?php echo $game['name'] ?></p>
+                            <?php 
+                            if($game['special_offer'] != 0) {
+                                $price = $game['price'] - $game['price'] * ($game['special_offer'] / 100);
+                                $price = round($price, 2);
+                                echo '<div class="promo">-' . $game['special_offer'] . '%</div>';
+                            }
+                            ?>
+                            <p class="prices"><?php echo isset($price) ? $price . '€' : $game['price'] . '€'; ?></p>
                         </div>
-                        ');
-                        $count ++;
-                    }
-                ?>
+                    </div>
+                    <?php 
+                    $count++;
+                endforeach ?>
         </section>
         <section id="meilleures-ventes">
             <div class="section-title">
@@ -74,22 +130,28 @@
             </div>
             <div class="games-grid">
             <?php
-                    $count = 0;
-                    foreach($bestSellers as $game){
-                        if($count >= 3){break;}
-                        $class = $count == 0 ? 'img-large' : '';
-                        echo ('
-                        <div class="games-grid-item ' . $class . '">
-                            <img id="randomImage" src="'.convertBlobToBase64($game['image']).'" alt="gameImage" class="games-grid-item-img">
-                            <div class="games-grid-item-infos">
-                                <p>'.$game['name'].'</p>
-                                <p>'.$game['price'].'€</p>
-                            </div>
-                        </div>
-                        ');
-                        $count ++;
-                    }
+                $count = 0;
+                foreach($bestSellers as $game):
+                    if($count >= 3) { break; }
+                    $class = $count == 0 ? 'img-large' : '';
                 ?>
+                <div class="<?php echo 'games-grid-item ' . $class; ?>">
+                    <img src="<?php echo convertBlobToBase64($game['image']) ?>" alt="gameImage" class="games-grid-item-img">
+                    <div class="games-grid-item-infos">
+                        <p><?php echo $game['name'] ?></p>
+                        <?php 
+                        if($game['special_offer'] != 0) {
+                            $price = $game['price'] - $game['price'] * ($game['special_offer'] / 100);
+                            $price = round($price, 2);
+                            echo '<div class="promo">-' . $game['special_offer'] . '%</div>';
+                        }
+                        ?>
+                        <p class="prices"><?php echo isset($price) ? $price . '€' : $game['price'] . '€'; ?></p>
+                    </div>
+                </div>
+                <?php 
+                $count++;
+                endforeach ?>
             </div>
         </section>
     </main>

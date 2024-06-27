@@ -1,0 +1,242 @@
+main{
+    display: flex;
+}
+
+.formulaire{
+    width: 50%;
+    height: 100svh;
+    background-color: #282A28;
+}
+
+.wallpaper{
+    width: 50%;
+    height: 100svh;
+    background-image: url('../img/wallpaper.jpg');
+    background-size: cover;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.authentificationlogo{
+    position: absolute;
+    width: 200px;
+    top: 10px;
+    left: 10px;
+}
+
+/*--------------*/
+/*----------------INSCRIPTION*/
+/*--------------*/
+
+#inscription{
+    display: flex;
+    align-items: center;
+}
+
+.champs{
+    display: grid;
+    gap: 25px;
+    justify-content: center;
+    grid-template-columns: repeat(2, 300px);
+    margin-bottom: 20px;
+}
+
+.champs input, .champs select{
+    padding: 10px;
+    border-radius: 5px;
+    height: 50px;
+    font-weight: bold;
+    background-color: #222322;
+    border: 2px solid #474343;
+    color: white;
+    box-sizing: border-box;
+}
+
+.champs input:hover{
+    border: 3px solid #0FB953;
+}
+
+.champs input:focus, .champs select:focus{
+    outline:#0FB953;
+    border: 3px solid #0FB953;
+}
+
+.boutons{
+    display: flex;
+    flex-direction: column;
+    width: 620px;
+}
+
+.conditions{
+    display: flex;
+    align-items: center;
+    color: #585353;
+}
+
+.conditions a{
+    color: white;
+}
+
+.agree{
+    width: 20px;
+    height: 20px;
+    background-color: #222322;
+    border: 2px solid #474343;
+    cursor: pointer;
+}
+
+.send{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 56px;
+    padding: 25px;
+    border-radius: 5px;
+    border: none;
+    background: linear-gradient(10deg,#7fedab,transparent) #0FB953;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+}
+
+.send:hover{
+    background: linear-gradient(10deg,#61f09a,transparent) #029d40;
+}
+
+#country {
+    height: 50px; 
+    padding: 10px; 
+    font-size: 16px; 
+    border: 2px solid #474343;
+    cursor: pointer;
+}
+
+#country:hover{
+    border: 3px solid #0FB953;
+}
+
+
+/*--------------*/
+/*----------------CONNEXION*/
+/*--------------*/
+
+#connexion{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#connexionForm{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 55%;
+}
+
+#connexion .champs{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+#connexion input{
+    width: 100%;
+}
+
+#connexion a{
+    color: white;
+}
+
+#connexion .boutons{
+    width: 100% !important;
+    align-items: center;
+}
+
+#connexion .send{
+    width: 100%;
+}
+
+.links{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.external-connexion{
+    width: 100%;
+}
+
+.external-connexion h2{
+    color: white;
+}
+
+.external-buttons{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.socialButton{ 
+    width: 90px;
+    height: 55px;
+    border-radius: 5px;
+    border: none ;
+    cursor: pointer;
+}
+
+.socialButton:hover{
+    border: 3px solid #0FB953;
+}
+
+.socialButton img{
+    width: 40px;
+}
+
+.googleButton{
+    background-color: white;
+}
+
+.facebookButton{
+    background-color: #1778F2;
+}
+
+.appleButton{
+    background-color: #000;
+}
+
+.discordButton{
+    background-color: #5663ED;
+}
+
+/*--------------*/
+/*----------------SEPARATEUR*/
+/*--------------*/
+
+.separator{
+    display: flex;
+    align-items: center;
+}
+
+.separator p{
+    width: 10%;
+    font-weight: bold;
+    font-size: 1.3rem;
+    display: flex;
+    justify-content: center;
+    color: white;
+}
+
+.separator-line{
+    height: 1px;
+    background-color: #474343;
+    width: 50%;
+    margin: 40px 0;
+}
+
+
