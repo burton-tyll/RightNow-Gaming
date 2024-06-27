@@ -156,7 +156,7 @@
                 </select>
                 <input type="number" name="quantity" placeholder="Quantité" required>
                 <input type="date" name="release_date" placeholder="Date de sortie" required>
-                <input type="number" name="rate" step="0.1" placeholder="Note" required>
+                <input type="number" name="rate" step="0.1" max="5" placeholder="Note" required>
                 <button type="submit" name="submit" class="submitButton">Envoyer</button>
             </form>
         </section>
