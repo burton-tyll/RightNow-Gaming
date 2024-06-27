@@ -1,8 +1,14 @@
 <?php
 
     require_once('../Class/User.php');
+    require_once('../Class/Game.php');
+    require_once('../Class/Game_platform.php');
 
     $user = new User();
+    $game = new Game();
+    $game_platform = new Game_platform();
+
+    $games = $game->getAllGames();
 
     $users = $user->read();
 
@@ -78,9 +84,9 @@
         <section id="adminSection">
             <div class="sideMenu">
                 <ul>
-                    <li><a href="?users">Gérer des utilisateurs</a></li>
-                    <li><a href="?products">Gérer des produits</a></li>
-                    <li><a href="?orders">Gérer des commandes</a></li>
+                    <li><a id="userPage" href="?users">Gérer des utilisateurs</a></li>
+                    <li><a id="productPage" href="?products">Gérer des produits</a></li>
+                    <li><a id="orderPage" href="?orders">Gérer des commandes</a></li>
                 </ul>
             </div>
             <div class="content">
@@ -90,6 +96,8 @@
                             <tr>
                                 <th>id</th>
                                 <th>Nom d'utilisateur</th>
+                                <th>Prénom</th>
+                                <th>Nom</th>
                                 <th>E-mail</th>
                                 <th>Adresse</th>
                                 <th>Role</th>
@@ -109,9 +117,48 @@
                                     <tr>
                                         <td><a href="./user-management?username=' . $thisone['username'] . '">' . $thisone['id'] . '</a></td>
                                         <td><a href="./user-management?username=' . $thisone['username'] . '">' . $thisone['username'] . '</a></td>
+                                        <td><a href="./user-management?username=' . $thisone['username'] . '">' . $thisone['first_name'] . '</a></td>
+                                        <td><a href="./user-management?username=' . $thisone['username'] . '">' . $thisone['name'] . '</a></td>
                                         <td><a href="./user-management?username=' . $thisone['username'] . '">' . $thisone['email'] . '</a></td>
                                         <td><a href="./user-management?username=' . $thisone['username'] . '">' . $thisone['adress'] . '</a></td>
                                         <td><a href="./user-management?username=' . $thisone['username'] . '">' . $userRole . '</a></td>
+                                    </tr>
+                                    ';
+                                }
+                            ?>
+                        </tbody>
+                    </table>
+                <?php endif ?>
+                <?php if(isset($_GET['products'])): ?>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>Nom du jeu</th>
+                                <th>Prix</th>
+                                <th>Quantité</th>
+                                <th>Vendus</th>
+                                <th>Date de sortie</th>
+                                <th>Note</th>
+                                <th>Catégorie</th>
+                                <th>Plateforme</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                                foreach($games as $thisone){
+                                    echo
+                                    '
+                                    <tr>
+                                        <td><a href="./product-management?id=' . $thisone['id'] . '">' . $thisone['id'] . '</a></td>
+                                        <td><a href="./product-management?id=' . $thisone['id'] . '">' . $thisone['name'] . '</a></td>
+                                        <td><a href="./product-management?id=' . $thisone['id'] . '">' . $thisone['price'] . '</a></td>
+                                        <td><a href="./product-management?id=' . $thisone['id'] . '">' . $thisone['quantity'] . '</a></td>
+                                        <td><a href="./product-management?id=' . $thisone['id'] . '">' . $thisone['sales'] . '</a></td>
+                                        <td><a href="./product-management?id=' . $thisone['id'] . '">' . $thisone['release_date'] . '</a></td>
+                                        <td><a href="./product-management?id=' . $thisone['id'] . '">' . $thisone['rate'] . '</a></td>
+                                        <td><a href="./product-management?id=' . $thisone['id'] . '">Catégorie à venir</a></td>
+                                        <td><a href="./product-management?id=' . $thisone['id'] . '">' . $game_platform->getGamePlateform($thisone['id']) . '</a></td>
                                     </tr>
                                     ';
                                 }
