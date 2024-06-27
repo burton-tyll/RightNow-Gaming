@@ -158,15 +158,15 @@
                                     echo
                                     '
                                     <tr>
-                                        <td><a href="./product-management?id=' . $thisone['id'] . '">' . $thisone['id'] . '</a></td>
-                                        <td><a href="./product-management?id=' . $thisone['id'] . '">' . $thisone['name'] . '</a></td>
-                                        <td><a href="./product-management?id=' . $thisone['id'] . '">' . $thisone['price'] . '</a></td>
-                                        <td><a href="./product-management?id=' . $thisone['id'] . '">' . $thisone['quantity'] . '</a></td>
-                                        <td><a href="./product-management?id=' . $thisone['id'] . '">' . $thisone['sales'] . '</a></td>
-                                        <td><a href="./product-management?id=' . $thisone['id'] . '">' . $thisone['release_date'] . '</a></td>
-                                        <td><a href="./product-management?id=' . $thisone['id'] . '">' . $thisone['rate'] . '</a></td>
-                                        <td><a href="./product-management?id=' . $thisone['id'] . '">' . $game_genre->getGameGenre($thisone['id']) . '</a></td>
-                                        <td><a href="./product-management?id=' . $thisone['id'] . '">' . $game_platform->getGamePlateform($thisone['id']) . '</a></td>
+                                        <td><a href="./product-management.php?id=' . $thisone['id'] . '">' . $thisone['id'] . '</a></td>
+                                        <td><a href="./product-management.php?id=' . $thisone['id'] . '">' . $thisone['name'] . '</a></td>
+                                        <td><a href="./product-management.php?id=' . $thisone['id'] . '">' . $thisone['price'] . '</a></td>
+                                        <td><a href="./product-management.php?id=' . $thisone['id'] . '">' . $thisone['quantity'] . '</a></td>
+                                        <td><a href="./product-management.php?id=' . $thisone['id'] . '">' . $thisone['sales'] . '</a></td>
+                                        <td><a href="./product-management.php?id=' . $thisone['id'] . '">' . $thisone['release_date'] . '</a></td>
+                                        <td><a href="./product-management.php?id=' . $thisone['id'] . '">' . $thisone['rate'] . '</a></td>
+                                        <td><a href="./product-management.php?id=' . $thisone['id'] . '">' . $game_genre->getGameGenre($thisone['id']) . '</a></td>
+                                        <td><a href="./product-management.php?id=' . $thisone['id'] . '">' . $game_platform->getGamePlateform($thisone['id']) . '</a></td>
                                     </tr>
                                     ';
                                 }
