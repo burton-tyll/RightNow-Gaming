@@ -24,6 +24,9 @@
             $stmt->bindParam(':rate', $rate);
 
             $stmt->execute();
+            $gameId = $this->conn->lastInsertId();
+
+            return($gameId);
         }
 
         public function getAllGames(){

@@ -13,7 +13,7 @@ nav{
     display: flex;
 }
 
-#adminSection{
+#adminSection, #addGame{
     flex-direction: column;
 }
 
@@ -160,5 +160,31 @@ td{
 #addGame .formulaire{
     display: flex;
     flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+#addGame h1{
+    text-align: center;
+    font-size: 3rem;
+    color: white;
+    margin-bottom: 5px;
+}
+
+#addGame input, #addGame select, #addGame button, .chooseFile{
+    width: 60%;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+.chooseFile{
+    background-color: white;
+}
+
+.submitButton{
+    background-color: #0FB953;
+    color: white;
+    cursor: pointer;
 }
 
