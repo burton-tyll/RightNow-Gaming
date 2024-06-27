@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 let username;
 
 function handleCredentialResponse(response) {
@@ -25,6 +27,7 @@ function handleCredentialResponse(response) {
 
 //CHANGEMENT DE HEADER AU SCROLL
 
+>>>>>>> adminpanel
 document.addEventListener('DOMContentLoaded', () => {
     const nav = document.querySelector('nav');
 

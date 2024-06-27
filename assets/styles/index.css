@@ -47,6 +47,27 @@ h1{
 
 .games-grid-item{
     position: relative;
+    overflow: hidden;
+}
+
+.resizeContainer{
+    position: relative;
+    display: flex;
+    flex-grow: 1;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.games-grid-item img:hover{
+    cursor: pointer;
+    scale: 110%;
+    transition: 0.1s;
+}
+
+.resizeContainer:hover{
+    border: 2px solid white;
+    transition: 0.2s;
+    box-sizing: border-box;
 }
 
 #nouveautés .games-grid-item-infos {
