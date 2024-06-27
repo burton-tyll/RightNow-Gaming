@@ -58,15 +58,20 @@ h1{
     border-radius: 5px;
 }
 
+.games-grid-item img{
+    scale: 100%;
+    transition: 1s;
+}
+
 .games-grid-item img:hover{
     cursor: pointer;
-    scale: 110%;
-    transition: 0.1s;
+    scale: 105%;
+    transition: 0.5s;
 }
 
 .resizeContainer:hover{
     border: 2px solid white;
-    transition: 0.2s;
+    transition: 0.1s;
     box-sizing: border-box;
 }
 
