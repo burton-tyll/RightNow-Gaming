@@ -102,22 +102,27 @@
                 <h1>Nouveautés</h1>
             </div>
             <div class="games-grid">
-                <?php
-                    $count = 0;
-                    foreach($newGames as $game){
-                        if($count >= 6){break;}
-                        echo ('
-                        <div class="games-grid-item">
-                            <img id="randomImage" src="'.convertBlobToBase64($game['image']).'" alt="gameImage" class="games-grid-item-img">
-                            <div class="games-grid-item-infos">
-                                <p>'.$game['name'].'</p>
-                                <p>'.$game['price'].'€</p>
-                            </div>
+            <?php
+                $count = 0;
+                foreach($newGames as $game):
+                    if($count >= 6) { break; } ?>
+                    <div class="games-grid-item">
+                        <img src="<?php echo convertBlobToBase64($game['image']) ?>" alt="gameImage" class="games-grid-item-img">
+                        <div class="games-grid-item-infos">
+                            <p><?php echo $game['name'] ?></p>
+                            <?php 
+                            if($game['special_offer'] != 0) {
+                                $price = $game['price'] - $game['price'] * ($game['special_offer'] / 100);
+                                $price = round($price, 2);
+                                echo '<div class="promo">-' . $game['special_offer'] . '%</div>';
+                            }
+                            ?>
+                            <p class="prices"><?php echo isset($price) ? $price . '€' : $game['price'] . '€'; ?></p>
                         </div>
-                        ');
-                        $count ++;
-                    }
-                ?>
+                    </div>
+                    <?php 
+                    $count++;
+                endforeach ?>
         </section>
         <section id="meilleures-ventes">
             <div class="section-title">
@@ -125,22 +130,28 @@
             </div>
             <div class="games-grid">
             <?php
-                    $count = 0;
-                    foreach($bestSellers as $game){
-                        if($count >= 3){break;}
-                        $class = $count == 0 ? 'img-large' : '';
-                        echo ('
-                        <div class="games-grid-item ' . $class . '">
-                            <img id="randomImage" src="'.convertBlobToBase64($game['image']).'" alt="gameImage" class="games-grid-item-img">
-                            <div class="games-grid-item-infos">
-                                <p>'.$game['name'].'</p>
-                                <p>'.$game['price'].'€</p>
-                            </div>
-                        </div>
-                        ');
-                        $count ++;
-                    }
+                $count = 0;
+                foreach($bestSellers as $game):
+                    if($count >= 3) { break; }
+                    $class = $count == 0 ? 'img-large' : '';
                 ?>
+                <div class="<?php echo 'games-grid-item ' . $class; ?>">
+                    <img src="<?php echo convertBlobToBase64($game['image']) ?>" alt="gameImage" class="games-grid-item-img">
+                    <div class="games-grid-item-infos">
+                        <p><?php echo $game['name'] ?></p>
+                        <?php 
+                        if($game['special_offer'] != 0) {
+                            $price = $game['price'] - $game['price'] * ($game['special_offer'] / 100);
+                            $price = round($price, 2);
+                            echo '<div class="promo">-' . $game['special_offer'] . '%</div>';
+                        }
+                        ?>
+                        <p class="prices"><?php echo isset($price) ? $price . '€' : $game['price'] . '€'; ?></p>
+                    </div>
+                </div>
+                <?php 
+                $count++;
+                endforeach ?>
             </div>
         </section>
     </main>
