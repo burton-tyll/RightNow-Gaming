@@ -50,7 +50,11 @@
                 foreach($newGames as $game):
                     if($count >= 6) { break; } ?>
                     <div class="games-grid-item">
-                        <div class="resizeContainer"><img src="<?php echo convertBlobToBase64($game['image']) ?>" alt="gameImage" class="games-grid-item-img"></div>
+                        <div class="resizeContainer">
+                            <a href="./game-details.php?id=<?php echo $game['id']; ?>&price=<?php echo urlencode($game['price']); ?>">
+                                <img src="<?php echo convertBlobToBase64($game['image']) ?>" alt="gameImage" class="games-grid-item-img">
+                            </a>
+                        </div>
                         <div class="games-grid-item-infos">
                             <p><?php echo $game['name'] ?></p>
                             <?php 
@@ -60,7 +64,11 @@
                                 echo '<div class="promo">-' . $game['special_offer'] . '%</div>';
                             }
                             ?>
-                            <p class="prices"><?php echo isset($price) ? $price . '€' : $game['price'] . '€'; ?></p>
+                            <?php if($game['price'] == 0.1): ?>
+                                <p></p>
+                            <?php else: ?>
+                                <p class="prices"><?php echo isset($price) ? $price . '€' : $game['price'] . '€'; ?></p>
+                            <?php endif; ?>
                         </div>
                     </div>
                     <?php 
@@ -82,7 +90,11 @@
                     $class = $count == 0 ? 'img-large' : '';
                 ?>
                 <div class="<?php echo 'games-grid-item ' . $class; ?>">
-                    <div class="resizeContainer"><img src="<?php echo convertBlobToBase64($game['image']) ?>" alt="gameImage" class="games-grid-item-img"></div>
+                    <div class="resizeContainer">
+                        <a href="./game-details.php?id=<?php echo $game['id']; ?>&price=<?php echo urlencode($game['price']); ?>">
+                            <img src="<?php echo convertBlobToBase64($game['image']) ?>" alt="gameImage" class="games-grid-item-img">
+                        </a>
+                    </div>
                     <div class="games-grid-item-infos">
                         <p><?php echo $game['name'] ?></p>
                         <?php 
@@ -92,7 +104,11 @@
                             echo '<div class="promo">-' . $game['special_offer'] . '%</div>';
                         }
                         ?>
-                        <p class="prices"><?php echo isset($price) ? $price . '€' : $game['price'] . '€'; ?></p>
+                        <?php if($game['price'] == 0.1): ?>
+                            <p></p>
+                        <?php else: ?>
+                            <p class="prices"><?php echo isset($price) ? $price . '€' : $game['price'] . '€'; ?></p>
+                        <?php endif; ?>
                     </div>
                 </div>
                 <?php 
