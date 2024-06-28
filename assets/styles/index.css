@@ -1,19 +1,22 @@
+/* Global Styles */
 main {
     background-color: #282A28;
     min-height: 100vh;
     width: 100%;
 }
 
-h1{
+h1 {
     font-size: 2.5rem;
 }
 
-#accueil{
+/* Section Accueil */
+#accueil {
     height: 75vh;
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 85%);
     background-attachment: fixed;
 }
 
+/* Common Section Styles */
 #nouveautés, #meilleures-ventes {
     display: flex;
     flex-direction: column;
@@ -28,6 +31,7 @@ h1{
     color: white;
 }
 
+/* Nouveautés Section */
 #nouveautés .games-grid {
     display: grid;
     grid-template-columns: repeat(3, 400px);
@@ -35,44 +39,15 @@ h1{
     width: 80%;
 }
 
+#nouveautés .games-grid-item {
+    position: relative;
+    overflow: hidden;
+}
+
 #nouveautés .games-grid-item-img {
     width: 400px;
     min-height: 230px;
     border-radius: 5px;
-}
-
-.games-grid-item-infos p{
-    margin-top: 5px !important;
-}
-
-.games-grid-item{
-    position: relative;
-    overflow: hidden;
-}
-
-.resizeContainer{
-    position: relative;
-    display: flex;
-    flex-grow: 1;
-    overflow: hidden;
-    border-radius: 5px;
-}
-
-.games-grid-item img{
-    scale: 100%;
-    transition: 1s;
-}
-
-.games-grid-item img:hover{
-    cursor: pointer;
-    scale: 105%;
-    transition: 0.5s;
-}
-
-.resizeContainer:hover{
-    border: 2px solid white;
-    transition: 0.1s;
-    box-sizing: border-box;
 }
 
 #nouveautés .games-grid-item-infos {
@@ -82,8 +57,41 @@ h1{
     font-size: 1.2rem;
 }
 
-/* MEILLEURES VENTES */
+.games-grid-item-infos p {
+    margin-top: 5px !important;
+}
 
+.resizeContainer {
+    position: relative;
+    display: flex;
+    flex-grow: 1;
+    overflow: hidden;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.games-grid-item img {
+    scale: 100%;
+    transition: 1s;
+}
+
+.games-grid-item img:hover {
+    cursor: pointer;
+    scale: 105%;
+    transition: 0.5s;
+}
+
+.resizeContainer:hover {
+    border: 2px solid white;
+    transition: 0.1s;
+}
+
+#nouveautés .resizeContainer:hover {
+    width: 398px;
+    height: 228px;
+}
+
+/* Meilleures Ventes Section */
 #meilleures-ventes .games-grid {
     display: grid;
     gap: 20px;
@@ -98,16 +106,17 @@ h1{
 }
 
 #meilleures-ventes .games-grid-item {
+    position: relative;
     display: flex;
     flex-direction: column;
     height: 100%;
-    justify-content: space-between; 
-    align-items: center; 
+    justify-content: space-between;
+    align-items: center;
 }
 
 #meilleures-ventes .games-grid-item-img {
     width: 100%;
-    flex-grow: 1; 
+    flex-grow: 1;
     border-radius: 5px;
 }
 
@@ -119,19 +128,20 @@ h1{
     font-size: 1.2rem;
 }
 
-.prices{
+/* Additional Styles */
+.prices {
     font-size: 1.4rem;
     font-weight: bolder;
 }
 
-.promo{
+.promo {
     position: absolute;
-    bottom: 66px;
-    left: -2px;
+    top: 2px;
+    left: 2px;
     width: 75px;
     height: 35px;
     background-color: #0FB953;
-    border-radius: 5px;
+    border-radius: 5px 0px 5px 0px;
     display: flex;
     justify-content: center;
     align-items: center;
