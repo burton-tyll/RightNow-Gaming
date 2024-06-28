@@ -154,7 +154,22 @@
                         </thead>
                         <tbody>
                             <?php
-                                foreach($games as $thisone){
+                                foreach ($games as $thisone) {
+                                    // Récupérer les genres du jeu
+                                    $gameGenre = $game_genre->getGameGenre($thisone['id']);
+                                    // Récupérer les plateformes du jeu
+                                    $gamePlatform = $game_platform->getGamePlateform($thisone['id']);
+                                    // Créer une chaîne pour les genres
+                                    $genres = '';
+                                    foreach ($gameGenre as $genre) {
+                                        $genres .= $genre . ' ';
+                                    }
+                                    // Créer une chaîne pour les plateformes
+                                    $platforms = '';
+                                    foreach ($gamePlatform as $platform){
+                                        $platforms .= $platform . ' ';
+                                    }
+
                                     echo
                                     '
                                     <tr>
@@ -165,8 +180,8 @@
                                         <td><a href="./product-management.php?id=' . $thisone['id'] . '">' . $thisone['sales'] . '</a></td>
                                         <td><a href="./product-management.php?id=' . $thisone['id'] . '">' . $thisone['release_date'] . '</a></td>
                                         <td><a href="./product-management.php?id=' . $thisone['id'] . '">' . $thisone['rate'] . '</a></td>
-                                        <td><a href="./product-management.php?id=' . $thisone['id'] . '">' . $game_genre->getGameGenre($thisone['id']) . '</a></td>
-                                        <td><a href="./product-management.php?id=' . $thisone['id'] . '">' . $game_platform->getGamePlateform($thisone['id']) . '</a></td>
+                                        <td><a href="./product-management.php?id=' . $thisone['id'] . '">' . $genres . '</a></td>
+                                        <td><a href="./product-management.php?id=' . $thisone['id'] . '">' . $platforms . '</a></td>
                                     </tr>
                                     ';
                                 }
