@@ -104,25 +104,23 @@
             <div class="games-grid">
             <?php
                 $count = 0;
-                foreach($newGames as $game):
-                    if($count >= 6) { break; } ?>
-                    <div class="games-grid-item">
-                        <div class="resizeContainer"><img src="<?php echo convertBlobToBase64($game['image']) ?>" alt="gameImage" class="games-grid-item-img"></div>
+                foreach($bestSellers as $game){
+                    if($count >= 3){break;}
+                    $class = $count == 0 ? 'img-large' : '';
+                    echo ('
+                    <div class="games-grid-item ' . $class . '">
+                        <a href="assets/views/game-details.php?id=' . $game['id'] . '">
+                        <img id="randomImage" src="'.convertBlobToBase64($game['image']).'" alt="gameImage" class="games-grid-item-img">
+                        </a>
                         <div class="games-grid-item-infos">
-                            <p><?php echo $game['name'] ?></p>
-                            <?php 
-                            if($game['special_offer'] != 0) {
-                                $price = $game['price'] - $game['price'] * ($game['special_offer'] / 100);
-                                $price = round($price, 2);
-                                echo '<div class="promo">-' . $game['special_offer'] . '%</div>';
-                            }
-                            ?>
-                            <p class="prices"><?php echo isset($price) ? $price . '€' : $game['price'] . '€'; ?></p>
+                            <p>'.$game['name'].'</p>
+                            <p>'.$game['price'].'€</p>
                         </div>
                     </div>
-                    <?php 
-                    $count++;
-                endforeach ?>
+                    ');
+                    $count ++;
+                }
+                ?>
         </section>
         <section id="meilleures-ventes">
             <div class="section-title">
@@ -130,10 +128,23 @@
             </div>
             <div class="games-grid">
             <?php
-                $count = 0;
-                foreach($bestSellers as $game):
-                    if($count >= 3) { break; }
-                    $class = $count == 0 ? 'img-large' : '';
+                    $count = 0;
+                    foreach($bestSellers as $game){
+                        if($count >= 3){break;}
+                        $class = $count == 0 ? 'img-large' : '';
+                        echo ('
+                        <div class="games-grid-item ' . $class . '">
+                            <a href="assets/views/game-details.php?id=' . $game['id'] . '">
+                            <img id="randomImage" src="'.convertBlobToBase64($game['image']).'" alt="gameImage" class="games-grid-item-img">
+                            </a>
+                                <div class="games-grid-item-infos">
+                                    <p>'.$game['name'].'</p>
+                                    <p>'.$game['price'].'€</p>
+                                </div>
+                            </div>
+                        ');
+                        $count ++;
+                    }
                 ?>
                 <div class="<?php echo 'games-grid-item ' . $class; ?>">
                     <div class="resizeContainer"><img src="<?php echo convertBlobToBase64($game['image']) ?>" alt="gameImage" class="games-grid-item-img"></div>
