@@ -50,6 +50,8 @@ h1 {
     border-radius: 5px;
 }
 
+
+
 #nouveautés .games-grid-item-infos {
     display: flex;
     justify-content: space-between;
@@ -136,8 +138,8 @@ h1 {
 
 .promo {
     position: absolute;
-    top: 2px;
-    left: 2px;
+    top: 0px;
+    left: 0px;
     width: 75px;
     height: 35px;
     background-color: #0FB953;
@@ -145,4 +147,5 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: 0.2s;
 }

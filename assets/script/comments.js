@@ -1,12 +1,11 @@
 function sendMessage() {
-    var messageInput = document.getElementById('message-input');
+    var messageInput = document.getElementById('comment-input');
     var message = messageInput.value.trim();
 
     if (message !== '') {
         displayMessage(message, 'self');
         messageInput.value = '';
         messageInput.focus();
-        // Vous pouvez ajouter ici la logique pour envoyer le message au serveur, etc.
     }
 }
 

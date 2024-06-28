@@ -207,7 +207,7 @@ body {
 }
 .chat-container {
   width: 50svw;
-  height: 50svh;
+  height: fit-content;
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
@@ -220,10 +220,21 @@ body {
   align-items: center;
   justify-content: center ;
   border-radius: 50px;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   padding: 0.2svw;
   margin: 0;
+  height: 3.5svh;
 }
+
+#average-note{
+  margin: 0;
+}
+
+#note{
+  font-size: 2rem;
+}
+
+
 
 #title-comments{
   font-size: 2rem;
@@ -262,16 +273,19 @@ body {
   margin: 0;
 }
 .chat-input {
+  display: flex;
+  align-items: flex-end;
   padding: 10px;
   border-top: 1px solid #ccc;
 }
-.chat-input input[type="text"] {
+.chat-input textarea[type="text"] {
   width: calc(100% - 20px);
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 5px;
   outline: none;
   color: #303030;
+  min-height: 5svh;
 }
 .chat-input button {
   padding: 8px 15px;
@@ -292,4 +306,12 @@ body {
   margin-left: 0.5svw;
 }
 
+#btn-send-comment{
+  text-align: center;
+  height: 8svh;
+}
 
+#comment-input{
+  width: 50svw;
+  border-radius: 5px;
+}

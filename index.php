@@ -61,6 +61,7 @@
     <script src="./assets/script/global.js" defer></script>
     <!-------------------------->
     <link rel="stylesheet" href="./assets/styles/index.css">
+    <script src='./assets/script/promo.js' defer></script>
     <title>RightNow Gaming</title>
 </head>
 <body>
@@ -104,7 +105,7 @@
             <div class="games-grid">
             <?php foreach($newGames as $game): ?>
                 <div class="games-grid-item">
-                    <a href="assets/views/game-details.php?id=<?php echo $game['id']; ?>&price=<?php echo urlencode($game['price']); ?>">
+                    <a href="assets/views/game-details.php?id=<?php echo $game['id']; ?>">
                         <div class="resizeContainer"><img src="<?php echo convertBlobToBase64($game['image']); ?>" alt="gameImage" class="games-grid-item-img"></div>
                     </a>
                     <div class="games-grid-item-infos">
