@@ -114,14 +114,16 @@
                             $price = $game['price'] - ($game['price'] * ($game['special_offer'] / 100));
                             $price = round($price, 2);
                             ?>
-                            <div class="promo">-<?php echo $game['special_offer']; ?>%</div>
-                        <?php endif; ?>
-                        <p class="prices"><?php echo isset($price) ? $price . '€' : $game['price'] . '€'; ?></p>
+                            <?php if($game['price'] == 0.1): ?>
+                                <p class="prices"></p>
+                            <?php else: ?>
+                                <p class="prices"><?php echo isset($price) ? $price . '€' : $game['price'] . '€'; ?></p>
+                            <?php endif ?>
+                        </div>
                     </div>
-                </div>
-            <?php endforeach; ?>
-
-            </div>
+                    <?php 
+                    $count++;
+                endforeach ?>
         </section>
         <section id="meilleures-ventes">
             <div class="section-title">
@@ -147,7 +149,11 @@
                             echo '<div class="promo">-' . $game['special_offer'] . '%</div>';
                         }
                         ?>
-                        <p class="prices"><?php echo isset($price) ? $price . '€' : $game['price'] . '€'; ?></p>
+                        <?php if($game['price'] == 0.1): ?>
+                            <p class="prices"></p>
+                        <?php else: ?>
+                            <p class="prices"><?php echo isset($price) ? $price . '€' : $game['price'] . '€'; ?></p>
+                        <?php endif ?>
                     </div>
                 </div>
                 <?php 
