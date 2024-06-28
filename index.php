@@ -118,12 +118,13 @@
                                 <p class="prices"></p>
                             <?php else: ?>
                                 <p class="prices"><?php echo isset($price) ? $price . '€' : $game['price'] . '€'; ?></p>
-                            <?php endif ?>
+                            <?php endif; ?>
                         </div>
+                        <?php endif; ?>
                     </div>
                     <?php 
                     $count++;
-                endforeach ?>
+                    endforeach; ?>
         </section>
         <section id="meilleures-ventes">
             <div class="section-title">
