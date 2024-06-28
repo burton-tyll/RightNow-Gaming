@@ -42,8 +42,11 @@
                     $query = 'SELECT name FROM platform JOIN game_platform ON platform.id = game_platform.id_platform WHERE game_platform.id_game = :id_game';
                     $stmt = $this->conn->prepare($query);
                     $stmt->execute(['id_game' => $id_game]);
-                    return $stmt->fetchColumn();
+                    $result = $stmt->fetchAll(PDO::FETCH_COLUMN); // Utiliser fetchAll pour obtenir un tableau de noms
+                    return $result;
                 }
+                
+                
     }
 
 ?>

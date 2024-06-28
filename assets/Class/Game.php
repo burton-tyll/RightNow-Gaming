@@ -7,6 +7,14 @@
             parent::__construct();
             $this->conn = $this->connect();
         }
+        
+        public function getGameById($id) {
+            $query = 'SELECT * FROM game WHERE id = :id';
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }      
 
         public function getAllGames(){
             $query = 'SELECT * FROM game';

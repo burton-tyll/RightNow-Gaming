@@ -102,21 +102,24 @@
                 <h1>Nouveautés</h1>
             </div>
             <div class="games-grid">
-                <?php
-                    $count = 0;
-                    foreach($newGames as $game){
-                        if($count >= 6){break;}
-                        echo ('
-                        <div class="games-grid-item">
-                            <img id="randomImage" src="'.convertBlobToBase64($game['image']).'" alt="gameImage" class="games-grid-item-img">
-                            <div class="games-grid-item-infos">
-                                <p>'.$game['name'].'</p>
-                                <p>'.$game['price'].'€</p>
-                            </div>
+            <?php
+                $count = 0;
+                foreach($bestSellers as $game){
+                    if($count >= 3){break;}
+                    $class = $count == 0 ? 'img-large' : '';
+                    echo ('
+                    <div class="games-grid-item ' . $class . '">
+                        <a href="assets/views/game-details.php?id=' . $game['id'] . '">
+                        <img id="randomImage" src="'.convertBlobToBase64($game['image']).'" alt="gameImage" class="games-grid-item-img">
+                        </a>
+                        <div class="games-grid-item-infos">
+                            <p>'.$game['name'].'</p>
+                            <p>'.$game['price'].'€</p>
                         </div>
-                        ');
-                        $count ++;
-                    }
+                    </div>
+                    ');
+                    $count ++;
+                }
                 ?>
         </section>
         <section id="meilleures-ventes">
@@ -131,12 +134,14 @@
                         $class = $count == 0 ? 'img-large' : '';
                         echo ('
                         <div class="games-grid-item ' . $class . '">
+                            <a href="assets/views/game-details.php?id=' . $game['id'] . '">
                             <img id="randomImage" src="'.convertBlobToBase64($game['image']).'" alt="gameImage" class="games-grid-item-img">
-                            <div class="games-grid-item-infos">
-                                <p>'.$game['name'].'</p>
-                                <p>'.$game['price'].'€</p>
+                            </a>
+                                <div class="games-grid-item-infos">
+                                    <p>'.$game['name'].'</p>
+                                    <p>'.$game['price'].'€</p>
+                                </div>
                             </div>
-                        </div>
                         ');
                         $count ++;
                     }
