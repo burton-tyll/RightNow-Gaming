@@ -117,7 +117,11 @@
                                 echo '<div class="promo">-' . $game['special_offer'] . '%</div>';
                             }
                             ?>
-                            <p class="prices"><?php echo isset($price) ? $price . '€' : $game['price'] . '€'; ?></p>
+                            <?php if($game['price'] == 0.1): ?>
+                                <p class="prices"></p>
+                            <?php else: ?>
+                                <p class="prices"><?php echo isset($price) ? $price . '€' : $game['price'] . '€'; ?></p>
+                            <?php endif ?>
                         </div>
                     </div>
                     <?php 
@@ -146,7 +150,11 @@
                             echo '<div class="promo">-' . $game['special_offer'] . '%</div>';
                         }
                         ?>
-                        <p class="prices"><?php echo isset($price) ? $price . '€' : $game['price'] . '€'; ?></p>
+                        <?php if($game['price'] == 0.1): ?>
+                            <p class="prices"></p>
+                        <?php else: ?>
+                            <p class="prices"><?php echo isset($price) ? $price . '€' : $game['price'] . '€'; ?></p>
+                        <?php endif ?>
                     </div>
                 </div>
                 <?php 
