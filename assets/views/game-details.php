@@ -1,9 +1,11 @@
 <?php
 require_once('../Class/Game.php');
 require_once('../Class/Game_platform.php');
+require_once('../Class/Genre.php');
 
 $game = new Game();
 $game_platforms = new Game_platform();
+$game_genres = new Genre();
 
 session_start();
 
@@ -11,8 +13,9 @@ function convertBlobToBase64($blob) {
     return 'data:image/jpeg;base64,' . base64_encode($blob);
 }
 
-// Récupérer l'ID du jeu depuis l'URL
+// Récupérer l'ID du jeu et le prix depuis l'URL
 $gameId = isset($_GET['id']) ? intval($_GET['id']) : null;
+$price = isset($_GET['price']) ? floatval($_GET['price']) : null;
 if ($gameId === null) {
     // Rediriger ou afficher un message d'erreur si l'ID est manquant
     header("Location: ../index.php");
@@ -27,6 +30,8 @@ if (!$gameDetails) {
 }
 
 $gamePlatforms = $game_platforms->getGamePlateform($gameId);
+
+$gameGenres = $game_genres->getGameGenre($gameId);
 
 //HEADER
 
@@ -54,7 +59,7 @@ $status = getStatus();
 function getRole(){
     if (isset($_SESSION['admin'])){
         return 'Admin';
-    }else{
+    } else {
         return 'User';
     }
 }
@@ -70,6 +75,7 @@ $role = getRole();
     <link rel="stylesheet" href="../styles/game-details.css">
     <?php include('../templates/global.php')?>
     <link rel="icon" type="image/x-icon" href="../img/favicon.png">
+    <script src="../script/comments.js"></script>
     <script src="../script/global.js" defer></script>
     <!-------------------------->
     <title>RightNow Gaming - Détails du jeu</title>
@@ -105,16 +111,14 @@ $role = getRole();
     </header>
     <main>
         <section id="section-game-details">
-            <div id="div-game-img-text">
-                <img src="<?php echo isset($gameDetails['image']) ? convertBlobToBase64($gameDetails['image']) : 'default-image-path'; ?>" alt="img game">
-                <h3 id="about">À propos</h3>
-                <p><?php echo isset($gameDetails['description']) ? htmlspecialchars($gameDetails['description']) : 'Description non disponible.'; ?></p>
-            </div>
+            <div id="img-game-details">
+       
+                <img src="<?php echo isset($gameDetails['image']) ? convertBlobToBase64($gameDetails['image']) : 'default-image-path'; ?>" alt="img game" id='img-game'>
+      
             <div id="div-game-details-comments">
                 <div id="div-game-name-studio-platform-genre-price">
                     <div id="div-game-name-fav">
                         <h1 id="game-name"><?php echo isset($gameDetails['name']) ? htmlspecialchars($gameDetails['name']) : 'Nom non disponible'; ?></h1>
-                        <img src="../img/icon-heart-empty.svg" alt="fav icon" id="favorite-icon">
                     </div>
                     <h5 id="studio"><?php echo isset($gameDetails['studio']) ? htmlspecialchars($gameDetails['studio']) : 'Studio non disponible'; ?></h5>
                     <div id="div-platform">
@@ -122,36 +126,78 @@ $role = getRole();
                         // Afficher les plateformes
                         if ($gamePlatforms) {
                             foreach ($gamePlatforms as $platform) {
-                                echo '<p class="platform">' . htmlspecialchars($platform) . '</p>';
+                                echo '<p class="platform">' . htmlspecialchars($platform) . '</p>' . '-';
                             }
                         } else {
                             echo '<p class="platform">Plateformes non disponibles</p>';
                         }
                         ?>
-                        <p id="stock">En stock</p>
+                        <?php
+                        // Afficher l'état de stock
+                        $stock = isset($gameDetails['quantity']) ? intval($gameDetails['quantity']) : 0;
+                        if ($stock >= 1) {
+                            echo '<p id="stock">En stock</p>';
+                        } else {
+                            echo '<p id="stock" style="color:red">Rupture de stock</p>';
+                        }
+                        ?>
                     </div>
-                    <h3 id="genre"><?php echo isset($gameDetails['genre']) ? htmlspecialchars($gameDetails['genre']) : 'Genre non disponible'; ?></h3>
+                    <div id='div-genres'>
+                        <?php
+                        // Afficher les genres
+                        if ($gameGenres) {
+                            foreach ($gameGenres as $genre) {
+                                echo '<p class="genre">' . htmlspecialchars($genre) . '</p>' ;
+                            }
+                        } else {
+                            echo '<p class="genre">Genres non disponibles</p>';
+                        }
+                        ?>
+                    </div>
                     <div id="div-special-offer-price">
-                        <p id="price-before-special-offer"><?php echo isset($gameDetails['price']) ? htmlspecialchars($gameDetails['price']) . '€' : 'Prix non disponible'; ?></p>
-                        <p id="special-offer"><?php echo isset($gameDetails['special_offer']) ? htmlspecialchars($gameDetails['special_offer']) . '%' : 'Offre spéciale non disponible'; ?></p>
+                        <?php if(isset($gameDetails['special_offer']) && $gameDetails['special_offer'] != 0): ?>
+                            <p id="price-before-special-offer"><?php echo isset($gameDetails['price']) ? htmlspecialchars($gameDetails['price']) . '€' : 'Prix non disponible'; ?></p>
+                            <p id="special-offer"><?php echo isset($gameDetails['special_offer']) ? htmlspecialchars('-' . $gameDetails['special_offer']) . '%' : 'Offre spéciale non disponible'; ?></p>
+                            <?php
+                            // Calcul du prix avec réduction
+                            $price = $price - ($price * ($gameDetails['special_offer'] / 100));
+                            $price = round($price, 2);
+                            ?>
+                        <?php endif; ?>
                     </div>
-                    <h2 id="price"><?php echo isset($gameDetails['price']) ? htmlspecialchars($gameDetails['price']) . '€' : 'Prix non disponible'; ?></h2>
-                    <button>Ajouter au panier</button>
-                </div>
-                <div id="div-comments">
-                    <div id="div-mark">
-                        <h2>Note moyenne:</h2>
-                        <p><?php echo isset($gameDetails['rate']) ? htmlspecialchars($gameDetails['rate']) . '/5' : 'Note non disponible'; ?></p>
-                        <img src="../img/star-icon.png" alt="star icon">
-                    </div>
-                    <div id="all-comments">
-                        <!-- Afficher les commentaires des utilisateurs -->
-                    </div>
-                    <div id="user-comment">
-                        <!-- Formulaire pour ajouter un commentaire -->
+                    <h2 id="price"><?php echo isset($price) ? htmlspecialchars($price) . '€' : 'Prix non disponible'; ?></h2>
+                    <div id='div-btn-icon-fav'>
+                        <button>Ajouter au panier</button>
+                        <img src="../img/icon-heart-empty.svg" alt="fav icon" id="favorite-icon">
                     </div>
                 </div>
             </div>
+            </div>
+            <div id='div-about-comments'>
+                <div id='div-about'>
+                    <h3 id="about">À propos</h3>
+                    <p><?php echo isset($gameDetails['description']) ? htmlspecialchars($gameDetails['description']) : 'Description non disponible.'; ?></p>
+                </div>
+                        <div class="chat-container">
+
+                            <div class="chat-header">
+                                <p id="title-comments">Commentaires</p>
+                                <div id="div-mark">
+                                    <h2 id="average-note">Note moyenne:</h2>
+                                    <p><?php echo isset($gameDetails['rate']) ? htmlspecialchars($gameDetails['rate']) . '/5' : 'Note non disponible'; ?></p>
+                                    <img src="../img/star-icon.svg" alt="star icon" id="star-icon">
+                                </div>
+                            </div>
+                            <div class="chat-messages" id="chat-messages">
+                                <!-- Messages vont être ajoutés ici -->
+                            </div>
+                            <div class="chat-input">
+                                <input type="text" id="message-input" placeholder="Entrez votre message...">
+                                <button onclick="sendMessage()">Envoyer</button>
+                            </div>
+                        </div>
+                    </div>
+                
         </section>
     </main>
 </body>

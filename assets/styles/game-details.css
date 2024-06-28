@@ -9,7 +9,7 @@ p{
 h1{
   margin: 0;
   height: 6svh;
-  font-size: 5rem;
+  font-size: 4rem;
 }
 
 h2, h3, h4{
@@ -20,14 +20,28 @@ h2, h3, h4{
 #section-game-details{
   font-size: 150%;
   display: flex;
-  flex-direction: row;
-  padding: 20svh 2svw 0 2svw;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 23svh 2svw 0 2svw;
 
 }
 
+#img-game-details{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 3svh;
+}
 
-#div-game-img-text{
-  width:60svw ;
+#img-game{
+  margin-right: 3svw;
+  width: 850px;
+  border-radius: 20px;
+}
+
+#div-about{
+  padding: 1svw;
 }
 
 #about{
@@ -38,10 +52,8 @@ h2, h3, h4{
 }
 
 #div-game-img-text img{
-  width: 58svw;
+  width: 55svw;
   border-radius: 20px;
-  margin-bottom: 5svh;
-  
 }
 
 #div-game-img-text p{
@@ -53,20 +65,22 @@ h2, h3, h4{
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-left: 3svw;
-  margin-top: 7svh;
-  height: 100svh;
+  height: 100%;
 
 }
 
 #game-name{
-  font-size: 3rem;
+  font-size: 2rem;
+}
+
+#div-btn-icon-fav{
+  display: flex;
+  justify-content: center;
+  margin-left: 5svw;
 }
 
 #favorite-icon{
-  position: absolute;
-  margin-top: 2svh;
-  margin-left: 20svw;
+  margin-left: 2svw;
 }
 
 #favorite-icon:hover{
@@ -93,14 +107,12 @@ h2, h3, h4{
   align-items: center;
   background-color: #383838;
   border: 2px solid #0FB953;
-  width: 30svw;
   border-radius: 20px;
   padding: 1svw;
-  margin-bottom: 10svh;
 }
 
 #div-platform{
-  width: 31svw;
+  width: fit-content;
   height: 5svh;
   display: flex;
   justify-content: space-evenly;
@@ -127,15 +139,21 @@ h2, h3, h4{
 }
 
 #stock{
-  margin-left: 0.5svw;
+  margin-left: 1svw;
   margin-right: 1svw;
   color: #0FB953;
   font-size: 1.5rem;
   font-weight: 600;
 }
 
-#genre{
+#div-genres{
+  margin-top: 1svh;
+  display: flex ;
+}
+
+.genre{
   font-size: 2rem;
+  margin: 0 0.5svw 0 0.5svw;
 }
 
 #div-special-offer-price{
@@ -175,16 +193,103 @@ button:hover{
 
 }
 
-#div-comments{
+#div-about-comments{
   display: flex;
   flex-direction: column;
-  margin-top: 5svh;
-  background-color: rgba(0, 0, 0, 0.789);
-  padding: 2svw;
-  border-radius: 20px;
+  align-items: center;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+}
+.chat-container {
+  width: 50svw;
+  height: 50svh;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 5svh;
 }
 
 #div-mark{
   display: flex;
   align-items: center;
+  justify-content: center ;
+  border-radius: 50px;
+  font-size: 1.5rem;
+  padding: 0.2svw;
+  margin: 0;
 }
+
+#title-comments{
+  font-size: 2rem;
+}
+
+.chat-header {
+  background-color: #4CAF50;
+  color: #fff;
+  text-align: center;
+  font-weight: bold;
+}
+.chat-messages {
+  height: 20svh;
+  padding: 10px;
+  overflow-y: scroll;
+  max-height: 300px;
+  color: #303030;
+}
+.message {
+  background-color: #f1f0f0;
+  padding: 8px;
+  margin-bottom: 8px;
+  border-radius: 5px;
+}
+.message.self {
+  background-color: #DCF8C6;
+  text-align: right;
+  color: #303030;
+  width: fit-content;
+}
+.message.other {
+  background-color: #EAEAEA;
+  text-align: left;
+}
+.message p {
+  margin: 0;
+}
+.chat-input {
+  padding: 10px;
+  border-top: 1px solid #ccc;
+}
+.chat-input input[type="text"] {
+  width: calc(100% - 20px);
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  color: #303030;
+}
+.chat-input button {
+  padding: 8px 15px;
+  margin-left: 10px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
+}
+.chat-input button:hover {
+  background-color: #45a049;
+}
+
+#star-icon{
+  margin-bottom: 2svh;
+  margin-left: 0.5svw;
+}
+
+
