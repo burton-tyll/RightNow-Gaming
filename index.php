@@ -103,7 +103,9 @@
                 <h1>Nouveautés</h1>
             </div>
             <div class="games-grid">
-            <?php foreach($newGames as $game): ?>
+            <?php $count = 0;
+            foreach($newGames as $game): 
+                if($count >= 6) { break; }?>
                 <div class="games-grid-item">
                     <a href="assets/views/game-details.php?id=<?php echo $game['id']; ?>">
                         <div class="resizeContainer"><img src="<?php echo convertBlobToBase64($game['image']); ?>" alt="gameImage" class="games-grid-item-img"></div>
@@ -120,7 +122,9 @@
                         <p class="prices"><?php echo isset($price) ? $price . '€' : $game['price'] . '€'; ?></p>
                     </div>
                 </div>
-            <?php endforeach; ?>
+            <?php 
+            $count++;
+            endforeach; ?>
 
             </div>
         </section>
