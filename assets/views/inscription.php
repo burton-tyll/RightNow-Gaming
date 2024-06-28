@@ -20,12 +20,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $firstname = $_POST['firstname'];
     $name = $_POST['name'];
-    if(isset($_POST['country'])){
-        $country = $_POST['country'];
-    } 
+    $country = $_POST['country'] ?? null;
 
     // Vérifier si la connexion est établie
-    if (isset($email, $password, $username) && $conn) {
+    if ($conn) {
         // Vérifier si le mot de passe répond aux exigences
         if (strlen($password) < 8 || !preg_match("#[0-9]+#", $password) || !preg_match("#[A-Z]+#", $password) || !preg_match("#[a-z]+#", $password) || !preg_match("/[!@#$%^&*()\-_=+]/", $password)) {
             $error_message = "Votre mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.";
@@ -33,29 +31,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Hachage du mot de passe
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
+            // Vérification de l'existence de l'utilisateur
             $userdb = $user->read();
+            $userExists = false;
+
             if(!empty($userdb)){
                 foreach($userdb as $thisone){
                     if($thisone['email'] == $email || $thisone['username'] == $username){
+                        $userExists = true;
                         $existant_account = 'Un compte est déjà inscrit à cette adresse, ou à ce nom.';
-                    }else{
-                        // Requête d'ajout utilisateur dans la BDD
-                        if(!empty($country)){
-                            $user->addUser($username, $email, $hashed_password, $name, $firstname, $country);
-                            // Rediriger l'utilisateur vers une page de confirmation
-                            header("Location: connexion.php");
-                            exit;
-                        } else{
-                            $countryEmptyMessage = 'Merci de bien vouloir sélectionner un pays!';
-                        }
+                        break;
                     }
                 }
-            } else{
+            }
+
+            if (!$userExists) {
                 // Requête d'ajout utilisateur dans la BDD
-                $user->addUser($username, $email, $hashed_password, $name, $firstname, $country);
-                // Rediriger l'utilisateur vers une page de confirmation
-                header("Location: connexion.php");
-                exit;
+                if(!empty($country)){
+                    $user->addUser($username, $email, $hashed_password, $name, $firstname, $country);
+                    // Rediriger l'utilisateur vers une page de confirmation
+                    header("Location: connexion.php");
+                    exit;
+                } else{
+                    $countryEmptyMessage = 'Merci de bien vouloir sélectionner un pays!';
+                }
             }
         }
     } else {
@@ -146,20 +145,3 @@ if (json_last_error() !== JSON_ERROR_NONE) {
     </footer>
 </body>
 </html>
-
-
-<!-- <section id="inscription">
-            <div class="section">
-                <form action="inscription.php" method="POST">
-                    <h1>Inscrivez Vous!</h1>
-                    <input type="email" placeholder="Adresse e-mail" name="email" required>
-                    <input type="password" placeholder="Mot de passe" name="password" maxlength="30" required>
-                    <?php if($error_message != null){echo ('<p style="color: red; width: 80%">'.$error_message.'</p>');} ?>
-                    <input type="text" placeholder="Nom d'utilisateur" name="username" minlength="6" maxlength="15" required>
-                    <button class="connect_button" type="submit">
-                        <p class="p_connect">M'inscrire</p>
-                        <div class="btn_animation"></div>
-                    </button>
-                </form>
-            </div>
-        </section> -->

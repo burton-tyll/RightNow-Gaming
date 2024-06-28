@@ -8,6 +8,27 @@
             $this->conn = $this->connect();
         }
 
+        public function addGame($image, $name, $description, $price, $special_offer, $studio, $quantity, $release_date, $rate){
+            $query = 'INSERT INTO game (image, name, description, price, special_offer, studio, quantity, release_date, rate) VALUES (:image, :name, :description, :price, :special_offer, :studio, :quantity, :release_date, :rate)';
+            $stmt = $this->conn->prepare($query);
+
+            // Liaison des paramètres
+            $stmt->bindParam(':image', $image);
+            $stmt->bindParam(':name', $name);
+            $stmt->bindParam(':description', $description);
+            $stmt->bindParam(':price', $price);
+            $stmt->bindParam(':special_offer', $special_offer);
+            $stmt->bindParam(':studio', $studio);
+            $stmt->bindParam(':quantity', $quantity);
+            $stmt->bindParam(':release_date', $release_date);
+            $stmt->bindParam(':rate', $rate);
+
+            $stmt->execute();
+            $gameId = $this->conn->lastInsertId();
+
+            return($gameId);
+        }
+
         public function getAllGames(){
             $query = 'SELECT * FROM game';
             $stmt = $this->conn->prepare($query);
@@ -40,36 +61,6 @@
             $query = 'SELECT * FROM game ORDER BY rate DESC';
             $stmt = $this->conn->prepare($query);
             $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        }
-
-        //Playstation Games
-
-        public function getAllGamesByPlateform($id_platform){
-            $query = 'SELECT id_game FROM game_platform WHERE id_platform = :id_platform';
-            $stmt = $this->conn->prepare($query);
-            $stmt->execute(['id_platform' => $id_platform]);
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        }
-
-        public function getAllGamesByPlatformOrderedByDate($id_platform) {
-            $query = 'SELECT * FROM game JOIN game_platform ON game.id = game_platform.id_game WHERE game_platform.id_platform = :id_platform ORDER BY game.release_date DESC';
-            $stmt = $this->conn->prepare($query);
-            $stmt->execute(['id_platform' => $id_platform]);
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        }
-
-        public function getAllGamesByPlatformOrderedByRate($id_platform) {
-            $query = 'SELECT * FROM game JOIN game_platform ON game.id = game_platform.id_game WHERE game_platform.id_platform = :id_platform ORDER BY game.rate DESC';
-            $stmt = $this->conn->prepare($query);
-            $stmt->execute(['id_platform' => $id_platform]);
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        }
-
-        public function getTheBestGameByPlateform($id_platform){
-            $query = 'SELECT * FROM game JOIN game_platform ON game.id = game_platform.id_game WHERE game_platform.id_platform = :id_platform ORDER BY game.rate DESC LIMIT 1';
-            $stmt = $this->conn->prepare($query);
-            $stmt->execute(['id_platform' => $id_platform]);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
     }

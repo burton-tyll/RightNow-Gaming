@@ -1,39 +1,57 @@
 <?php
 
 require_once "../../Database.php";
+require_once "Libraries.php";
 
 class User extends Database {
     //Définition du constructeur
+    private $libraries;
     public function __construct() {
         // Appelle le constructeur de la classe parente pour initialiser la connexion
         parent::__construct();
         $this->conn = $this->connect();
+        $this->libraries = new Libraries();
     }
+
+    /*---------*/
+    /*----------CREATE--------*/
+    /*---------*/
 
     public function addUser($username, $email, $password, $name, $firstname, $country){
+        $username = $this->libraries->secure($username);
+        $email = $this->libraries->secure($email);
+        $password = $this->libraries->secure($password);
+        $name = $this->libraries->secure($name);
+        $firstname = $this->libraries->secure($firstname);
+        $country = $this->libraries->secure($country);
+        $admin = 0; //Equivaut à un utilisateur lambda
+
         // Préparer la requête d'insertion avec des paramètres de substitution
-        $query = "INSERT INTO user (username, email, password, name, first_name, country) VALUES (:username, :email, :password, :name, :firstname, :country)";
+        $query = "INSERT INTO user (username, email, password, name, first_name, country, admin) VALUES (:username, :email, :password, :name, :firstname, :country, :admin)";
         $stmt = $this->conn->prepare($query);
-        $stmt->execute([":username" => $username, ":email" => $email, ":password" => $password, ":name" => $name, ":firstname" => $firstname, ":country" => $country]);
+        $stmt->bindParam(':username', $username);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':password', $password);
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':firstname', $firstname);
+        $stmt->bindParam(':country', $country);
+        $stmt->bindParam(':admin', $admin);
+
+        $stmt->execute();
     }
 
+    /*---------*/
+    /*----------READ--------*/
+    /*---------*/
+
     public function getUser($by, $byvalue) {
-        // Prépare la requête avec le paramètre nommé :by
         $query = "SELECT * FROM user WHERE $by = :byvalue";
         $stmt = $this->conn->prepare($query);
-        
-        // Lie la valeur du paramètre nommé :byvalue
         $stmt->bindValue(':byvalue', $byvalue);
-    
-        // Exécute la requête préparée
         $stmt->execute();
-    
-        // Récupère la première ligne de résultat
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-    
-        return $result; // Retourne le résultat sous forme de tableau associatif
+        return $result; 
     }
-    
 
     public function read(){
         $sql = 'SELECT * FROM user';
@@ -41,6 +59,27 @@ class User extends Database {
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    /*---------*/
+    /*----------UPDATE--------*/
+    /*---------*/
+
+    public function upgradeToAdmin($username){
+        $query = "UPDATE user SET admin = 1 WHERE username = :username";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([':username' => $username]);
+    }
+
+    /*---------*/
+    /*----------DELETE--------*/
+    /*---------*/
+
+    public function deleteUser($username){
+        $query = "DELETE FROM user WHERE username = :username";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([':username' => $username]);
+    }
+    
 }
 
 ?>

@@ -1,13 +1,13 @@
 <?php
-    require_once('../Class/Game.php');
+    require_once('../Class/Game_platform.php');
 
-    $game = new Game();
+    $game_platform = new Game_platform();
 
     session_start();
 
-    $newGames = $game->getAllGamesByPlatformOrderedByDate(4);
-    $bestSellers = $game->getAllGamesByPlatformOrderedByRate(4);
-    $theBestGame = $game->getTheBestGameByPlateform(4);
+    $newGames = $game_platform->getAllGamesByPlatformOrderedByDate(4);
+    $bestSellers = $game_platform->getAllGamesByPlatformOrderedByRate(4);
+    $theBestGame = $game_platform->getTheBestGameByPlateform(4);
 
 
     function convertBlobToBase64($blob) {
