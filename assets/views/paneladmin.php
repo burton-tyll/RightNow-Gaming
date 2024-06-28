@@ -161,13 +161,25 @@
                                     $gamePlatform = $game_platform->getGamePlateform($thisone['id']);
                                     // Créer une chaîne pour les genres
                                     $genres = '';
+                                    $i = 0;
                                     foreach ($gameGenre as $genre) {
-                                        $genres .= $genre . ' ';
+                                        $i++;
+                                        if ($i > 1){
+                                            $genres .= $genre . ', ';
+                                        } else{
+                                            $genres .= $genre;
+                                        }
                                     }
                                     // Créer une chaîne pour les plateformes
                                     $platforms = '';
+                                    $n = 0;
                                     foreach ($gamePlatform as $platform){
-                                        $platforms .= $platform . ' ';
+                                        $n++;
+                                        if ($n > 1){
+                                            $platforms .= ', ' . $platform ;
+                                        } else{
+                                            $platforms .= $platform;
+                                        }
                                     }
 
                                     echo
