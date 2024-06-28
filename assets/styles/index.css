@@ -88,6 +88,10 @@ h1 {
     transition: 0.1s;
 }
 
+.resizeContainer a{
+    display: flex;
+}
+
 #nouveautés .resizeContainer:hover {
     width: 398px;
     height: 228px;

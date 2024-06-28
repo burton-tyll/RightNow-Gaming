@@ -119,7 +119,11 @@
                             ?>
                             <div class="promo">-<?php echo $game['special_offer']; ?>%</div>
                         <?php endif; ?>
-                        <p class="prices"><?php echo isset($price) ? $price . '€' : $game['price'] . '€'; ?></p>
+                        <?php if($game['price'] == 0.1): ?>
+                            <p></p>
+                        <?php else: ?>
+                            <p class="prices"><?php echo isset($price) ? $price . '€' : $game['price'] . '€'; ?></p>
+                        <?php endif; ?>
                     </div>
                 </div>
             <?php 
@@ -140,9 +144,10 @@
                     $class = $count == 0 ? 'img-large' : '';
                 ?>
                 <div class="<?php echo 'games-grid-item ' . $class; ?>">
-                    <a href="assets/views/game-details.php?id=<?php echo $game['id']; ?>&price=<?php echo isset($price) ? $price : $game['price']; ?>">
-                        <div class="resizeContainer"><img src="<?php echo convertBlobToBase64($game['image']); ?>" alt="gameImage" class="games-grid-item-img"></div>
-                    </a>
+                        <div class="resizeContainer">
+                        <a href="assets/views/game-details.php?id=<?php echo $game['id']; ?>&price=<?php echo isset($price) ? $price : $game['price']; ?>">
+                            <img src="<?php echo convertBlobToBase64($game['image']); ?>" alt="gameImage" class="games-grid-item-img"></div>
+                        </a>
                     <div class="games-grid-item-infos">
                         <p><?php echo $game['name']; ?></p>
                         <?php 
@@ -152,7 +157,11 @@
                             echo '<div class="promo">-' . $game['special_offer'] . '%</div>';
                         }
                         ?>
-                        <p class="prices"><?php echo isset($price) ? $price . '€' : $game['price'] . '€'; ?></p>
+                        <?php if($game['price'] == 0.1): ?>
+                            <p></p>
+                        <?php else: ?>
+                            <p class="prices"><?php echo isset($price) ? $price . '€' : $game['price'] . '€'; ?></p>
+                        <?php endif; ?>
                     </div>
                 </div>
                 <?php 
