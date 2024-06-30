@@ -110,7 +110,7 @@
                         <button type="submit">Promouvoir administrateur</button>
                     </form>
                     <button type="submit">Réinitialiser le mot de passe</button>
-                    <form action="user-management.php" method="GET">
+                    <form action="product-management.php" method="GET">
                         <input type="hidden" name="delete" value="<?php if(isset($_GET['id'])){echo $_GET['id'];} ?>">
                         <button type="submit" class="delete">Supprimer</button>
                     </form>
