@@ -71,5 +71,12 @@
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
+
+        public function deleteGame($id_game){
+            $query = 'DELETE * FROM game WHERE id = :id_game';
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+        }
+
     }
 ?>
