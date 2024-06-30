@@ -93,7 +93,6 @@
                 <ul class="actionsList">
                     <?php if(isset($_GET['products'])): ?>
                         <li><button style="background-color: green;"><a href="addGame.php">Ajouter un jeu</a></button></li>
-                        <li></li>
                     <?php endif ?>
                 </ul>
             </div>
