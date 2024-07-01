@@ -93,7 +93,6 @@
                 <ul class="actionsList">
                     <?php if(isset($_GET['products'])): ?>
                         <li><button style="background-color: green;"><a href="addGame.php">Ajouter un jeu</a></button></li>
-                        <li></li>
                     <?php endif ?>
                 </ul>
             </div>
@@ -154,7 +153,34 @@
                         </thead>
                         <tbody>
                             <?php
-                                foreach($games as $thisone){
+                                foreach ($games as $thisone) {
+                                    // Récupérer les genres du jeu
+                                    $gameGenre = $game_genre->getGameGenre($thisone['id']);
+                                    // Récupérer les plateformes du jeu
+                                    $gamePlatform = $game_platform->getGamePlateform($thisone['id']);
+                                    // Créer une chaîne pour les genres
+                                    $genres = '';
+                                    $i = 0;
+                                    foreach ($gameGenre as $genre) {
+                                        $i++;
+                                        if ($i > 1){
+                                            $genres .= $genre . ', ';
+                                        } else{
+                                            $genres .= $genre;
+                                        }
+                                    }
+                                    // Créer une chaîne pour les plateformes
+                                    $platforms = '';
+                                    $n = 0;
+                                    foreach ($gamePlatform as $platform){
+                                        $n++;
+                                        if ($n > 1){
+                                            $platforms .= ', ' . $platform ;
+                                        } else{
+                                            $platforms .= $platform;
+                                        }
+                                    }
+
                                     echo
                                     '
                                     <tr>
@@ -165,8 +191,8 @@
                                         <td><a href="./product-management.php?id=' . $thisone['id'] . '">' . $thisone['sales'] . '</a></td>
                                         <td><a href="./product-management.php?id=' . $thisone['id'] . '">' . $thisone['release_date'] . '</a></td>
                                         <td><a href="./product-management.php?id=' . $thisone['id'] . '">' . $thisone['rate'] . '</a></td>
-                                        <td><a href="./product-management.php?id=' . $thisone['id'] . '">' . $game_genre->getGameGenre($thisone['id']) . '</a></td>
-                                        <td><a href="./product-management.php?id=' . $thisone['id'] . '">' . $game_platform->getGamePlateform($thisone['id']) . '</a></td>
+                                        <td><a href="./product-management.php?id=' . $thisone['id'] . '">' . $genres . '</a></td>
+                                        <td><a href="./product-management.php?id=' . $thisone['id'] . '">' . $platforms . '</a></td>
                                     </tr>
                                     ';
                                 }

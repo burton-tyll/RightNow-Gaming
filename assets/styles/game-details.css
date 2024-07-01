@@ -1,0 +1,374 @@
+*{
+  color: aliceblue;
+}
+
+p{
+  margin: 0;
+}
+
+h1{
+  margin: 0;
+  height: 6svh;
+  font-size: 4rem;
+}
+
+h2, h3, h4{
+  margin: 1svh;
+  font-weight: 100;
+}
+
+#section-game-details{
+  font-size: 150%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 23svh 2svw 0 2svw;
+
+}
+
+#img-game-details{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 3svh;
+}
+
+#img-game{
+  margin-right: 3svw;
+  width: 850px;
+  border-radius: 20px;
+}
+
+#div-about{
+  padding: 1svw;
+}
+
+#about{
+  margin: 0;
+  font-size: 3rem;
+  font-weight: 300;
+  text-decoration: underline;
+}
+
+#div-game-img-text img{
+  width: 55svw;
+  border-radius: 20px;
+}
+
+#div-game-img-text p{
+  text-align: justify;
+  width: 58svw;
+}
+
+#div-game-details-comments{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+
+}
+
+#game-name{
+  font-size: 2rem;
+}
+
+#div-btn-icon-fav{
+  display: flex;
+  justify-content: center;
+  margin-left: 5svw;
+}
+
+#btn-fav{
+  width: 3.5svw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0.5svw;
+}
+
+#favorite-icon{
+  border-radius: 10px;
+}
+
+#favorite-icon:hover{
+  cursor: pointer;
+}
+
+#div-game-name-fav{
+  display: flex;
+  align-items: center;
+}
+
+#studio{
+  color: #0FB953;
+  font-size: 100%;
+  margin-top: 1svh;
+  margin-bottom: 1svh;
+  font-weight: 300;
+}
+
+#div-game-name-studio-platform-genre-price{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #383838;
+  border: 2px solid #0FB953;
+  border-radius: 20px;
+  padding: 1svw;
+}
+
+#div-platform{
+  width: fit-content;
+  height: 5svh;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: #303030;
+  border-radius: 20px;
+  padding: 1svh 0 1svh 0;
+}
+
+.platform{
+  padding: 0.1svw 1svw 0.1svw 1svw;
+  margin: 0 0.3svw 0 0.3svw;
+}
+
+.platform:hover{
+  cursor: pointer;
+  background-color: #0fb953;
+  border-radius: 30px;
+}
+
+.platform:active{
+  background-color: #0FB953;
+  border-radius: 30px;
+}
+
+#stock{
+  margin-left: 1svw;
+  margin-right: 1svw;
+  color: #0FB953;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+#div-genres{
+  margin-top: 1svh;
+  display: flex ;
+}
+
+.genre{
+  font-size: 2rem;
+  margin: 0 0.5svw 0 0.5svw;
+}
+
+#div-special-offer-price{
+  display: flex;
+  font-size: 2rem;
+
+}
+
+#price-before-special-offer{
+  text-decoration: line-through rgba(240, 248, 255, 0.632);
+  font-weight: 100;
+}
+
+#special-offer{
+  color: #0FB953;
+  margin-left: 0.5svw;
+  font-weight: 500;
+}
+
+#price{
+  font-size: 2.5rem;
+  font-weight: 500;
+}
+
+button{
+  font-family: "Teko", sans-serif;
+  background-color: #0FB953;
+  color: aliceblue;
+  border-radius: 10px;
+  font-size: 1.8rem;
+  padding: 0 1svw 0 1svw;
+}
+
+button:hover{
+  cursor: pointer;
+  background-color: #0fb953b6;
+
+}
+
+#div-about-comments{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+}
+.chat-container {
+  width: 50svw;
+  height: fit-content;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 5svh;
+}
+
+#div-mark{
+  display: flex;
+  align-items: center;
+  justify-content: center ;
+  border-radius: 50px;
+  font-size: 1.2rem;
+  padding: 0.2svw;
+  margin: 0;
+  height: 3.5svh;
+}
+
+#average-note{
+  margin: 0;
+}
+
+#note{
+  font-size: 2rem;
+}
+
+
+
+#title-comments{
+  font-size: 2rem;
+}
+
+.chat-header {
+  background-color: #4CAF50;
+  color: #fff;
+  text-align: center;
+  font-weight: bold;
+}
+.chat-messages {
+  height: 20svh;
+  padding: 10px;
+  overflow-y: scroll;
+  max-height: 300px;
+  color: #303030;
+}
+.message {
+  background-color: #f1f0f0;
+  padding: 8px;
+  margin-bottom: 8px;
+  border-radius: 5px;
+}
+.message.self {
+  background-color: #DCF8C6;
+  text-align: right;
+  color: #303030;
+  width: fit-content;
+}
+.message.other {
+  background-color: #EAEAEA;
+  text-align: left;
+}
+.message p {
+  margin: 0;
+}
+.chat-input {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 10px;
+  border-top: 1px solid #ccc;
+}
+.chat-input textarea[type="text"] {
+  width: calc(100% - 20px);
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  color: #303030;
+  min-height: 5svh;
+}
+.chat-input button {
+  padding: 8px 15px;
+  margin-left: 10px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
+}
+
+.chat-input button:hover {
+  background-color: #45a049;
+}
+
+#star-icon{
+  margin-bottom:1.5svh;
+  margin-left: 0.5svw;
+  width: 40px;
+}
+
+#btn-send-comment{
+  text-align: center;
+  height: 8svh;
+}
+
+#comment-input{
+  width: 50svw;
+  border-radius: 5px;
+}
+
+#select-ranking{
+  color: #303030;
+  border: none;
+  font-size: 2rem;
+  font-family: "Teko", sans-serif;
+}
+
+#select-ranking:hover{
+  cursor: pointer;
+}
+
+.stars{
+  color: #303030;
+}
+
+#outOf{
+  color: #303030;
+  height: min-content;
+  font-size: 2rem;
+}
+
+#outOfStars{
+  width: 30px;
+}
+
+#cart-count-section{
+  position: relative;
+}
+
+#total-items{
+  align-items: center;
+  background: #0FB953;
+  width: 25px;
+  height: 25px;
+  border-radius: 50px;
+  color: #fff;
+  display: flex;
+  font-size: 20px;
+  font-weight: 500;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  left: 40px;
+  bottom: 65px;
+}

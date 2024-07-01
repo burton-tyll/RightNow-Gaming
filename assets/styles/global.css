@@ -7,6 +7,12 @@ body, html{
     font-family: 'Teko', sans-serif;
 }
 
+main{
+    background-color: #282A28;
+    min-height: 100svh;
+    width: 100%;
+}
+
 a, li{
     text-decoration: none;
     list-style-type: none;

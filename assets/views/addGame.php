@@ -51,7 +51,7 @@
             
             // Vérifier le type de fichier
             $fileType = mime_content_type($file['tmp_name']);
-            $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+            $allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/avif', 'image/webp'];
             
             if (in_array($fileType, $allowedTypes)) {
                 // Lire le contenu du fichier

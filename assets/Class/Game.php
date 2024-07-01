@@ -7,6 +7,14 @@
             parent::__construct();
             $this->conn = $this->connect();
         }
+        
+        public function getGameById($id) {
+            $query = 'SELECT * FROM game WHERE id = :id';
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }      
 
         public function addGame($image, $name, $description, $price, $special_offer, $studio, $quantity, $release_date, $rate){
             $query = 'INSERT INTO game (image, name, description, price, special_offer, studio, quantity, release_date, rate) VALUES (:image, :name, :description, :price, :special_offer, :studio, :quantity, :release_date, :rate)';
@@ -63,5 +71,23 @@
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
+
+        public function updateGameByID($game_id, $field, $newValue){
+            $query = "UPDATE game SET $field = :newValue WHERE id = :game_id";
+            $stmt = $this->conn->prepare($query);
+
+            $stmt->bindParam(':game_id', $game_id);
+            $stmt->bindParam(':newValue', $newValue);
+
+            $stmt->execute();
+        }
+
+        public function deleteGame($id_game){
+            $query = 'DELETE FROM game WHERE id = :id_game';
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':id_game', $id_game, PDO::PARAM_INT);
+            $stmt->execute();
+        }
+
     }
 ?>

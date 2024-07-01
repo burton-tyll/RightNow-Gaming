@@ -50,11 +50,11 @@
         }
 
         public function getGameGenre($id_game){
-            $query = 'SELECT name FROM genre JOIN game_genre ON genre.id = game_genre.id_genre WHERE game_genre.id_game = :id_game';
+            $query = 'SELECT genre.name FROM genre JOIN game_genre ON genre.id = game_genre.id_genre WHERE game_genre.id_game = :id_game';
             $stmt = $this->conn->prepare($query);
             $stmt->execute(['id_game' => $id_game]);
-            return $stmt->fetchColumn();
+            return $stmt->fetchAll(PDO::FETCH_COLUMN);
         }
-
+        
     }
 ?>
