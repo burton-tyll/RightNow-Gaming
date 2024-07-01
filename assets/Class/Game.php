@@ -73,8 +73,9 @@
         }
 
         public function deleteGame($id_game){
-            $query = 'DELETE * FROM game WHERE id = :id_game';
+            $query = 'DELETE FROM game WHERE id = :id_game';
             $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':id_game', $id_game, PDO::PARAM_INT);
             $stmt->execute();
         }
 

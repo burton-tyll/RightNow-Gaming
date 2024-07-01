@@ -6,6 +6,8 @@
 
     $games = $game->getAllGames();
 
+    $stock = null;
+
     session_start();
 
     //HEADER
@@ -52,6 +54,10 @@
     if(isset($_GET['upgrade'])){
         $user->upgradeToAdmin($_GET['upgrade']);
         echo '<script>alert("L\'utilisateur a été promu Administrateur!")</script>';
+    }
+
+    if(isset($_GET['stock'])){
+        var_dump('nouveau stock: '.$_GET['stock']);
     }
 
 ?>
@@ -101,15 +107,14 @@
                             foreach($games as $thisone){
                                 if($_GET['id'] == $thisone['id']){
                                     echo $thisone['name'];
+                                    $stock .= $thisone['quantity'];
                                 }
                             }
                         } ?></h2>
                     </div>
-                    <form action="user-management.php" method="GET">
-                        <input type="hidden" name="upgrade" value="<?php if(isset($_GET['username'])){echo $_GET['username'];} ?>">
-                        <button type="submit">Promouvoir administrateur</button>
+                    <form action="product-management.php">
+                        <button type="submit" name="stock" value="<?php $stock ?>">Ajouter du stock</button>
                     </form>
-                    <button type="submit">Réinitialiser le mot de passe</button>
                     <form action="product-management.php" method="GET">
                         <input type="hidden" name="delete" value="<?php if(isset($_GET['id'])){echo $_GET['id'];} ?>">
                         <button type="submit" class="delete">Supprimer</button>
