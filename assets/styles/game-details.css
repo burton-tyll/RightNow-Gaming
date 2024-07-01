@@ -275,6 +275,7 @@ body {
 .chat-input {
   display: flex;
   align-items: flex-end;
+  justify-content: center;
   padding: 10px;
   border-top: 1px solid #ccc;
 }
@@ -297,6 +298,7 @@ body {
   cursor: pointer;
   outline: none;
 }
+
 .chat-input button:hover {
   background-color: #45a049;
 }
@@ -314,4 +316,29 @@ body {
 #comment-input{
   width: 50svw;
   border-radius: 5px;
+}
+
+#select-ranking{
+  color: #303030;
+  border: none;
+  font-size: 2rem;
+  font-family: "Teko", sans-serif;
+}
+
+#select-ranking:hover{
+  cursor: pointer;
+}
+
+.stars{
+  color: #303030;
+}
+
+#outOf{
+  color: #303030;
+  height: min-content;
+  font-size: 2rem;
+}
+
+#outOfStars{
+  width: 30px;
 }
