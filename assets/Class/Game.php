@@ -72,6 +72,16 @@
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
+        public function updateGameByID($game_id, $field, $newValue){
+            $query = "UPDATE game SET $field = :newValue WHERE id = :game_id";
+            $stmt = $this->conn->prepare($query);
+
+            $stmt->bindParam(':game_id', $game_id);
+            $stmt->bindParam(':newValue', $newValue);
+
+            $stmt->execute();
+        }
+
         public function deleteGame($id_game){
             $query = 'DELETE FROM game WHERE id = :id_game';
             $stmt = $this->conn->prepare($query);
