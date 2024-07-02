@@ -28,7 +28,12 @@ h1 {
     width: 80%;
     display: flex;
     justify-content: flex-start;
+    align-items: center;
     color: white;
+}
+
+.showmore img{
+    color: rgb(198, 192, 192);
 }
 
 /* Nouveautés Section */
