@@ -37,6 +37,44 @@ nav{
     position: relative;
 }
 
+/*-------------ACCUEIL------------*/
+
+.accueil{
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+
+.accueil h1{
+    font-size: 2.5rem;
+}
+
+.accueil p{
+    font-size: 1.5rem;
+}
+
+.bienvenue{
+    width: 100%;
+    text-align: center;
+}
+
+.presentation{
+    display: flex;
+    justify-content: space-around;
+}
+
+.presentation h2{
+    color: #0FB953;
+    font-size: 2rem;
+}
+
+.presentation section{
+    width: 20%;
+}
+
+/*---------------------------*/
+
+
 .menu{
     width: 100%;
 }
@@ -225,5 +263,12 @@ td{
     background-color: #0FB953;
     color: white;
     cursor: pointer;
+}
+
+.addGameButton{
+    background-color: #0FB953;
+    border-radius: 10px;
+    border: none;
+    padding: 5px;
 }
 

@@ -75,7 +75,6 @@
 
     if(!empty($_POST['price'])){
         $game->updateGameByID($_POST['id'], 'price', $_POST['price']);
-        echo ('<script>show</script>')
         header("Location: ?id=".$_POST["id"]."");
     };
 
