@@ -8,22 +8,9 @@ function handleCredentialResponse(response) {
 
     // Rediriger l'utilisateur après la connexion
     window.location.href = 'http://localhost:80/RightNow-Gaming/index.php';
-  }
+}
 
-//   window.onload = function () {
-//     google.accounts.id.initialize({
-//       client_id: '49695563635-74haunh3mh8gqso5fij3v93lirtuck9o.apps.googleusercontent.com',
-//       callback: handleCredentialResponse
-//     });
-
-//     document.getElementById('googleSignInButton').onclick = function() {
-//       google.accounts.id.prompt();
-//     };
-
-//   }
-
-
-//CHANGEMENT DE HEADER AU SCROLL
+// CHANGEMENT DE HEADER AU SCROLL
 
 document.addEventListener('DOMContentLoaded', () => {
     const nav = document.querySelector('nav');
@@ -37,13 +24,40 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     window.addEventListener('scroll', handleScroll);
-});
 
-// Initialisation du dropdown
+    // Initialisation du dropdown
 
-document.getElementsByClassName('userButton')[0].addEventListener('click', function() {
-    var dropdown = document.getElementsByClassName('profil-dropdown')[0];
-    dropdown.classList.toggle('showDropdown');
+    document.getElementsByClassName('userButton')[0].addEventListener('click', function() {
+        var dropdown = document.getElementsByClassName('profil-dropdown')[0];
+        dropdown.classList.toggle('showDropdown');
+    });
+
+    // Fonction pour mettre à jour le nombre total d'articles dans le panier
+    const updateCartCount = () => {
+        fetch('../Class/Cart.php', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.total) {
+                document.querySelector('#total-items').textContent = data.total;
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    };
+
+    updateCartCount();
+
+    // Recharger le nombre d'articles dans le panier après l'ajout d'un article
+    document.querySelector('#add-to-cart-button').addEventListener('click', () => {
+        // Recharger le nombre total d'articles dans le panier
+        updateCartCount();
+    });
 });
 
 //-------------
