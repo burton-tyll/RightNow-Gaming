@@ -121,7 +121,7 @@ $totalItems = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
                 .then(response => response.json())
                 .then(data => {
                     if (data.total) {
-                        document.querySelector('#cart-count').textContent = data.total;
+                        document.querySelector('#total-items').textContent = data.total;
                     }
                 })
                 .catch(error => {
@@ -234,17 +234,6 @@ $totalItems = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
                     </div>
                 </div>
             </div>
-
-            <!-- Section pour afficher le nombre total de jeux dans le panier -->
-            <section id="cart-count-section">
-                <div id="cart-count">
-                    <a href="cart.php">
-                        <img src="../img/icon-cart.svg" alt="img cart">
-                        <p id="total-items"><?php echo $totalItems; ?></p>
-                    </a>
-                </div>
-            </section>
-
         </section>
     </main>
 </body>

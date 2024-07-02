@@ -351,24 +351,3 @@ body {
   width: 30px;
 }
 
-#cart-count-section{
-  position: relative;
-}
-
-#total-items{
-  align-items: center;
-  background: #0FB953;
-  width: 25px;
-  height: 25px;
-  border-radius: 50px;
-  color: #fff;
-  display: flex;
-  font-size: 20px;
-  font-weight: 500;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  z-index: 2;
-  left: 40px;
-  bottom: 65px;
-}
