@@ -93,7 +93,6 @@
                 <ul class="actionsList">
                     <?php if(isset($_GET['products'])): ?>
                         <li><button style="background-color: green;"><a href="addGame.php">Ajouter un jeu</a></button></li>
-                        <li></li>
                     <?php endif ?>
                 </ul>
             </div>
@@ -136,8 +135,7 @@
                             ?>
                         </tbody>
                     </table>
-                <?php endif ?>
-                <?php if(isset($_GET['products'])): ?>
+                <?php elseif(isset($_GET['products'])): ?>
                     <table>
                         <thead>
                             <tr>
@@ -154,7 +152,34 @@
                         </thead>
                         <tbody>
                             <?php
-                                foreach($games as $thisone){
+                                foreach ($games as $thisone) {
+                                    // Récupérer les genres du jeu
+                                    $gameGenre = $game_genre->getGameGenre($thisone['id']);
+                                    // Récupérer les plateformes du jeu
+                                    $gamePlatform = $game_platform->getGamePlateform($thisone['id']);
+                                    // Créer une chaîne pour les genres
+                                    $genres = '';
+                                    $i = 0;
+                                    foreach ($gameGenre as $genre) {
+                                        $i++;
+                                        if ($i > 1){
+                                            $genres .= $genre . ', ';
+                                        } else{
+                                            $genres .= $genre;
+                                        }
+                                    }
+                                    // Créer une chaîne pour les plateformes
+                                    $platforms = '';
+                                    $n = 0;
+                                    foreach ($gamePlatform as $platform){
+                                        $n++;
+                                        if ($n > 1){
+                                            $platforms .= ', ' . $platform ;
+                                        } else{
+                                            $platforms .= $platform;
+                                        }
+                                    }
+
                                     echo
                                     '
                                     <tr>
@@ -165,14 +190,36 @@
                                         <td><a href="./product-management.php?id=' . $thisone['id'] . '">' . $thisone['sales'] . '</a></td>
                                         <td><a href="./product-management.php?id=' . $thisone['id'] . '">' . $thisone['release_date'] . '</a></td>
                                         <td><a href="./product-management.php?id=' . $thisone['id'] . '">' . $thisone['rate'] . '</a></td>
-                                        <td><a href="./product-management.php?id=' . $thisone['id'] . '">' . $game_genre->getGameGenre($thisone['id']) . '</a></td>
-                                        <td><a href="./product-management.php?id=' . $thisone['id'] . '">' . $game_platform->getGamePlateform($thisone['id']) . '</a></td>
+                                        <td><a href="./product-management.php?id=' . $thisone['id'] . '">' . $genres . '</a></td>
+                                        <td><a href="./product-management.php?id=' . $thisone['id'] . '">' . $platforms . '</a></td>
                                     </tr>
                                     ';
                                 }
                             ?>
                         </tbody>
                     </table>
+                <?php else: ?>
+                    <div class="bienvenue">
+                        <h1>Bienvenue sur le Panel Admin</h1>
+                        <p>Bienvenue dans l'interface d'administration. Ici, vous pouvez gérer les utilisateurs, les produits et les commandes de votre site. Utilisez les sections ci-dessous pour naviguer vers les différentes parties du panel.</p>
+                    </div>
+                    
+                    <div class="presentation">
+                        <section id="gestion-utilisateurs">
+                            <h2>Gestion des Utilisateurs</h2>
+                            <p>Dans cette section, vous pouvez voir, ajouter, modifier et supprimer des utilisateurs. Utilisez les outils disponibles pour administrer les comptes des utilisateurs de manière efficace et sécurisée.</p>
+                        </section>
+                        
+                        <section id="gestion-produits">
+                            <h2>Gestion des Produits</h2>
+                            <p>Cette section vous permet de gérer votre catalogue de produits. Vous pouvez ajouter de nouveaux produits, mettre à jour les informations existantes, et retirer des produits obsolètes ou en rupture de stock.</p>
+                        </section>
+                        
+                        <section id="gestion-commandes">
+                            <h2>Gestion des Commandes</h2>
+                            <p>Sur cette page, vous pouvez consulter et gérer les commandes passées par les clients. Assurez-vous de suivre l'état des commandes, de la réception à la livraison, pour garantir un service client optimal.</p>
+                        </section>
+                    </div>
                 <?php endif ?>
             </div>
         </section>
