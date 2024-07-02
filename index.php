@@ -47,6 +47,13 @@
 
     $role = getRole();
 
+    // Calculer le nombre total d'articles dans le panier
+    function getCartCount() {
+        return isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
+    }
+
+    $totalItems = getCartCount();
+
 ?>
 
 
@@ -76,6 +83,10 @@
                 <li><a href="./assets/views/nintendo.php"><img src="./assets/img/nintendo.png" alt="nintendo_logo"><p>Nintendo</p></a></li>
             </ul>
             <div class="user-buttons">
+                <a href="./assets/views/cart.php" id="icon-cart">
+                    <img src="./assets/img/icon-cart.svg" alt="img cart"></img>
+                    <p id="total-items"><?php echo $totalItems; ?></p>
+                </a>
                 <img src="./assets/img/user.png" alt="userImage" class="userButton">
             </div>
             <ul class="profil-dropdown">
