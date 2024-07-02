@@ -9,27 +9,23 @@ $game_genres = new Genre();
 
 session_start();
 
-// Vérifier si le panier est vide
-if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
-    header('Location: ../index.php');
-    exit();
-}
-
-$cartItems = [];
-foreach ($_SESSION['cart'] as $gameId => $quantity) {
-    $gameDetails = $game->getGameById($gameId);
-    if ($gameDetails) {
-        $gamePlatforms = $game_platforms->getGamePlateform($gameId);
-        $gameGenres = $game_genres->getGameGenre($gameId);
-
-        $cartItems[] = [
-            'id' => $gameId,
-            'name' => $gameDetails['name'],
-            'price' => $gameDetails['price'],
-            'image' => $gameDetails['image'],
-            'platforms' => $gamePlatforms,
-            'quantity' => $quantity
-        ];
+if (isset($_SESSION['cart'])){
+    $cartItems = [];
+    foreach ($_SESSION['cart'] as $gameId => $quantity) {
+        $gameDetails = $game->getGameById($gameId);
+        if ($gameDetails) {
+            $gamePlatforms = $game_platforms->getGamePlateform($gameId);
+            $gameGenres = $game_genres->getGameGenre($gameId);
+    
+            $cartItems[] = [
+                'id' => $gameId,
+                'name' => $gameDetails['name'],
+                'price' => $gameDetails['price'],
+                'image' => $gameDetails['image'],
+                'platforms' => $gamePlatforms,
+                'quantity' => $quantity
+            ];
+        }
     }
 }
 
@@ -72,8 +68,12 @@ function convertBlobToBase64($blob) {
     <main>
         <section id="cart-section">
             <h1>Mon Panier</h1>
-
-            <?php if ($cartItems): ?>
+            
+            <!-- Vérifier si le panier est vide -->
+            <?php if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) :?>
+                <h1>Le panier est vide!</h1>
+                <a href="../../index.php">Retourner aux achats</a>
+            <?php elseif ($cartItems): ?>
                 <ul id="cart-items-list">
                     <?php foreach ($cartItems as $item): ?>
                         <li class="cart-item">
