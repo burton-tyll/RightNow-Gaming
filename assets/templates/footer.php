@@ -1,7 +1,3 @@
-<head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css">
-</head>
-
 <footer>
     <div class="foot">
         <div class="left-section">
