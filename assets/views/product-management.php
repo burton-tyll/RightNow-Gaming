@@ -7,6 +7,7 @@
     $games = $game->getAllGames();
 
     $stock = null;
+    $notification = null;
 
     session_start();
 
@@ -74,17 +75,18 @@
 
     if(!empty($_POST['price'])){
         $game->updateGameByID($_POST['id'], 'price', $_POST['price']);
-        echo '<script>alert("Le prix a été modifié avec succès!")</script>';
+        echo ('<script>show</script>')
+        header("Location: ?id=".$_POST["id"]."");
     };
 
     if(!empty($_POST['special_offer'])){
         $game->updateGameByID($_POST['id'], 'special_offer', $_POST['special_offer']);
-        echo '<script>alert("L\'offre de réduction a été modifiée avec succès!")</script>';
+        header("Location: ?id=".$_POST["id"]."");
     };
 
     if(!empty($_POST['stock'])){
         $game->updateGameByID($_POST['id'], 'quantity', $_POST['stock']);
-        echo '<script>alert("Le stock a été modifié avec succès!")</script>';
+        header("Location: ?id=".$_POST["id"]."");
     };
 
 ?>
@@ -130,6 +132,7 @@
                 <h1>Gestionnaire de produits</h1>
                 <div class="actions">
                     <div>
+                        <p id="notification" style="color: green;"><?php echo $notification; ?></p>
                         <h2><?php echo $currentName ?></h2>
                     </div>
                     <form action="product-management.php" method="POST">

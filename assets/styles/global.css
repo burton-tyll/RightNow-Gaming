@@ -129,6 +129,9 @@ nav a:hover:not(.logo){
 
 .user-buttons{
     position: absolute;
+    display: flex;
+    justify-content: space-around;
+    width: 200px;
     right: 10px;
     top: 10px;
 }
@@ -137,6 +140,42 @@ nav a:hover:not(.logo){
     width: 60px;
     border-radius: 60px;
     cursor: pointer;
+}
+
+#icon-cart{
+    width: 60px;
+    height: 60px;
+    padding: 0;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+#icon-cart:hover{
+    background: none;
+}
+
+#icon-cart img{
+    width: 35px;
+    height: 35px;
+}
+  
+#total-items{
+background: #0FB953;
+width: 25px;
+height: 25px;
+border-radius: 50px;
+color: #fff;
+display: flex;
+font-size: 20px;
+font-weight: 100;
+justify-content: center;
+align-items: center;
+z-index: 2;
+position: absolute;
+top: 0;
+right: 0;
+margin: 0;
 }
 
 /*-------FOOTER-------*/
@@ -202,3 +241,5 @@ footer{
 .bi-youtube { color: #FF0000 !important; }
 .bi-instagram { color: #9a4f5d !important; }
 .bi-twitter { color: #1DA1F2 !important; }
+
+
