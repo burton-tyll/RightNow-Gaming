@@ -76,7 +76,6 @@ h2, h3, h4{
 #div-btn-icon-fav{
   display: flex;
   justify-content: center;
-  margin-left: 5svw;
 }
 
 #btn-fav{
@@ -116,6 +115,7 @@ h2, h3, h4{
   border: 2px solid #0FB953;
   border-radius: 20px;
   padding: 1svw;
+  min-width: 30svw;
 }
 
 #div-platform{
@@ -136,8 +136,18 @@ h2, h3, h4{
 
 .platform:hover{
   cursor: pointer;
+  background-color: #0fb95385;
+  border-radius: 30px;
+}
+
+.platform-selected{
+  cursor: pointer;
   background-color: #0fb953;
   border-radius: 30px;
+}
+
+.platform-selected:hover{
+  background-color: #0fb953;
 }
 
 .platform:active{

@@ -197,6 +197,7 @@ nav a:hover:not(.logo){
 footer{
     background-color: #0FB953;
 }
+
 .bi-discord { color: #5865F2 !important; }
 .bi-twitch { color: #9146FF !important; }
 .bi-youtube { color: #FF0000 !important; }
@@ -206,7 +207,7 @@ footer{
 #cart-count{
     position: absolute;
     right: 50px;
-    bottom: 48px;
+    bottom: 70px;
 }
 
 #icon-cart:hover{
@@ -218,18 +219,18 @@ footer{
 }
   
 #total-items{
-background: #0FB953;
-width: 25px;
-height: 25px;
-border-radius: 50px;
-color: #fff;
-display: flex;
-font-size: 20px;
-font-weight: 100;
-justify-content: center;
-align-items: center;
-position: relative;
-z-index: 2;
-right: 15px;
-bottom: 10px;
+    background: #0FB953;
+    width: 25px;
+    height: 25px;
+    border-radius: 50px;
+    color: #fff;
+    display: flex;
+    font-size: 20px;
+    font-weight: 100;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    right: 15px;
+    bottom: 10px;
 }

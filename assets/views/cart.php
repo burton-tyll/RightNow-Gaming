@@ -9,34 +9,40 @@ $game_genres = new Genre();
 
 session_start();
 
-// Vérifier si le panier est vide
 if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
     header('Location: ../index.php');
     exit();
 }
 
 $cartItems = [];
-foreach ($_SESSION['cart'] as $gameId => $quantity) {
+foreach ($_SESSION['cart'] as $gameId => $data) {
     $gameDetails = $game->getGameById($gameId);
     if ($gameDetails) {
         $gamePlatforms = $game_platforms->getGamePlateform($gameId);
         $gameGenres = $game_genres->getGameGenre($gameId);
 
-        $cartItems[] = [
-            'id' => $gameId,
-            'name' => $gameDetails['name'],
-            'price' => $gameDetails['price'],
-            'image' => $gameDetails['image'],
-            'platforms' => $gamePlatforms,
-            'quantity' => $quantity
-        ];
+        $gamePlatformsList = array_map(function($platform) {
+            return htmlspecialchars($platform);
+        }, $gamePlatforms);
+
+        if (isset($data['platforms']) && is_array($data['platforms'])) {
+            foreach ($data['platforms'] as $platformId => $quantity) {
+                $cartItems[] = [
+                    'id' => $gameId,
+                    'name' => $gameDetails['name'],
+                    'price' => $gameDetails['price'],
+                    'image' => $gameDetails['image'],
+                    'platform' => $gamePlatforms[$platformId],
+                    'quantity' => $quantity
+                ];
+            }
+        }
     }
 }
 
 function convertBlobToBase64($blob) {
     return 'data:image/jpeg;base64,' . base64_encode($blob);
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -82,7 +88,7 @@ function convertBlobToBase64($blob) {
                                 <h2 class="item-name"><?php echo htmlspecialchars($item['name']); ?></h2>
                                 <p class="item-price"><?php echo htmlspecialchars($item['price']) . ' €'; ?></p>
                                 <p class="item-quantity">Quantité: <?php echo htmlspecialchars($item['quantity']); ?></p>
-                                <p class="item-platforms">Plateformes: <?php echo implode(', ', array_map('htmlspecialchars', $item['platforms'])); ?></p>
+                                <p class="item-platform">Plateforme: <?php echo htmlspecialchars($item['platform']); ?></p>
                             </div>
                         </li>
                     <?php endforeach; ?>

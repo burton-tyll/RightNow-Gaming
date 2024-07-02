@@ -13,16 +13,26 @@ function convertBlobToBase64($blob) {
     return 'data:image/jpeg;base64,' . base64_encode($blob);
 }
 
-// Fonction pour ajouter un jeu au panier
-function addToCart($gameId) {
+// Fonction pour ajouter un jeu au panier avec la plateforme sélectionnée
+function addToCart($gameId, $platformId) {
     if (!isset($_SESSION['cart'])) {
         $_SESSION['cart'] = [];
     }
 
-    if (isset($_SESSION['cart'][$gameId])) {
-        $_SESSION['cart'][$gameId]++;
+    // Vérifiez que la plateforme est valide
+    if ($platformId !== null) {
+        if (!isset($_SESSION['cart'][$gameId])) {
+            $_SESSION['cart'][$gameId] = ['quantity' => 0, 'platforms' => []];
+        }
+
+        // Ajouter la plateforme si elle n'est pas déjà ajoutée
+        if (!isset($_SESSION['cart'][$gameId]['platforms'][$platformId])) {
+            $_SESSION['cart'][$gameId]['platforms'][$platformId] = 0;
+        }
+
+        $_SESSION['cart'][$gameId]['platforms'][$platformId]++;
     } else {
-        $_SESSION['cart'][$gameId] = 1;
+        return ['status' => 'error', 'message' => 'ID de la plateforme manquant'];
     }
 
     return ['status' => 'success', 'message' => 'Jeu ajouté au panier'];
@@ -32,12 +42,13 @@ function addToCart($gameId) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $input = json_decode(file_get_contents('php://input'), true);
     $gameId = isset($input['id']) ? intval($input['id']) : null;
+    $platformId = isset($input['platformId']) ? intval($input['platformId']) : null;
 
-    if ($gameId !== null) {
-        $result = addToCart($gameId);
+    if ($gameId !== null && $platformId !== null) {
+        $result = addToCart($gameId, $platformId);
         echo json_encode($result);
     } else {
-        echo json_encode(['status' => 'error', 'message' => 'ID du jeu manquant']);
+        echo json_encode(['status' => 'error', 'message' => 'ID du jeu ou ID de la plateforme manquant']);
     }
     exit();
 }
@@ -68,7 +79,9 @@ $gamePlatforms = $game_platforms->getGamePlateform($gameId);
 $gameGenres = $game_genres->getGameGenre($gameId);
 
 // Calculer le nombre total de jeux dans le panier
-$totalItems = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
+$totalItems = isset($_SESSION['cart']) ? array_sum(array_map(function($data) {
+    return isset($data['platforms']) ? array_sum($data['platforms']) : 0;
+}, $_SESSION['cart'])) : 0;
 
 ?>
 <!DOCTYPE html>
@@ -81,33 +94,49 @@ $totalItems = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
     <link rel="icon" type="image/x-icon" href="../img/favicon.png">
     <script src="../script/comments.js" defer></script>
     <script src="../script/global.js" defer></script>
+    <script src="../script/game-platform-selection.js" defer></script>
     <title>RightNow Gaming - Détails du jeu</title>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            // Ajout de l'événement pour la sélection des plateformes
+            document.querySelectorAll('.platform').forEach(platform => {
+                platform.addEventListener('click', function () {
+                    document.querySelectorAll('.platform').forEach(p => p.classList.remove('platform-selected'));
+                    this.classList.add('platform-selected'); // Marque la plateforme comme sélectionnée
+                });
+            });
+
+            // Ajout du jeu au panier
             const addToCartButton = document.querySelector('#add-to-cart-button');
             addToCartButton.addEventListener('click', function () {
                 const gameId = <?php echo json_encode($gameId); ?>;
+                const platformElement = document.querySelector('.platform-selected');
+                if (platformElement) {
+                    const platformId = platformElement.dataset.platformId;
 
-                fetch('', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ id: gameId }),
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === 'success') {
-                        alert('Jeu ajouté au panier');
-                        // Recharger la page pour voir les modifications
-                        window.location.reload();
-                    } else {
-                        alert('Erreur: ' + data.message);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
+                    fetch('', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ id: gameId, platformId: platformId }),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            alert('Jeu ajouté au panier');
+                            // Recharger la page pour voir les modifications
+                            window.location.reload();
+                        } else {
+                            alert('Erreur: ' + data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+                } else {
+                    alert('Veuillez sélectionner une plateforme.');
+                }
             });
 
             // Mettre à jour le nombre total de jeux dans le panier
@@ -134,7 +163,6 @@ $totalItems = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
     </script>
 </head>
 <body>
-
     <!-- Inclusion de l'en-tête -->
     <?php include('../templates/header.php') ?>
 
@@ -151,8 +179,8 @@ $totalItems = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
                         <div id="div-platform">
                             <?php
                             if ($gamePlatforms) {
-                                foreach ($gamePlatforms as $platform) {
-                                    echo '<p class="platform">' . htmlspecialchars($platform) . '</p>' . '-';
+                                foreach ($gamePlatforms as $platformId => $platformName) {
+                                    echo '<p class="platform" data-platform-id="' . htmlspecialchars($platformId) . '">' . htmlspecialchars($platformName) . '</p>' . '-';
                                 }
                             }
                             ?>
@@ -178,59 +206,18 @@ $totalItems = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
                             <div id="div-special-offer-price">
                                 <?php if(isset($gameDetails['special_offer']) && $gameDetails['special_offer'] != 0): ?>
                                     <p id="price-before-special-offer"><?php echo isset($gameDetails['price']) ? htmlspecialchars($gameDetails['price']) . '€' : 'Prix non disponible'; ?></p>
-                                    <p id="special-offer"><?php echo isset($gameDetails['special_offer']) ? htmlspecialchars('-' . $gameDetails['special_offer']) . '%' : 'Offre spéciale non disponible'; ?></p>
-                                    <?php
-                                    $price = $gameDetails['price'] - ($gameDetails['price'] * ($gameDetails['special_offer'] / 100));
-                                    $price = round($price, 2);
-                                    ?>
+                                    <p id="special-offer"><?php echo isset($gameDetails['special_offer']) ? htmlspecialchars('-' . $gameDetails['special_offer'] . '€') : 'Offre spéciale non disponible'; ?></p>
+                                    <?php $price = $gameDetails['price'] - $gameDetails['special_offer']; ?>
                                 <?php else: ?>
-                                    <?php $price = isset($gameDetails['price']) ? $gameDetails['price'] : null; ?>
+                                    <?php $price = isset($gameDetails['price']) ? htmlspecialchars($gameDetails['price']) : null; ?>
                                 <?php endif; ?>
                             </div>
                             <h2 id="price"><?php echo isset($price) ? htmlspecialchars($price) . '€' : 'Prix non disponible'; ?></h2>
                             <div id='div-btn-icon-fav'>
                                 <button id="add-to-cart-button">Ajouter au panier</button>
-                                <button id="btn-fav">
-                                <img src="../img/icon-heart-empty.svg" alt="fav icon" id="favorite-icon">
-                                </button>
+                                <!-- <button id="clear-cart"><a href="game-details.php?id=<?php echo htmlspecialchars($gameId); ?>&action=clear_cart">Vider le panier</a></button> -->
                             </div>
                         <?php endif; ?>
-                    </div>
-                </div>
-            </div>
-
-            <div id='div-about-comments'>
-                <div id='div-about'>
-                    <h3 id="about">À propos</h3>
-                    <p><?php echo isset($gameDetails['description']) ? htmlspecialchars($gameDetails['description']) : 'Description non disponible.'; ?></p>
-                </div>
-                <div class="chat-container">
-                    <div class="chat-header">
-                        <p id="title-comments">Commentaires</p>
-                        <div id="div-mark">
-                            <h2 id="average-note">Note moyenne: &nbsp;</h2>
-                            <p id="note"><?php echo isset($gameDetails['rate']) ? htmlspecialchars($gameDetails['rate']) . '/5' : 'Note non disponible'; ?></p>
-                            <img src="../img/star-icon.svg" alt="star icon" id="star-icon">
-                        </div>
-                    </div>
-                    <div class="chat-messages" id="chat-messages">
-                    </div>
-                    <div class="chat-input">
-                        <textarea type="text" id="comment-input" placeholder="Entrez votre commentaire..."></textarea>
-                        <select name="ranking" id="select-ranking">
-                            <option value="stars" class="stars">...</option>
-                            <option value="0stars" class="stars">0</option>
-                            <option value="1stars" class="stars">1</option>
-                            <option value="2stars" class="stars">2</option>
-                            <option value="3stars" class="stars">3</option>
-                            <option value="4stars" class="stars">4</option>
-                            <option value="5stars" class="stars">5</option>
-                        </select>
-                        <p id="outOf">/5 </p>
-                        <div>
-                        <img src="../img/star-icon.svg" alt="star icon" id="outOfStars" >
-                        </div>
-                        <button onclick="sendMessage()" id="btn-send-comment">Envoyer</button>
                     </div>
                 </div>
             </div>

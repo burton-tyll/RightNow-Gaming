@@ -19,7 +19,7 @@
     
     if (isset($_GET['action']) && $_GET['action'] == 'logout') {
         disconnect();
-    } 
+    }
     $status = getStatus();
 
     //GESTIONNAIRE D'ADMINISTRATION
@@ -36,10 +36,15 @@
 
     // Calculer le nombre total d'articles dans le panier
     function getCartCount() {
-        return isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
+        if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
+            return 0;
+        }
+    
+        return array_sum(array_column($_SESSION['cart'], 'quantity'));
     }
-
+    
     $totalItems = getCartCount();
+    
 ?>
 
 <header>

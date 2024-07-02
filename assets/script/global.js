@@ -60,6 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+
 //-------------
 //-------------PANEL ADMIN
 //-------------

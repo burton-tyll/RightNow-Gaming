@@ -1,7 +1,21 @@
 <?php
 session_start();
 
-$totalItems = isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
+class Cart {
 
-echo json_encode(['total' => $totalItems]);
-?>
+    public function getCartItems() {
+        if (isset($_SESSION['cart'])) {
+            return $_SESSION['cart'];
+        }
+        return [];
+    }
+
+    public function getTotalItems() {
+        if (isset($_SESSION['cart'])) {
+            return array_sum(array_map(function($data) {
+                return isset($data['platforms']) ? array_sum($data['platforms']) : 0;
+            }, $_SESSION['cart']));
+        }
+        return 0;
+    }
+}
