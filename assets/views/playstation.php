@@ -91,7 +91,7 @@
                 ?>
                 <div class="<?php echo 'games-grid-item ' . $class; ?>">
                     <div class="resizeContainer">
-                        <a href="./game-details.php?id=<?php echo $game['id']; ?>&price=<?php echo urlencode($game['price']); ?>">
+                        <a href="./game-details.php?id=<?php echo $game['id_game']; ?>&price=<?php echo urlencode($game['price']); ?>">
                             <img src="<?php echo convertBlobToBase64($game['image']) ?>" alt="gameImage" class="games-grid-item-img">
                         </a>
                     </div>

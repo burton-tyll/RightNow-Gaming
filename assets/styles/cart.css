@@ -1,0 +1,60 @@
+#header-cart{
+  height: 15svh;
+  background-color: #1E1E1E;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#img-logo{
+  width: 200px;
+}
+
+#cart-section{
+  padding-top: 20svh;
+}
+
+#active-number{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0FB953;
+  background-color: #D9D9D9;
+  border-radius: 50px;
+  border: #0FB953 2px solid;
+  width: 50px;
+  height: 50px;
+}
+
+#active-step{
+  color: #0FB953;
+  margin: 0 2svw 0 0.5svw;
+}
+
+#active-line{
+  width: 200px;
+  height: 2px;
+  background-color: #0FB953;
+}
+
+#passive-number{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1E1E1E;
+  background-color: #646567;
+  border-radius: 50px;
+  width: 50px;
+  height: 50px;
+}
+
+#passive-step{
+  color: #646567;
+  margin: 0 2svw 0 0.5svw;
+}
+
+#passive-line{
+  width: 200px;
+  height: 2px;
+  background-color: #646567;
+}
