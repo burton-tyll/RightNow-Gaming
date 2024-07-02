@@ -53,7 +53,7 @@
         </ul>
             
         <div class="user-buttons">
-            <a href="cart.php" id="icon-cart">
+            <a href="./cart.php" id="icon-cart">
                 <img src="../img/icon-cart.svg" alt="img cart"></img>
                 <p id="total-items"><?php echo $totalItems; ?></p>
             </a>
