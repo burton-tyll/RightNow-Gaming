@@ -81,3 +81,25 @@ function showActivePage(active) {
 }
 
 showActivePage(active);
+
+function showNotification(message) {
+    var notification = document.getElementById("notification");
+    notification.innerHTML = message;
+    notification.style.display = "block";
+    notification.style.opacity = 1;
+
+    setTimeout(function() {
+        var fadeEffect = setInterval(function () {
+            if (!notification.style.opacity) {
+                notification.style.opacity = 1;
+            }
+            if (notification.style.opacity > 0) {
+                notification.style.opacity -= 0.1;
+            } else {
+                clearInterval(fadeEffect);
+                notification.style.display = "none";
+            }
+        }, 50);
+    }, 3000); // 3-second delay before fading out
+}
+
