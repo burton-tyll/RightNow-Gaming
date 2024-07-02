@@ -81,5 +81,6 @@
             </div>
         </section>
     </main>
+    <?php include('../templates/footer.php') ?>
 </body>
 </html>
