@@ -159,6 +159,16 @@ h1 {
     transition: 0.2s;
 }
 
+@media screen and (min-width: 2000px){
+    #nouveautés .games-grid{
+        grid-template-columns: repeat(5, 400px);
+    }
+
+    #nouveautés .games-grid-item-img{
+        width: 100%;
+    }
+}
+
 /*----Ordinateurs portbales----*/
 
 @media screen and (max-width: 1430px){
@@ -176,6 +186,11 @@ h1 {
 /*----Tablettes Paysage----*/
 
 @media screen and (max-width: 1020px){
+
+    #accueil{
+        background-size: contain !important;
+        height: 55vh;
+    }
 
     #nouveautés .games-grid{
         grid-template-columns: repeat(2, 1fr);
