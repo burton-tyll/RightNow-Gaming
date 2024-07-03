@@ -78,6 +78,7 @@ nav ul{
     box-shadow: 1px 3px 2px 0px rgb(0, 0, 0);
     border-radius: 60px;
     height: fit-content;
+    padding: 0;
 }
 
 nav a, nav li{
@@ -241,5 +242,45 @@ footer{
 .bi-youtube { color: #FF0000 !important; }
 .bi-instagram { color: #9a4f5d !important; }
 .bi-twitter { color: #1DA1F2 !important; }
+
+
+/*-----------*/
+/*------------RESPONSIVE DESIGN*/
+/*-----------*/
+
+
+/*----Tablettes Paysage----*/
+
+@media screen and (max-width: 1020px){
+
+    nav{
+        flex-direction: column;
+        padding: 0;
+    }
+
+    nav ul{
+        border-radius: 0;
+        width: 100%;
+    }
+
+    .user-buttons{
+        position: sticky;
+        background-color: black;
+        width: 100%;
+        justify-content: end;
+    }
+
+    .user-buttons a{
+        width: 30px;
+        height: 30px;
+        position: relative;
+    }
+
+    .scrolled{
+        padding: 0;
+    }
+
+}
+
 
 
