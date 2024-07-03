@@ -80,7 +80,7 @@
         <!-- Section Meilleures Ventes -->
         <section id="meilleures-ventes">
             <div class="section-title">
-                <h1>Les mieux notés</h1>
+                <h1>Les mieux notés</h1><a class="showmore" href="./best-ratedgames.php?games=xbox"><img src="../img/arrow_down.png" alt="flèche bas"></a>
             </div>
             <div class="games-grid">
                 <?php

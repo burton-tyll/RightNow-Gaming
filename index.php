@@ -145,7 +145,7 @@
         </section>
         <section id="meilleures-ventes">
             <div class="section-title">
-                <h1>Les mieux notés</h1><a class="showmore" href="./assets/views/newGames.php"><img src="./assets/img/arrow_down.png" alt="flèche bas"></a>
+                <h1>Les mieux notés</h1><a class="showmore" href="./assets/views/best-ratedgames.php?games=all"><img src="./assets/img/arrow_down.png" alt="flèche bas"></a>
             </div>
             <div class="games-grid">
             <?php
