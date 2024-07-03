@@ -42,7 +42,7 @@
         <!-- Section Nouveautés -->
         <section id="nouveautés">
             <div class="section-title">
-                <h1>Nouveautés</h1>
+                <h1>Nouveautés</h1><a class="showmore" href="./newGames.php?games=playstation"><img src="../img/arrow_down.png" alt="flèche bas"></a>
             </div>
             <div class="games-grid">
                 <?php

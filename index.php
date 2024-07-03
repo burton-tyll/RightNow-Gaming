@@ -111,7 +111,7 @@
         </section>
         <section id="nouveautés">
             <div class="section-title">
-                <h1>Nouveautés</h1><a class="showmore" href="./assets/views/newGames.php"><img src="./assets/img/arrow_down.png" alt="flèche bas"></a>
+                <h1>Nouveautés</h1><a class="showmore" href="./assets/views/newGames.php?games=all"><img src="./assets/img/arrow_down.png" alt="flèche bas"></a>
             </div>
             <div class="games-grid">
             <?php $count = 0;
