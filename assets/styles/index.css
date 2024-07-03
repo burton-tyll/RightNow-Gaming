@@ -158,3 +158,35 @@ h1 {
     align-items: center;
     transition: 0.2s;
 }
+
+/*----Ordinateurs portbales----*/
+
+@media screen and (max-width: 1430px){
+
+    #nouveautés .games-grid{
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    #nouveautés .games-grid-item-img{
+        width: 100%;
+    }
+
+}
+
+/*----Tablettes Paysage----*/
+
+@media screen and (max-width: 1020px){
+
+    #nouveautés .games-grid{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+
+@media screen and (max-width: 768px){
+    #nouveautés .games-grid{
+        grid-template-columns: repeat(6, 80%);
+        overflow-x: scroll;
+    }
+}
