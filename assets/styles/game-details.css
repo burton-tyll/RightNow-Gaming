@@ -397,3 +397,8 @@ body {
 .message-rating img{
   width: 2.5svw;
 }
+
+#no-comments{
+  text-align: center;
+  color: #383838;
+}

@@ -14,11 +14,6 @@ session_start();
 // Vérifier que l'utilisateur est connecté
 $userId = isset($_SESSION['user_id']) ? intval($_SESSION['user_id']) : null;
 
-if ($userId === null) {
-    echo "Vous devez être connecté pour ajouter un commentaire.";
-    exit();
-}
-
 function convertBlobToBase64($blob) {
     return 'data:image/jpeg;base64,' . base64_encode($blob);
 }
@@ -304,7 +299,7 @@ $comments = $comment->getCommentsByGameId($gameId);
                                 </div>
                             <?php endforeach; ?>
                         <?php else: ?>
-                            <p>Aucun commentaire pour ce jeu.</p>
+                            <p id="no-comments">Aucun commentaire pour ce jeu.</p>
                         <?php endif; ?>
                     </div>
 
