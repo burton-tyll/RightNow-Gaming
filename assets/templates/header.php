@@ -57,7 +57,7 @@
             <li><a href="./nintendo.php"><img src="../img/nintendo.png" alt="nintendo_logo"><p>Nintendo</p></a></li>
         </ul>
         <div id="cart-count">
-            <a href="cart.php" id="icon-cart">
+            <a href="../views/cart.php" id="icon-cart">
                 <img src="../img/icon-cart.svg" alt="img cart"></img>
                 <p id="total-items"><?php echo $totalItems; ?></p>
             </a>

@@ -2,12 +2,22 @@
 require_once('../Class/Game.php');
 require_once('../Class/Game_platform.php');
 require_once('../Class/Genre.php');
+require_once('../Class/Comment.php');  // Assurez-vous que ce fichier est inclus
 
 $game = new Game();
 $game_platforms = new Game_platform();
 $game_genres = new Genre();
+$comment = new Comment();  
 
 session_start();
+
+// Vérifier que l'utilisateur est connecté
+$userId = isset($_SESSION['user_id']) ? intval($_SESSION['user_id']) : null;
+
+if ($userId === null) {
+    echo "Vous devez être connecté pour ajouter un commentaire.";
+    exit();
+}
 
 function convertBlobToBase64($blob) {
     return 'data:image/jpeg;base64,' . base64_encode($blob);
@@ -83,6 +93,11 @@ $totalItems = isset($_SESSION['cart']) ? array_sum(array_map(function($data) {
     return isset($data['platforms']) ? array_sum($data['platforms']) : 0;
 }, $_SESSION['cart'])) : 0;
 
+// Avoir la note moyenne d'un jeu
+$averageRating = $comment->getAverageRatingForGame($gameId); 
+
+// Avoir les commentaires d'un jeu
+$comments = $comment->getCommentsByGameId($gameId);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -92,74 +107,105 @@ $totalItems = isset($_SESSION['cart']) ? array_sum(array_map(function($data) {
     <link rel="stylesheet" href="../styles/game-details.css">
     <?php include('../templates/global.php')?>
     <link rel="icon" type="image/x-icon" href="../img/favicon.png">
-    <script src="../script/comments.js" defer></script>
     <script src="../script/global.js" defer></script>
     <script src="../script/game-platform-selection.js" defer></script>
     <title>RightNow Gaming - Détails du jeu</title>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Ajout de l'événement pour la sélection des plateformes
-            document.querySelectorAll('.platform').forEach(platform => {
-                platform.addEventListener('click', function () {
-                    document.querySelectorAll('.platform').forEach(p => p.classList.remove('platform-selected'));
-                    this.classList.add('platform-selected'); // Marque la plateforme comme sélectionnée
-                });
+    function sendMessage() {
+        const commentInput = document.querySelector('#comment-input');
+        const rankingSelect = document.querySelector('#select-ranking');
+        const ranking = rankingSelect.value.replace('stars', ''); // Extraire le nombre d'étoiles
+        const content = commentInput.value;
+
+        // Vérifiez si la note est un nombre et est un entier
+        const rating = parseInt(ranking, 10);
+
+        if (content && !isNaN(rating)) {
+            fetch('../Class/Comment.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    action: 'add_comment',
+                    id_game: <?php echo $gameId; ?>,
+                    rating: rating,  // Envoyer la note, y compris 0
+                    content: content,
+                    id_user: <?php echo $_SESSION['user_id']; ?>  // Inclure l'ID utilisateur
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert('Commentaire ajouté avec succès.');
+                    commentInput.value = ''; // Réinitialiser le champ commentaire
+                    rankingSelect.value = 'stars'; // Réinitialiser la sélection des étoiles
+
+                    // Mettre à jour la note du jeu affichée sur la page
+                    document.querySelector('#note').textContent = data.newAverageRating + '/5';
+
+                    // Recharger la page pour afficher le nouveau commentaire
+                    window.location.href = `game-details.php?id=<?php echo $gameId; ?>&reload=true`;
+                } else {
+                    alert('Erreur: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
             });
+        } else {
+            alert('Veuillez entrer un commentaire et une note valide.');
+        }
+    }
 
-            // Ajout du jeu au panier
-            const addToCartButton = document.querySelector('#add-to-cart-button');
-            addToCartButton.addEventListener('click', function () {
-                const gameId = <?php echo json_encode($gameId); ?>;
-                const platformElement = document.querySelector('.platform-selected');
-                if (platformElement) {
-                    const platformId = platformElement.dataset.platformId;
-
-                    fetch('', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ id: gameId, platformId: platformId }),
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.status === 'success') {
-                            alert('Jeu ajouté au panier');
-                            // Recharger la page pour voir les modifications
-                            window.location.reload();
-                        } else {
-                            alert('Erreur: ' + data.message);
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
+    document.addEventListener('DOMContentLoaded', () => {
+        // Vérifiez si le paramètre `reload` est présent dans l'URL
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('reload') === 'true') {
+            // Recharger les commentaires après le rechargement de la page
+            fetch('../Class/Comment.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    action: 'get_comments',
+                    id_game: <?php echo $gameId; ?>,
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    const chatMessages = document.querySelector('#chat-messages');
+                    chatMessages.innerHTML = '';  // Clear existing comments
+                    data.comments.forEach(comment => {
+                        const commentHTML = `
+                            <div class="message">
+                                <div class="message-username">
+                                    <strong>${comment.username}</strong>
+                                </div>
+                                <div class="message-content">
+                                    <p>${comment.content}</p>
+                                </div>
+                                <div class="message-rating">
+                                    <p>Note: ${comment.rating}/5</p>
+                                </div>
+                                <div class="message-date">
+                                    <p>${comment.created_at}</p>
+                                </div>
+                            </div>
+                        `;
+                        chatMessages.insertAdjacentHTML('beforeend', commentHTML);
                     });
                 } else {
-                    alert('Veuillez sélectionner une plateforme.');
+                    console.error('Erreur lors du chargement des commentaires:', data.message);
                 }
+            })
+            .catch(error => {
+                console.error('Error:', error);
             });
-
-            // Mettre à jour le nombre total de jeux dans le panier
-            const updateCartCount = () => {
-                fetch('../Class/Cart.php', {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.total) {
-                        document.querySelector('#total-items').textContent = data.total;
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-            };
-
-            updateCartCount();
-        });
+        }
+    });
     </script>
 </head>
 <body>
@@ -167,7 +213,7 @@ $totalItems = isset($_SESSION['cart']) ? array_sum(array_map(function($data) {
     <?php include('../templates/header.php') ?>
 
     <main>
-        <section id="section-game-details">
+        <div id="section-game-details">
             <div id="img-game-details">
                 <img src="<?php echo isset($gameDetails['image']) ? convertBlobToBase64($gameDetails['image']) : 'default-image-path'; ?>" alt="img game" id='img-game'>
                 <div id="div-game-details-comments">
@@ -223,11 +269,45 @@ $totalItems = isset($_SESSION['cart']) ? array_sum(array_map(function($data) {
             </div>
             <div id='div-about-comments'>
                 <div id='div-about'>
+                    <h3 id="about">À propos</h3>
+                    <p><?php echo isset($gameDetails['description']) ? htmlspecialchars($gameDetails['description']) : 'Description non disponible.'; ?></p>
+                </div>
+                <div class="chat-container">
+                    <div class="chat-header">
+                        <p id="title-comments">Commentaires</p>
+                        <div id="div-mark">
+                            <p id="note">Note moyenne: <?php echo isset($gameDetails['rate']) ? htmlspecialchars($gameDetails['rate']) . '/5' : 'Note non disponible'; ?></p>
+                            <img src="../img/star-icon.svg" alt="star icon" id="star-icon">
                         </div>
                     </div>
                     <div class="chat-messages" id="chat-messages">
-                        <!-- Messages vont être ajoutés ici -->
+                        <?php if ($comments): ?>
+                            <?php foreach ($comments as $comment): ?>
+                                <div class="message">
+                                    <div class="message-username">
+                                        <strong><?php echo htmlspecialchars($comment['username']); ?></strong>
+                                    </div>
+                                    <div class="message-content-date-rating">
+                                        <div class="message-content-date">
+                                        <div class="message-content">
+                                            <p><?php echo htmlspecialchars($comment['content']); ?></p>
+                                        </div>
+
+                                        <div class="message-date">
+                                            <p><?php echo date('d/m/Y H:i', strtotime($comment['created_at'])); ?></p>
+                                        </div>
+                                        </div>
+                                        <div class="message-rating">
+                                            <p><?php echo htmlspecialchars($comment['rating']); ?>/5<div><img src="../img/star-icon.svg" alt="star icon"></div></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <p>Aucun commentaire pour ce jeu.</p>
+                        <?php endif; ?>
                     </div>
+
                     <div class="chat-input">
                         <textarea type="text" id="comment-input" placeholder="Entrez votre commentaire..."></textarea>
                         <select name="ranking" id="select-ranking">
@@ -240,7 +320,7 @@ $totalItems = isset($_SESSION['cart']) ? array_sum(array_map(function($data) {
                             <option value="5stars" class="stars">5</option>
                         </select>
                         <p id="outOf">/5 </p>
-                        <div>
+                        <div>   
                         <img src="../img/star-icon.svg" alt="star icon" id="outOfStars" >
                         </div>
                         <button onclick="sendMessage()" id="btn-send-comment">Envoyer</button>

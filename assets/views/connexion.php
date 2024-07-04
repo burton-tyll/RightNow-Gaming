@@ -41,6 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             if($validUser){
                 session_start();
                 $_SESSION['user'] = $username;
+                $_SESSION['user_id'] = $user['id'];
                 if($admin == 1){
                     $_SESSION['admin'] = true;
                 }

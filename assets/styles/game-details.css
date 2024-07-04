@@ -254,7 +254,7 @@ body {
 
 
 #title-comments{
-  font-size: 2rem;
+  font-size: 3rem;
 }
 
 .chat-header {
@@ -271,7 +271,6 @@ body {
   color: #303030;
 }
 .message {
-  background-color: #f1f0f0;
   padding: 8px;
   margin-bottom: 8px;
   border-radius: 5px;
@@ -361,3 +360,40 @@ body {
   width: 30px;
 }
 
+.message-username strong{
+  color: #4CAF50 ;
+  font-size: 2rem;
+  
+}
+
+.message-content-date{
+  min-width: 80%;
+  background-color: #383838;
+  border-radius: 10px;
+  padding: 1%;
+}
+
+.message-content-date-rating{
+  display: flex;
+}
+
+.message-date p{
+  font-size: 1rem;
+  color: #4CAF50;
+}
+
+.message-rating{
+  margin-left: 2svw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.message-rating p{
+  color: #383838;
+  font-size: 3rem;
+}
+
+.message-rating img{
+  width: 2.5svw;
+}
