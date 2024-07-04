@@ -43,6 +43,7 @@ $deliveries = $delivery->getDeliveryByUser($userId);
                         <th>Numéro de commande</th>
                         <th>Statut de la commande</th>
                         <th>Prix total</th>
+                        <th>Jeu</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -52,6 +53,8 @@ $deliveries = $delivery->getDeliveryByUser($userId);
                             <td><?php echo htmlspecialchars($delivery['delivery_number']); ?></td>
                             <td><?php echo htmlspecialchars($delivery['statut']); ?></td>
                             <td><?php echo htmlspecialchars($delivery['total_price']); ?>€</td>
+                            <td><?php echo htmlspecialchars($delivery['game_name']); ?></td>
+
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -78,11 +81,21 @@ $deliveries = $delivery->getDeliveryByUser($userId);
                     <input type="password" id="confirm_new_password" name="confirm_new_password" required>
                     <button type="submit">Valider</button>
                 </form>
+                <form action="update_adress.php" method="post">
+                    <h3>Changer votre adresse de livraison</h3>
+                    <label for="adress">Adresse</label>
+                    <input type="adress" id="adress" name="adress" required>
+                    <label for="new_adress">Ville</label>
+                    <input type="adress" id="new_adress" name="new_adress" required>
+                    <label for="confirm_new_adress">Code postal</label>
+                    <input type="adress" id="confirm_new_adress" name="confirm_new_adress" required>
+                    <button type="submit">Valider</button>
+                </form>
             </div>
         </section>
     </main>
     <footer>
-        <?php include '../assets/templates/footer.php'; ?>
+        <?php include '../templates/footer.php'; ?>
     </footer>
 </body>
 </html>

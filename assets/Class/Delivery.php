@@ -7,9 +7,10 @@ class Delivery {
     }
 
     public function getDeliveryByUser($userId) {
-        $query = "SELECT delivery.*, game_delivery.id_game
+        $query = "SELECT delivery.*, game.name as game_name
                   FROM delivery
                   JOIN game_delivery ON delivery.id = game_delivery.id_delivery
+                  JOIN game ON game_delivery.id_game = game.id
                   WHERE delivery.id_user = :user_id";
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
