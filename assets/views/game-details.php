@@ -221,6 +221,32 @@ $totalItems = isset($_SESSION['cart']) ? array_sum(array_map(function($data) {
                     </div>
                 </div>
             </div>
+            <div id='div-about-comments'>
+                <div id='div-about'>
+                        </div>
+                    </div>
+                    <div class="chat-messages" id="chat-messages">
+                        <!-- Messages vont être ajoutés ici -->
+                    </div>
+                    <div class="chat-input">
+                        <textarea type="text" id="comment-input" placeholder="Entrez votre commentaire..."></textarea>
+                        <select name="ranking" id="select-ranking">
+                            <option value="stars" class="stars">...</option>
+                            <option value="0stars" class="stars">0</option>
+                            <option value="1stars" class="stars">1</option>
+                            <option value="2stars" class="stars">2</option>
+                            <option value="3stars" class="stars">3</option>
+                            <option value="4stars" class="stars">4</option>
+                            <option value="5stars" class="stars">5</option>
+                        </select>
+                        <p id="outOf">/5 </p>
+                        <div>
+                        <img src="../img/star-icon.svg" alt="star icon" id="outOfStars" >
+                        </div>
+                        <button onclick="sendMessage()" id="btn-send-comment">Envoyer</button>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 </body>
