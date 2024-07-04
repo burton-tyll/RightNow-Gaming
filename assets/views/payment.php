@@ -1,3 +1,23 @@
+<?php
+
+    require_once('../Class/Game.php');
+    require_once('../Class/Game_platform.php');
+
+    $game = new Game();
+    $gamePlatform = new Game_platform;
+
+    $gameIds = null;
+
+    if(isset($_GET['game'])){
+        $gameIds = $_GET['game'];
+    }
+
+    // Convertis les IDs en entiers si nécessaire
+    $gameIds = array_map('intval', $gameIds);
+
+    var_dump($gameIds);
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -23,15 +43,26 @@
             <section id="resume">
                 <h1>Résumé</h1>
                 <div class="order">
-                    <div class="game">
-                        <div class="first-line">
-                            <h2>Game_name(to_define)</h2>
-                            <p>price(to_define)</p>
+                    <?php foreach ($gameIds as $thisone): ?>
+                        
+                        <?php 
+                            $orderedGame = $game->getGameById($thisone); 
+                            $platform = $gamePlatform->getGamePlateform($thisone);
+                        ?>
+                        <?php if($orderedGame['special_offer'] !== null){
+                            $price = $orderedGame['price'] - $orderedGame['price'] * ($orderedGame['special_offer'] / 100);
+                            $price = round($price, 2);
+                        } ?>
+                        <div class="game">
+                            <div class="first-line">
+                                <h2><?php echo $orderedGame['name']?></h2>
+                                <p><?php echo $price?></p>
+                            </div>
+                            <div class="second-line">
+                                <p>PLATEFORME</p>
+                            </div>
                         </div>
-                        <div class="second-line">
-                            <p>store(to_define)</p>
-                        </div>
-                    </div>
+                    <?php endforeach ?>
                     <div class="submit-payment">
                         <div class="total">
                             <h3>TOTAL</h3>

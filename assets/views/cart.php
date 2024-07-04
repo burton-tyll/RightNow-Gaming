@@ -29,12 +29,11 @@ if (isset($_SESSION['cart'])){
     }
 }
 
-// Chaîne de requête
+// Construis la chaîne de requête
 $queryString = '';
 foreach ($cartItems as $item) {
-    $queryString .= $item['id'] . '&';
+    $queryString .= 'game[]=' . $item['id'] . '&';
 }
-
 // Supprime le dernier '&'
 $queryString = rtrim($queryString, '&');
 
@@ -107,7 +106,7 @@ function convertBlobToBase64($blob) {
                 </div>
 
                 <a href="../../index.php" id="continue-shopping">Continuer vos achats</a>
-                <a href="payment.php?game=<?php echo htmlspecialchars($queryString) ?>" id="checkout">Passer à la caisse</a>
+                <a href="payment.php?<?php echo htmlspecialchars($queryString) ?>" id="checkout">Passer à la caisse</a>
             <?php else: ?>
                 <p>Votre panier est vide.</p>
                 <a href="../../index.php" id="continue-shopping">Continuer vos achats</a>
