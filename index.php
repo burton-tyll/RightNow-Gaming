@@ -47,6 +47,12 @@
 
     $role = getRole();
 
+    // Calculer le nombre total d'articles dans le panier
+    function getCartCount() {
+        return isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
+    }
+
+    $totalItems = getCartCount();
 ?>
 
 
@@ -58,6 +64,7 @@
     <!-------GLOBAL ASSETS------>
     <link rel="stylesheet" href="./assets/styles/global.css">
     <link rel="icon" type="image/x-icon" href="./assets/img/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css">
     <script src="./assets/script/global.js" defer></script>
     <!-------------------------->
     <link rel="stylesheet" href="./assets/styles/index.css">
@@ -75,6 +82,10 @@
                 <li><a href="./assets/views/nintendo.php"><img src="./assets/img/nintendo.png" alt="nintendo_logo"><p>Nintendo</p></a></li>
             </ul>
             <div class="user-buttons">
+                <a href="./assets/views/cart.php" id="icon-cart">
+                    <img src="./assets/img/icon-cart.svg" alt="img cart"></img>
+                    <p id="total-items"><?php echo $totalItems; ?></p>
+                </a>
                 <img src="./assets/img/user.png" alt="userImage" class="userButton">
             </div>
             <ul class="profil-dropdown">
@@ -100,7 +111,7 @@
         </section>
         <section id="nouveautés">
             <div class="section-title">
-                <h1>Nouveautés</h1>
+                <h1>Nouveautés</h1><a class="showmore" href="./assets/views/newGames.php?games=all"><img src="./assets/img/arrow_down.png" alt="flèche bas"></a>
             </div>
             <div class="games-grid">
             <?php $count = 0;
@@ -134,7 +145,7 @@
         </section>
         <section id="meilleures-ventes">
             <div class="section-title">
-                <h1>Les mieux notés</h1>
+                <h1>Les mieux notés</h1><a class="showmore" href="./assets/views/best-ratedgames.php?games=all"><img src="./assets/img/arrow_down.png" alt="flèche bas"></a>
             </div>
             <div class="games-grid">
             <?php
@@ -170,5 +181,6 @@
             </div>
         </section>
     </main>
+    <?php include('./assets/templates/footer.php') ?>
 </body>
 </html>

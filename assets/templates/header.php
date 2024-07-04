@@ -1,5 +1,5 @@
 <?php
-    //---------------
+//---------------
     //---------------GESTIONNAIRE DE CONNEXION UTILSATEUR
     //---------------
 
@@ -34,8 +34,13 @@
 
     $role = getRole();
 
-?>
+    // Calculer le nombre total d'articles dans le panier
+    function getCartCount() {
+        return isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
+    }
 
+    $totalItems = getCartCount();
+?>
 
 <header>
     <nav>
@@ -46,7 +51,12 @@
             <li><a href="./xbox.php"><img src="../img/xbox.png" alt="xbox_logo"><p>Xbox</p></a></li>
             <li><a href="./nintendo.php"><img src="../img/nintendo.png" alt="nintendo_logo"><p>Nintendo</p></a></li>
         </ul>
+            
         <div class="user-buttons">
+            <a href="./cart.php" id="icon-cart">
+                <img src="../img/icon-cart.svg" alt="img cart"></img>
+                <p id="total-items"><?php echo $totalItems; ?></p>
+            </a>
             <img src="../img/user.png" alt="userImage" class="userButton">
         </div>
         <ul class="profil-dropdown">
@@ -63,7 +73,6 @@
                 <?php endif; ?>
             </li>
         </ul>
+
     </nav>
 </header>
-
-

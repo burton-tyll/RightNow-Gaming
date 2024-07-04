@@ -37,6 +37,44 @@ nav{
     position: relative;
 }
 
+/*-------------ACCUEIL------------*/
+
+.accueil{
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+
+.accueil h1{
+    font-size: 2.5rem;
+}
+
+.accueil p{
+    font-size: 1.5rem;
+}
+
+.bienvenue{
+    width: 100%;
+    text-align: center;
+}
+
+.presentation{
+    display: flex;
+    justify-content: space-around;
+}
+
+.presentation h2{
+    color: #0FB953;
+    font-size: 2rem;
+}
+
+.presentation section{
+    width: 20%;
+}
+
+/*---------------------------*/
+
+
 .menu{
     width: 100%;
 }
@@ -115,13 +153,14 @@ td{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: relative;
     background-color: #383838;
     width: 60%;
     height: 60svh;
     border-radius: 10px;
 }
 
-.actions button{
+.actions button:not(.bin){
     width: 200px;
     padding: 10px;
     border-radius: 5px;
@@ -155,6 +194,44 @@ td{
     width: 60px;
 }
 
+/*---------GESTIONNAIRE Produits-----------*/
+
+.productsForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.productsForm input{
+    padding: 15px;
+    width: 60%;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+.productsForm label{
+    color: white;
+    text-align: left;
+    width: 60%;
+}
+
+.bin img{
+    width: 50px;
+    height: 50px;
+}
+
+.bin{
+    width: fit-content;
+    background-color: #1A1B1E;
+    border-radius: 10px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+
 /*---------Ajouter des jeux-----------*/
 
 #addGame .formulaire{
@@ -186,5 +263,12 @@ td{
     background-color: #0FB953;
     color: white;
     cursor: pointer;
+}
+
+.addGameButton{
+    background-color: #0FB953;
+    border-radius: 10px;
+    border: none;
+    padding: 5px;
 }
 

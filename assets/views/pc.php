@@ -42,7 +42,7 @@
         <!-- Section Nouveautés -->
         <section id="nouveautés">
             <div class="section-title">
-                <h1>Nouveautés</h1>
+                <h1>Nouveautés</h1><a class="showmore" href="./newGames.php?games=pc"><img src="../img/arrow_down.png" alt="flèche bas"></a>
             </div>
             <div class="games-grid">
                 <?php
@@ -51,7 +51,7 @@
                     if($count >= 6) { break; } ?>
                     <div class="games-grid-item">
                         <div class="resizeContainer">
-                            <a href="./game-details.php?id=<?php echo $game['id']; ?>&price=<?php echo urlencode($game['price']); ?>">
+                            <a href="./game-details.php?id=<?php echo $game['id_game']; ?>&price=<?php echo urlencode($game['price']); ?>">
                                 <img src="<?php echo convertBlobToBase64($game['image']) ?>" alt="gameImage" class="games-grid-item-img">
                             </a>
                         </div>
@@ -80,7 +80,7 @@
         <!-- Section Meilleures Ventes -->
         <section id="meilleures-ventes">
             <div class="section-title">
-                <h1>Les mieux notés</h1>
+                <h1>Les mieux notés</h1><a class="showmore" href="./best-ratedgames.php?games=pc"><img src="../img/arrow_down.png" alt="flèche bas"></a>
             </div>
             <div class="games-grid">
                 <?php
@@ -91,7 +91,7 @@
                 ?>
                 <div class="<?php echo 'games-grid-item ' . $class; ?>">
                     <div class="resizeContainer">
-                        <a href="./game-details.php?id=<?php echo $game['id']; ?>&price=<?php echo urlencode($game['price']); ?>">
+                        <a href="./game-details.php?id=<?php echo $game['id_game']; ?>&price=<?php echo urlencode($game['price']); ?>">
                             <img src="<?php echo convertBlobToBase64($game['image']) ?>" alt="gameImage" class="games-grid-item-img">
                         </a>
                     </div>
@@ -117,5 +117,6 @@
             </div>
         </section>
     </main>
+    <?php include('../templates/footer.php') ?>
 </body>
 </html>

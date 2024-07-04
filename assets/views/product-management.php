@@ -6,6 +6,9 @@
 
     $games = $game->getAllGames();
 
+    $stock = null;
+    $notification = null;
+
     session_start();
 
     //HEADER
@@ -41,18 +44,49 @@
 
     $role = getRole();
 
-    //GESTIONNAIRE UTILISATEURS
-    if(isset($_GET['delete'])){
-        $game->deleteGame($_GET['delete']);
+    //GESTIONNAIRE JEUX
+    if(isset($_POST['delete'])){
+        $game->deleteGame($_POST['delete']);
         echo '<script>alert("Le jeu a été supprimé avec succès")</script>';
-        header('Location: ./paneladmin.php?products');
+        // header('Location: ./paneladmin.php?products');
         exit;
     }
 
-    if(isset($_GET['upgrade'])){
-        $user->upgradeToAdmin($_GET['upgrade']);
-        echo '<script>alert("L\'utilisateur a été promu Administrateur!")</script>';
-    }
+    $currentId = null;
+    $currentName = null;
+    $currentStock = null;
+    $currentPrice = null;
+    $currentOffer = null;
+
+    //GET CURRENT GAME
+    if(isset($_GET['id'])){
+        foreach($games as $thisone){
+            if($_GET['id'] == $thisone['id']){
+                $currentId = $thisone['id'];
+                $currentName = $thisone['name'];
+                $currentStock = $thisone['quantity'];
+                $currentPrice = $thisone['price'];
+                $currentOffer = $thisone['special_offer'];
+            }
+        }
+    } ;
+
+    //Update Game
+
+    if(!empty($_POST['price'])){
+        $game->updateGameByID($_POST['id'], 'price', $_POST['price']);
+        header("Location: ?id=".$_POST["id"]."");
+    };
+
+    if(!empty($_POST['special_offer'])){
+        $game->updateGameByID($_POST['id'], 'special_offer', $_POST['special_offer']);
+        header("Location: ?id=".$_POST["id"]."");
+    };
+
+    if(!empty($_POST['stock'])){
+        $game->updateGameByID($_POST['id'], 'quantity', $_POST['stock']);
+        header("Location: ?id=".$_POST["id"]."");
+    };
 
 ?>
 
@@ -97,22 +131,26 @@
                 <h1>Gestionnaire de produits</h1>
                 <div class="actions">
                     <div>
-                        <h2><?php if(isset($_GET['id'])){
-                            foreach($games as $thisone){
-                                if($_GET['id'] == $thisone['id']){
-                                    echo $thisone['name'];
-                                }
-                            }
-                        } ?></h2>
+                        <p id="notification" style="color: green;"><?php echo $notification; ?></p>
+                        <h2><?php echo $currentName ?></h2>
                     </div>
-                    <form action="user-management.php" method="GET">
-                        <input type="hidden" name="upgrade" value="<?php if(isset($_GET['username'])){echo $_GET['username'];} ?>">
-                        <button type="submit">Promouvoir administrateur</button>
+                    <form action="product-management.php" method="POST">
+                        <input type="hidden" name="delete" value="<?php echo $currentId ?>">
+                        <button class="bin" type="submit"><img src="../img/bin.png" alt="supprimer le jeu"></button>
                     </form>
-                    <button type="submit">Réinitialiser le mot de passe</button>
-                    <form action="product-management.php" method="GET">
-                        <input type="hidden" name="delete" value="<?php if(isset($_GET['id'])){echo $_GET['id'];} ?>">
-                        <button type="submit" class="delete">Supprimer</button>
+                    <form action="product-management.php" method="POST" class="productsForm">
+                        <input type="hidden" name="id" value="<?php echo $currentId ?>">
+
+                        <label for="price">Prix:</label>
+                        <input type="number" name="price" placeholder="<?php echo $currentPrice .'€';?>">
+
+                        <label for="special_offer">Réduction:</label>
+                        <input type="number" name="special_offer" placeholder="<?php echo $currentOffer .'%' ?>">
+
+                        <label for="stock">Stock:</label>
+                        <input type="number" name="stock" placeholder="<?php echo $currentStock .' en stock'; ?>">
+
+                        <button type="submit">Envoyer les modifications</button>
                     </form>
                 </div>
             </div>

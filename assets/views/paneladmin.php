@@ -92,7 +92,7 @@
                 </ul>
                 <ul class="actionsList">
                     <?php if(isset($_GET['products'])): ?>
-                        <li><button style="background-color: green;"><a href="addGame.php">Ajouter un jeu</a></button></li>
+                        <li><button class="addGameButton"><a href="addGame.php">Ajouter un jeu</a></button></li>
                     <?php endif ?>
                 </ul>
             </div>
@@ -135,8 +135,7 @@
                             ?>
                         </tbody>
                     </table>
-                <?php endif ?>
-                <?php if(isset($_GET['products'])): ?>
+                <?php elseif(isset($_GET['products'])): ?>
                     <table>
                         <thead>
                             <tr>
@@ -199,6 +198,30 @@
                             ?>
                         </tbody>
                     </table>
+                <?php else: ?>
+                    <section class="accueil">
+                        <div class="bienvenue">
+                            <h1>Bienvenue sur le Panel Admin</h1>
+                            <p>Bienvenue dans l'interface d'administration. Ici, vous pouvez gérer les utilisateurs, les produits et les commandes de votre site. Utilisez les sections ci-dessous pour naviguer vers les différentes parties du panel.</p>
+                        </div>
+                        
+                        <div class="presentation">
+                            <section id="gestion-utilisateurs">
+                                <h2>Gestion des Utilisateurs</h2>
+                                <p>Dans cette section, vous pouvez voir, ajouter, modifier et supprimer des utilisateurs. Utilisez les outils disponibles pour administrer les comptes des utilisateurs de manière efficace et sécurisée.</p>
+                            </section>
+                        
+                            <section id="gestion-produits">
+                                <h2>Gestion des Produits</h2>
+                                <p>Cette section vous permet de gérer votre catalogue de produits. Vous pouvez ajouter de nouveaux produits, mettre à jour les informations existantes, et retirer des produits obsolètes ou en rupture de stock.</p>
+                            </section>
+                        
+                            <section id="gestion-commandes">
+                                <h2>Gestion des Commandes</h2>
+                                <p>Sur cette page, vous pouvez consulter et gérer les commandes passées par les clients. Assurez-vous de suivre l'état des commandes, de la réception à la livraison, pour garantir un service client optimal.</p>
+                            </section>
+                        </div>
+                    </section>
                 <?php endif ?>
             </div>
         </section>
