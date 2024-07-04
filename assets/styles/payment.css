@@ -1,0 +1,91 @@
+main{
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input{
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 5px;
+    padding: 15px;
+}
+
+/*-----------*/
+/*------------ADRESSE DE FACTURATION*/
+/*-----------*/
+
+.infos{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+#billing{
+    width: 50%;
+}
+
+#resume{
+    width: 30%;
+}
+
+#billing form{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    row-gap: 60px;
+}
+
+#billing input[name="adress"]{
+    grid-column: span 2;
+}
+
+/*-----------*/
+/*------------INFOS SUR LA COMMANDE*/
+/*-----------*/
+
+/*Commandes*/
+.order{
+    background-color: #383838;
+    padding: 10px;
+    border-radius: 5px;
+    border: 2px solid #0FB953;
+}
+
+.first-line{
+    display: flex;
+    justify-content: space-between;
+}
+
+.first-line h2{
+    margin-bottom: 0;
+}
+
+/*Paiement*/
+
+
+.submit-payment{
+    display: flex;
+    flex-direction: column;
+    margin-top: 100px;
+}
+
+.total{
+    display: flex;
+    justify-content: space-between;
+}
+
+.pay{
+    width: 40%;
+    margin: auto;
+    padding: 10px;
+    color: white;
+    border-radius: 15px;
+    background: linear-gradient(to right, #0FB752, #065426);
+}
+
+
+/*-----------*/
+/*------------FORMULAIRE DE PAIMENT*/
+/*-----------*/
