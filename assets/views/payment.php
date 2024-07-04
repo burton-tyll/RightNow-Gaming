@@ -7,6 +7,7 @@
     $gamePlatform = new Game_platform;
 
     $gameIds = null;
+    $totalPrice = null;
 
     if(isset($_GET['game'])){
         $gameIds = $_GET['game'];
@@ -15,7 +16,6 @@
     // Convertis les IDs en entiers si nécessaire
     $gameIds = array_map('intval', $gameIds);
 
-    var_dump($gameIds);
 ?>
 
 <!DOCTYPE html>
@@ -24,10 +24,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php include ('../templates/global.php') ?>
+    <link rel="stylesheet" href="../styles/cart.css">
     <link rel="stylesheet" href="../styles/payment.css">
     <title>RightnowGaming</title>
 </head>
 <body>
+    <header id="header-cart">
+        <div>
+            <a href="../../index.php"><img src="../img/logo.png" alt="logo" id="img-logo"></a>
+        </div>
+        <div id="active-number">
+            <span>1</span>
+        </div>
+        <p id="active-step">Panier</p>
+        <span id="passive-line"></span>
+        <div id="passive-number">
+            <span>2</span>
+        </div>
+        <p id="passive-step">Paiement</p>
+        <span id="passive-line"></span>
+        <div id="passive-number">
+            <span>3</span>
+        </div>
+        <p id="passive-step">Activation du jeu</p>
+    </header>
     <main>
         <div class="infos">
             <section id="billing">
@@ -52,11 +72,12 @@
                         <?php if($orderedGame['special_offer'] !== null){
                             $price = $orderedGame['price'] - $orderedGame['price'] * ($orderedGame['special_offer'] / 100);
                             $price = round($price, 2);
+                            $totalPrice += $price;
                         } ?>
                         <div class="game">
                             <div class="first-line">
                                 <h2><?php echo $orderedGame['name']?></h2>
-                                <p><?php echo $price?></p>
+                                <p><?php echo $price . '€' ?></p>
                             </div>
                             <div class="second-line">
                                 <p>PLATEFORME</p>
@@ -66,7 +87,7 @@
                     <div class="submit-payment">
                         <div class="total">
                             <h3>TOTAL</h3>
-                            <h3>price(to_define)</h3>
+                            <h3><?php echo $totalPrice . '€'; ?></h3>
                         </div>
                         <button class="pay">Payer</button>
                         <p>En cliquant sur "Payer" je reconnais avoir lu et accepté les termes et conditions, et la politique de confidentialité.</p>

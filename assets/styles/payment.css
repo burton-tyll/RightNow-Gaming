@@ -3,6 +3,7 @@ main{
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-top: 17svh;
 }
 
 input{
