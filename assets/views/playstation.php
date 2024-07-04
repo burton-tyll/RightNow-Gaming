@@ -42,7 +42,7 @@
         <!-- Section Nouveautés -->
         <section id="nouveautés">
             <div class="section-title">
-                <h1>Nouveautés</h1>
+                <h1>Nouveautés</h1><a class="showmore" href="./newGames.php?games=playstation"><img src="../img/arrow_down.png" alt="flèche bas"></a>
             </div>
             <div class="games-grid">
                 <?php
@@ -80,7 +80,7 @@
         <!-- Section Meilleures Ventes -->
         <section id="meilleures-ventes">
             <div class="section-title">
-                <h1>Les mieux notés</h1>
+                <h1>Les mieux notés</h1><a class="showmore" href="./best-ratedgames.php?games=playstation"><img src="../img/arrow_down.png" alt="flèche bas"></a>
             </div>
             <div class="games-grid">
                 <?php
