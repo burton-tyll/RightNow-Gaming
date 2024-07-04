@@ -9,30 +9,21 @@ $game_genres = new Genre();
 
 session_start();
 
-if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
-    header('Location: ../index.php');
-    exit();
-}
-
 $cartItems = [];
-foreach ($_SESSION['cart'] as $gameId => $data) {
-    $gameDetails = $game->getGameById($gameId);
-    if ($gameDetails) {
-        $gamePlatforms = $game_platforms->getGamePlateform($gameId);
-        $gameGenres = $game_genres->getGameGenre($gameId);
 
-        $gamePlatformsList = array_map(function($platform) {
-            return htmlspecialchars($platform);
-        }, $gamePlatforms);
-
-        if (isset($data['platforms']) && is_array($data['platforms'])) {
+if (isset($_SESSION['cart'])) {
+    foreach ($_SESSION['cart'] as $gameId => $data) {
+        $gameDetails = $game->getGameById($gameId);
+        if ($gameDetails) {
+            $gamePlatforms = $game_platforms->getGamePlateform($gameId);
             foreach ($data['platforms'] as $platformId => $quantity) {
+                $platformName = isset($gamePlatforms[$platformId]) ? $gamePlatforms[$platformId] : 'Plateforme inconnue';
                 $cartItems[] = [
                     'id' => $gameId,
                     'name' => $gameDetails['name'],
                     'price' => $gameDetails['price'],
                     'image' => $gameDetails['image'],
-                    'platform' => $gamePlatforms[$platformId],
+                    'platform' => $platformName,
                     'quantity' => $quantity
                 ];
             }
@@ -78,12 +69,15 @@ function convertBlobToBase64($blob) {
     <main>
         <section id="cart-section">
             <h1>Mon Panier</h1>
-
-            <?php if ($cartItems): ?>
+            
+            <!-- Vérifier si le panier est vide -->
+            <?php if (empty($cartItems)) :?>
+                <h1>Le panier est vide!</h1>
+                <a href="../../index.php">Retourner aux achats</a>
+            <?php else: ?>
                 <ul id="cart-items-list">
                     <?php foreach ($cartItems as $item): ?>
                         <li class="cart-item">
-                            <img src="<?php echo convertBlobToBase64($item['image']); ?>" alt="Image du jeu" class="item-image">
                             <div class="item-details">
                                 <h2 class="item-name"><?php echo htmlspecialchars($item['name']); ?></h2>
                                 <p class="item-price"><?php echo htmlspecialchars($item['price']) . ' €'; ?></p>
@@ -105,9 +99,6 @@ function convertBlobToBase64($blob) {
 
                 <a href="../../index.php" id="continue-shopping">Continuer vos achats</a>
                 <a href="checkout.php" id="checkout">Passer à la caisse</a>
-            <?php else: ?>
-                <p>Votre panier est vide.</p>
-                <a href="../../index.php" id="continue-shopping">Continuer vos achats</a>
             <?php endif; ?>
 
         </section>

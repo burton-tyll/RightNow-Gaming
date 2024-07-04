@@ -76,8 +76,12 @@
                     $gameId = $game->addGame($imageData, $name, $description, $price, $special_offer, $studio, $quantity, $release_date, $rate);
 
                     if ($gameId) {
-                        $platform->addGameToPlatform($gameId, $id_platform);
-                        $genre->addGameToGenre($gameId, $id_genre);
+                        foreach($id_platform as $thisone){
+                            $platform->addGameToPlatform($gameId, $thisone);
+                        }
+                        foreach($id_genre as $thisone){
+                            $genre->addGameToGenre($gameId, $thisone);
+                        }
                         echo "Le jeu a été ajouté avec succès avec l'ID : " . $gameId;
                     } else {
                         echo "Erreur lors de l'ajout du jeu.";
@@ -90,7 +94,7 @@
             }
         } else {
             echo "Erreur lors de l'upload du fichier.";
-        }
+        }  
     }
 ?>
 
@@ -142,16 +146,16 @@
                 <input type="number" name="price" placeholder="Prix" step="0.01" required>
                 <input type="number" name="special_offer" placeholder="Remise" required>
                 <input type="text" name="studio" placeholder="Studio" required>
-                <select name="platform" id="platform">
-                    <option>Choisir une plateforme de jeu</option>
+                <select name="platform[]" id="platform" multiple>
+                    <option disabled>Choisir une plateforme de jeu</option>
                     <?php foreach($allPlatforms as $thisone): ?>
-                        <option value="<?php echo($thisone['id']); ?>"><?php echo($thisone['name']); ?></option>
+                        <option value="<?php echo($thisone['id']); ?>" multiple><?php echo($thisone['name']); ?></option>
                     <?php endforeach; ?>
                 </select>
-                <select name="genre" id="genre">
-                        <option value="">Choisir un genre de jeu</option>
+                <select name="genre[]" id="genre" multiple>
+                        <option disabled>Choisir un genre de jeu</option>
                         <?php foreach($allGenres as $thisone): ?>
-                            <option value="<?php echo($thisone['id']); ?>"><?php echo($thisone['name']); ?></option>
+                            <option value="<?php echo($thisone['id']); ?>" multiple><?php echo($thisone['name']); ?></option>
                         <?php endforeach; ?>
                 </select>
                 <input type="number" name="quantity" placeholder="Quantité" required>

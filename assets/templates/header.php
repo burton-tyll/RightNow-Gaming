@@ -56,13 +56,12 @@
             <li><a href="./xbox.php"><img src="../img/xbox.png" alt="xbox_logo"><p>Xbox</p></a></li>
             <li><a href="./nintendo.php"><img src="../img/nintendo.png" alt="nintendo_logo"><p>Nintendo</p></a></li>
         </ul>
-        <div id="cart-count">
-            <a href="../views/cart.php" id="icon-cart">
+            
+        <div class="user-buttons">
+            <a href="./cart.php" id="icon-cart">
                 <img src="../img/icon-cart.svg" alt="img cart"></img>
                 <p id="total-items"><?php echo $totalItems; ?></p>
             </a>
-        </div>
-        <div class="user-buttons">
             <img src="../img/user.png" alt="userImage" class="userButton">
         </div>
         <ul class="profil-dropdown">

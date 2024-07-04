@@ -78,6 +78,7 @@ nav ul{
     box-shadow: 1px 3px 2px 0px rgb(0, 0, 0);
     border-radius: 60px;
     height: fit-content;
+    padding: 0;
 }
 
 nav a, nav li{
@@ -129,6 +130,9 @@ nav a:hover:not(.logo){
 
 .user-buttons{
     position: absolute;
+    display: flex;
+    justify-content: space-around;
+    width: 200px;
     right: 10px;
     top: 10px;
 }
@@ -137,6 +141,42 @@ nav a:hover:not(.logo){
     width: 60px;
     border-radius: 60px;
     cursor: pointer;
+}
+
+#icon-cart{
+    width: 60px;
+    height: 60px;
+    padding: 0;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+#icon-cart:hover{
+    background: none;
+}
+
+#icon-cart img{
+    width: 35px;
+    height: 35px;
+}
+  
+#total-items{
+background: #0FB953;
+width: 25px;
+height: 25px;
+border-radius: 50px;
+color: #fff;
+display: flex;
+font-size: 20px;
+font-weight: 100;
+justify-content: center;
+align-items: center;
+z-index: 2;
+position: absolute;
+top: 0;
+right: 0;
+margin: 0;
 }
 
 /*-------FOOTER-------*/
@@ -204,33 +244,43 @@ footer{
 .bi-instagram { color: #9a4f5d !important; }
 .bi-twitter { color: #1DA1F2 !important; }
 
-#cart-count{
-    position: absolute;
-    right: 50px;
-    bottom: 70px;
+
+/*-----------*/
+/*------------RESPONSIVE DESIGN*/
+/*-----------*/
+
+
+/*----Tablettes Paysage----*/
+
+@media screen and (max-width: 1020px){
+
+    nav{
+        flex-direction: column;
+        padding: 0;
+    }
+
+    nav ul{
+        border-radius: 0;
+        width: 100%;
+    }
+
+    .user-buttons{
+        position: sticky;
+        background-color: black;
+        width: 100%;
+        justify-content: end;
+    }
+
+    .user-buttons a{
+        width: 30px;
+        height: 30px;
+        position: relative;
+    }
+
+    .scrolled{
+        padding: 0;
+    }
+
 }
 
-#icon-cart:hover{
-    background: none;
-}
 
-#icon-cart img{
-    width: 25px;
-}
-  
-#total-items{
-    background: #0FB953;
-    width: 25px;
-    height: 25px;
-    border-radius: 50px;
-    color: #fff;
-    display: flex;
-    font-size: 20px;
-    font-weight: 100;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    z-index: 2;
-    right: 15px;
-    bottom: 10px;
-}

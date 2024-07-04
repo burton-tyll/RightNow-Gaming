@@ -1,4 +1,7 @@
 <?php
+
+session_start();
+
 require_once('../Class/Game.php');
 require_once('../Class/Game_platform.php');
 require_once('../Class/Genre.php');
@@ -9,7 +12,7 @@ $game_platforms = new Game_platform();
 $game_genres = new Genre();
 $comment = new Comment();  
 
-session_start();
+
 
 // Vérifier que l'utilisateur est connecté
 $userId = isset($_SESSION['user_id']) ? intval($_SESSION['user_id']) : null;
@@ -59,23 +62,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // Vider le panier (pour le test)
-if (isset($_GET['action']) && $_GET['action'] === 'clear_cart') {
-    unset($_SESSION['cart']);
-    header("Location: game-details.php?id=" . intval($_GET['id']));
-    exit();
-}
+// if (isset($_GET['action']) && $_GET['action'] === 'clear_cart') {
+//     unset($_SESSION['cart']);
+//     header("Location: game-details.php?id=" . intval($_GET['id']));
+//     exit();
+// }
 
 // Récupérer l'ID du jeu depuis l'URL
 $gameId = isset($_GET['id']) ? intval($_GET['id']) : null;
-if ($gameId === null) {
-    // Rediriger ou afficher un message d'erreur si l'ID est manquant
-    header("Location: ../index.php");
-    exit();
-}
 
 // Récupérer les détails du jeu
 $gameDetails = $game->getGameById($gameId);
-if (!$gameDetails) {
+if (!$gameDetails && !isset($_GET['action'])) {
     echo "Détails du jeu introuvables.";
     exit();
 }
@@ -99,6 +97,7 @@ $comments = $comment->getCommentsByGameId($gameId);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="game-id" content="<?php echo $gameId; ?>">
     <link rel="stylesheet" href="../styles/game-details.css">
     <?php include('../templates/global.php')?>
     <link rel="icon" type="image/x-icon" href="../img/favicon.png">
@@ -106,102 +105,103 @@ $comments = $comment->getCommentsByGameId($gameId);
     <script src="../script/game-platform-selection.js" defer></script>
     <title>RightNow Gaming - Détails du jeu</title>
     <script>
-    function sendMessage() {
-        const commentInput = document.querySelector('#comment-input');
-        const rankingSelect = document.querySelector('#select-ranking');
-        const ranking = rankingSelect.value.replace('stars', ''); // Extraire le nombre d'étoiles
-        const content = commentInput.value;
+function sendMessage() {
+    const commentInput = document.querySelector('#comment-input');
+    const rankingSelect = document.querySelector('#select-ranking');
+    const ranking = rankingSelect.value.replace('stars', ''); // Extraire le nombre d'étoiles
+    const content = commentInput.value;
 
-        // Vérifiez si la note est un nombre et est un entier
-        const rating = parseInt(ranking, 10);
+    // Vérifiez si la note est un nombre et est un entier
+    const rating = parseInt(ranking, 10);
 
-        if (content && !isNaN(rating)) {
-            fetch('../Class/Comment.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    action: 'add_comment',
-                    id_game: <?php echo $gameId; ?>,
-                    rating: rating,  // Envoyer la note, y compris 0
-                    content: content,
-                    id_user: <?php echo $_SESSION['user_id']; ?>  // Inclure l'ID utilisateur
-                })
+    if (content && !isNaN(rating)) {
+        fetch('../Class/Comment.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                action: 'add_comment',
+                id_game: <?php echo $gameId; ?>,
+                rating: rating,  // Envoyer la note, y compris 0
+                content: content,
+                id_user: <?php echo $_SESSION['user_id']; ?>  // Inclure l'ID utilisateur
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    alert('Commentaire ajouté avec succès.');
-                    commentInput.value = ''; // Réinitialiser le champ commentaire
-                    rankingSelect.value = 'stars'; // Réinitialiser la sélection des étoiles
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                alert('Commentaire ajouté avec succès.');
+                commentInput.value = ''; // Réinitialiser le champ commentaire
+                rankingSelect.value = 'stars'; // Réinitialiser la sélection des étoiles
 
-                    // Mettre à jour la note du jeu affichée sur la page
-                    document.querySelector('#note').textContent = data.newAverageRating + '/5';
+                // Mettre à jour la note du jeu affichée sur la page
+                document.querySelector('#note').textContent = data.newAverageRating + '/5';
 
-                    // Recharger la page pour afficher le nouveau commentaire
-                    window.location.href = `game-details.php?id=<?php echo $gameId; ?>&reload=true`;
-                } else {
-                    alert('Erreur: ' + data.message);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        } else {
-            alert('Veuillez entrer un commentaire et une note valide.');
-        }
+                // Recharger la page pour afficher le nouveau commentaire
+                window.location.href = `game-details.php?id=<?php echo $gameId; ?>&reload=true`;
+            } else {
+                alert('Erreur: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    } else {
+        alert('Veuillez entrer un commentaire et une note valide.');
     }
+}
 
-    document.addEventListener('DOMContentLoaded', () => {
-        // Vérifiez si le paramètre `reload` est présent dans l'URL
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('reload') === 'true') {
-            // Recharger les commentaires après le rechargement de la page
-            fetch('../Class/Comment.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    action: 'get_comments',
-                    id_game: <?php echo $gameId; ?>,
-                })
+document.addEventListener('DOMContentLoaded', () => {
+    // Vérifiez si le paramètre `reload` est présent dans l'URL
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('reload') === 'true') {
+        // Recharger les commentaires après le rechargement de la page
+        fetch('../Class/Comment.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                action: 'get_comments',
+                id_game: <?php echo $gameId; ?>,
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    const chatMessages = document.querySelector('#chat-messages');
-                    chatMessages.innerHTML = '';  // Clear existing comments
-                    data.comments.forEach(comment => {
-                        const commentHTML = `
-                            <div class="message">
-                                <div class="message-username">
-                                    <strong>${comment.username}</strong>
-                                </div>
-                                <div class="message-content">
-                                    <p>${comment.content}</p>
-                                </div>
-                                <div class="message-rating">
-                                    <p>Note: ${comment.rating}/5</p>
-                                </div>
-                                <div class="message-date">
-                                    <p>${comment.created_at}</p>
-                                </div>
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                const chatMessages = document.querySelector('#chat-messages');
+                chatMessages.innerHTML = '';  // Clear existing comments
+                data.comments.forEach(comment => {
+                    const commentHTML = `
+                        <div class="message">
+                            <div class="message-username">
+                                <strong>${comment.username}</strong>
                             </div>
-                        `;
-                        chatMessages.insertAdjacentHTML('beforeend', commentHTML);
-                    });
-                } else {
-                    console.error('Erreur lors du chargement des commentaires:', data.message);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        }
-    });
-    </script>
+                            <div class="message-content">
+                                <p>${comment.content}</p>
+                            </div>
+                            <div class="message-rating">
+                                <p>Note: ${comment.rating}/5</p>
+                            </div>
+                            <div class="message-date">
+                                <p>${comment.created_at}</p>
+                            </div>
+                        </div>
+                    `;
+                    chatMessages.insertAdjacentHTML('beforeend', commentHTML);
+                });
+            } else {
+                console.error('Erreur lors du chargement des commentaires:', data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+});
+</script>
+
 </head>
 <body>
     <!-- Inclusion de l'en-tête -->
@@ -302,24 +302,26 @@ $comments = $comment->getCommentsByGameId($gameId);
                             <p id="no-comments">Aucun commentaire pour ce jeu.</p>
                         <?php endif; ?>
                     </div>
-
-                    <div class="chat-input">
-                        <textarea type="text" id="comment-input" placeholder="Entrez votre commentaire..."></textarea>
-                        <select name="ranking" id="select-ranking">
-                            <option value="stars" class="stars">...</option>
-                            <option value="0stars" class="stars">0</option>
-                            <option value="1stars" class="stars">1</option>
-                            <option value="2stars" class="stars">2</option>
-                            <option value="3stars" class="stars">3</option>
-                            <option value="4stars" class="stars">4</option>
-                            <option value="5stars" class="stars">5</option>
-                        </select>
-                        <p id="outOf">/5 </p>
-                        <div>   
-                        <img src="../img/star-icon.svg" alt="star icon" id="outOfStars" >
+                    <?php if ($userId): ?>
+                        <div class="chat-input">
+                            <textarea type="text" id="comment-input" placeholder="Entrez votre commentaire..."></textarea>
+                            <select name="ranking" id="select-ranking">
+                                <option value="stars" class="stars">...</option>
+                                <option value="0stars" class="stars">0</option>
+                                <option value="1stars" class="stars">1</option>
+                                <option value="2stars" class="stars">2</option>
+                                <option value="3stars" class="stars">3</option>
+                                <option value="4stars" class="stars">4</option>
+                                <option value="5stars" class="stars">5</option>
+                            </select>
+                            <p id="outOf">/5 </p>
+                            <div>   
+                                <img src="../img/star-icon.svg" alt="star icon" id="outOfStars" >
+                            </div>
+                            <button onclick="sendMessage()" id="btn-send-comment">Envoyer</button>
                         </div>
-                        <button onclick="sendMessage()" id="btn-send-comment">Envoyer</button>
-                    </div>
+                        <?php endif; ?>
+
                 </div>
             </div>
         </section>
