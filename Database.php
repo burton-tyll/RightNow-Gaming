@@ -25,6 +25,11 @@
             return $this->conn;
         }
 
+        // Méthode pour obtenir la connexion
+        public function getConnection() {
+            return $this->conn;
+        }
+
         // Méthode pour fermer la connexion
         public function disconnect() {
             $this->conn = null;
