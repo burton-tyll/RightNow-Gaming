@@ -89,7 +89,7 @@
                 <img src="./assets/img/user.png" alt="userImage" class="userButton">
             </div>
             <ul class="profil-dropdown">
-            <li><a href="">Profil</a></li>
+            <li><a href="./assets/views/profil.php">Profil</a></li>
             <?php if ($role == 'Admin'): ?>
                 <li><a href="./assets/views/paneladmin.php">Panel admin</a></li>
             <?php endif ?>

@@ -60,7 +60,7 @@
             <img src="../img/user.png" alt="userImage" class="userButton">
         </div>
         <ul class="profil-dropdown">
-            <li><a href="">Profil</a></li>
+            <li><a href="profil.php">Profil</a></li>
             <?php if ($role == 'Admin'): ?>
                 <li><a href="paneladmin.php">Panel admin</a></li>
             <?php endif ?>
