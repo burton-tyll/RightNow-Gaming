@@ -20,7 +20,9 @@ input{
 .infos{
     display: flex;
     justify-content: space-around;
+    align-items: center;
     width: 100%;
+    height: fit-content;
 }
 
 #billing{
@@ -86,7 +88,3 @@ input{
     background: linear-gradient(to right, #0FB752, #065426);
 }
 
-
-/*-----------*/
-/*------------FORMULAIRE DE PAIMENT*/
-/*-----------*/

@@ -26,6 +26,13 @@ try {
 } catch (Exception $e) {
     echo $e->getMessage();
 }
+
+$firstname = $_POST['firstname'];
+$name = $_POST['name'];
+$address = $_POST['address'];
+$cp = $_POST['cp'];
+$city = $_POST['city'];
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -45,6 +52,10 @@ try {
             </div>
         </div>
         <?php endforeach ?>
+        <div class="client-adress">
+            <h2>Adresse de facturation</h2>
+            <p><?php echo $firstname . $name ?></p>
+        </div>
         <form action="/checkout.php" method="POST">
             <button type="submit" id="checkout-button">Checkout</button>
         </form>
