@@ -1,0 +1,3 @@
+<?php
+define('STRIPE_SECRET', 'sk_test_51PYl3Q2KtF6QVoLqRGMNR8m2R35EvEvXFZzReNwTASVofIMV6pcI93go3cdvUqzIhBkSJeT2s68NDxLDh5qhbjqy00v4QiN6eH');
+?>

@@ -16,6 +16,7 @@
     // Convertis les IDs en entiers si nécessaire
     $gameIds = array_map('intval', $gameIds);
 
+    $cart = [];
 ?>
 
 <!DOCTYPE html>
@@ -26,6 +27,12 @@
     <?php include ('../templates/global.php') ?>
     <link rel="stylesheet" href="../styles/cart.css">
     <link rel="stylesheet" href="../styles/payment.css">
+    <script src="../script/payment.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://js.stripe.com/v3/" defer></script>
+    <script>
+
+    </script>
     <title>RightnowGaming</title>
 </head>
 <body>
@@ -68,12 +75,18 @@
                         <?php 
                             $orderedGame = $game->getGameById($thisone); 
                             $platform = $gamePlatform->getGamePlateform($thisone);
+                            //On ajoute chaque jeu au panier de commande
+                            $item = ['name' =>$orderedGame['name'], 'price' =>$orderedGame['price']];
+                            array_push($cart, $item);
+                            $cart_json = json_encode($cart);
+                            $cart_encoded = base64_encode($cart_json);
                         ?>
                         <?php if($orderedGame['special_offer'] !== null){
                             $price = $orderedGame['price'] - $orderedGame['price'] * ($orderedGame['special_offer'] / 100);
                             $price = round($price, 2);
                             $totalPrice += $price;
-                        } ?>
+                        } 
+                        ?>
                         <div class="game">
                             <div class="first-line">
                                 <h2><?php echo $orderedGame['name']?></h2>
@@ -89,34 +102,15 @@
                             <h3>TOTAL</h3>
                             <h3><?php echo $totalPrice . '€'; ?></h3>
                         </div>
-                        <button class="pay">Payer</button>
+                        <form action="checkout.php" method="POST">
+                            <input type="hidden" name="cart" value="<?php echo $cart_encoded ?>">
+                            <button class="pay" type="submit">Payer</button>
+                        </form>
                         <p>En cliquant sur "Payer" je reconnais avoir lu et accepté les termes et conditions, et la politique de confidentialité.</p>
                     </div>
                 </div>
             </section>
         </div>
-        <section id="payment">
-            <div class="payment-form">
-                <form action="payment.php">
-                    <div>
-                        <label for=""></label>
-                        <input type="text">
-                    </div>
-                    <div>
-                        <label for=""></label>
-                        <input type="text">
-                    </div>
-                    <div>
-                        <label for=""></label>
-                        <input type="text">
-                    </div>
-                    <div>
-                        <label for=""></label>
-                        <input type="text">
-                    </div>
-                </form>
-            </div>
-        </section>
     </main>
 </body>
 </html>
