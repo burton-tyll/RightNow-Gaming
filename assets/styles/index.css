@@ -189,4 +189,8 @@ h1 {
         grid-template-columns: repeat(6, 80%);
         overflow-x: scroll;
     }
+
+    #nouveautés .resizeContainer:hover{
+        width: 100%;
+    }
 }
