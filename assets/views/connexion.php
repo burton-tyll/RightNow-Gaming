@@ -31,6 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 if($username == $user['username'] && password_verify($password, $user['password'])){
                     $validUser = true;
                     $admin = $user['admin'];
+                    $userId = $user['id'];
                     break;
                 }
                 //Gestion du cas ou l'utilisateur n'est pas trouvé
@@ -41,6 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             if($validUser){
                 session_start();
                 $_SESSION['user'] = $username;
+                $_SESSION['user_id'] = $userId;
                 if($admin == 1){
                     $_SESSION['admin'] = true;
                 }

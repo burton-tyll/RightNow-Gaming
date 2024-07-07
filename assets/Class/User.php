@@ -70,6 +70,31 @@ class User extends Database {
         $stmt->execute([':username' => $username]);
     }
 
+    public function updateEmail($userId, $newEmail) {
+        $query = "UPDATE user SET email = :new_email WHERE id = :user_id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':new_email', $newEmail);
+        $stmt->bindParam(':user_id', $userId);
+        return $stmt->execute();
+    }
+
+    public function updatePassword($userId, $newPassword) {
+        $hashedPassword = password_hash($newPassword, PASSWORD_BCRYPT);
+        $query = "UPDATE user SET password = :new_password WHERE id = :user_id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':new_password', $hashedPassword);
+        $stmt->bindParam(':user_id', $userId);
+        return $stmt->execute();
+    }
+
+    public function updateAddress($userId, $newAddress) {
+        $query = "UPDATE user SET adress = :new_address WHERE id = :user_id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':new_address', $newAddress);
+        $stmt->bindParam(':user_id', $userId);
+        return $stmt->execute();
+    }
+
     /*---------*/
     /*----------DELETE--------*/
     /*---------*/
