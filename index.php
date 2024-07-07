@@ -1,7 +1,10 @@
 <?php
     require_once('./assets/Class/Game.php');
+    require_once('./assets/Class/Game_platform.php');
 
     $game = new Game();
+    $gamePlatform = new Game_platform();
+
 
     session_start();
 
@@ -9,6 +12,7 @@
     $bestSellers = $game->getGamesOrderedByRate();
 
     $theBestGame = $game->getTheBestGame();
+
 
     function convertBlobToBase64($blob) {
         return 'data:image/jpeg;base64,' . base64_encode($blob);
@@ -140,7 +144,6 @@
             <?php 
             $count++;
             endforeach; ?>
-
             </div>
         </section>
         <section id="meilleures-ventes">
