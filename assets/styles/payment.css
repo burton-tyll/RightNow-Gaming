@@ -4,6 +4,7 @@ main{
     flex-direction: column;
     align-items: center;
     padding-top: 17svh;
+    min-height: calc(100svh - 17svh);
 }
 
 input{

@@ -7,6 +7,8 @@ use Stripe\Stripe;
 class StripePayment
 {
     private $clientSecret;
+    public $webDomain = "http://localhost/RightNow-Gaming/assets/views";
+
 
     public function __construct($clientSecret)
     {
@@ -41,8 +43,8 @@ class StripePayment
                 'payment_method_types' => ['card'],
                 'line_items' => $line_items,
                 'mode' => 'payment',
-                'success_url' => $domain . '/success.html',
-                'cancel_url' => $domain . '/cancel.html',
+                'success_url' => $this->webDomain . '/success.php',
+                'cancel_url' => $this->webDomain . '/cancel.php',
             ]);
 
             return $checkout_session->url;

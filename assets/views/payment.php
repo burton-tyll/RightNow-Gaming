@@ -40,15 +40,15 @@
         <div>
             <a href="../../index.php"><img src="../img/logo.png" alt="logo" id="img-logo"></a>
         </div>
-        <div id="active-number">
+        <div id="passive-number">
             <span>1</span>
         </div>
-        <p id="active-step">Panier</p>
-        <span id="passive-line"></span>
-        <div id="passive-number">
+        <p id="passive-step">Panier</p>
+        <span id="active-line"></span>
+        <div id="active-number">
             <span>2</span>
         </div>
-        <p id="passive-step">Paiement</p>
+        <p id="active-step">Paiement</p>
         <span id="passive-line"></span>
         <div id="passive-number">
             <span>3</span>
