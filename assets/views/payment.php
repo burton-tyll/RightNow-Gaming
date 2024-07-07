@@ -60,13 +60,13 @@
             <div class="infos">
                 <section id="billing">
                     <h1>Adresse de facturation</h1>
-                    <form>
-                        <input type="text" name="name" placeholder="Nom" required>
-                        <input type="text" name="firstname" placeholder="Prénom" required>
+                    <div>
+                        <input type="text" name="name" placeholder="Nom">
+                        <input type="text" name="firstname" placeholder="Prénom">
                         <input type="text" name="address" placeholder="Adresse" required>
                         <input type="text" name="cp" placeholder="Code Postal" required>
                         <input type="text" name="city" placeholder="Ville" required>
-                    </form>
+                </div>
                 </section>
                 <section id="resume">
                     <h1>Résumé</h1>
@@ -108,10 +108,8 @@
                                 <h3>TOTAL</h3>
                                 <h3><?php echo $totalPrice . '€'; ?></h3>
                             </div>
-                            <form action="checkout.php" method="POST">
                                 <input type="hidden" name="cart" value="<?php echo $cart_encoded ?>">
                                 <button class="pay" type="submit">Payer</button>
-                            </form>
                             <p>En cliquant sur "Payer" je reconnais avoir lu et accepté les termes et conditions, et la politique de confidentialité.</p>
                         </div>
                     </div>

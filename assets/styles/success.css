@@ -1,0 +1,75 @@
+main {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    text-align: center;
+    background: #ffffff;
+    padding: 40px 20px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    max-width: 600px;
+    width: 100%;
+    color: black;
+}
+
+.container h2{
+    color: black;
+}
+
+.order-summary p:not(.total-p){
+    color: white;
+}
+
+.content {
+    margin: 0 auto;
+}
+
+.item{
+    background-color: #404040;
+}
+
+.item h2{
+    color: white;
+}
+
+.total-p{
+    color: black;
+}
+
+h1 {
+    color: #404040; /* Couleur secondaire */
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+p {
+    color: #666666;
+    font-size: 1em;
+    line-height: 1.5;
+}
+
+.order-summary {
+    margin: 20px 0;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #2AFF9B; /* Couleur principale */
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.back-link:hover {
+    background-color: #24d885; /* Variation de la couleur principale pour le hover */
+}
