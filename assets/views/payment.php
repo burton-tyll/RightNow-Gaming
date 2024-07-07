@@ -76,17 +76,22 @@
                             <?php
                                 $orderedGame = $game->getGameById($thisone);
                                 $platform = $gamePlatform->getGamePlateform($thisone);
-                                //On ajoute chaque jeu au panier de commande
-                                $item = ['name' =>$orderedGame['name'], 'price' =>$orderedGame['price']];
-                                array_push($cart, $item);
-                                $cart_json = json_encode($cart);
-                                $cart_encoded = base64_encode($cart_json);
                             ?>
                             <?php if($orderedGame['special_offer'] !== null){
                                 $price = $orderedGame['price'] - $orderedGame['price'] * ($orderedGame['special_offer'] / 100);
                                 $price = round($price, 2);
                                 $totalPrice += $price;
+                            }else{
+                                $price = $orderedGame['price'];
+                                $totalPrice += $price;
                             }
+                            ?>
+                            <?php
+                                //On ajoute chaque jeu au panier de commande
+                                $item = ['name' =>$orderedGame['name'], 'price' =>$price];
+                                array_push($cart, $item);
+                                $cart_json = json_encode($cart);
+                                $cart_encoded = base64_encode($cart_json);
                             ?>
                             <div class="game">
                                 <div class="first-line">

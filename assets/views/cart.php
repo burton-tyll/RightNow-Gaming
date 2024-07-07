@@ -8,9 +8,10 @@ $game_platforms = new Game_platform();
 $game_genres = new Genre();
 
 session_start();
+$cartItems = [];
+
 
 if (isset($_SESSION['cart'])){
-    $cartItems = [];
     foreach ($_SESSION['cart'] as $gameId => $quantity) {
         $gameDetails = $game->getGameById($gameId);
         if ($gameDetails) {
