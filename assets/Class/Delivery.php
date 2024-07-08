@@ -1,9 +1,13 @@
 <?php
-class Delivery {
+
+require_once(__DIR__ . '/../../Database.php');
+class Delivery extends Database{
     private $db;
 
-    public function __construct($db) {
-        $this->db = $db;
+    public function __construct() {
+        // Appelle le constructeur de la classe parente pour initialiser la connexion
+        parent::__construct();
+        $this->conn = $this->connect();
     }
 
     public function getDeliveryByUser($userId) {
@@ -16,6 +20,21 @@ class Delivery {
         $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function postDelivery($date, $status, $userid){
+        $query = "INSERT INTO delivery (created_at, statut, id_user) VALUES (:date, :status, :userid)";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute(['date' => $date, 'status' => $status, 'userid' => $userid]);
+        $deliveryId = $this->conn->lastInsertId();
+
+        return($deliveryId);
+    }
+
+    public function addGamesToDelivery($deliveryId, $gameId){
+        $query = "INSERT INTO game_delivery (id_delivery, id_game) VALUES (:deliveryId, :gameId)";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute(['deliveryId' => $deliveryId, 'gameId' => $gameId]);
     }
 }
 ?>

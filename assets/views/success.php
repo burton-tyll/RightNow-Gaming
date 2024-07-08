@@ -1,15 +1,38 @@
 <?php
 
+require_once('../Class/Delivery.php');
+require_once('../Class/Game.php');
+
 session_start();
+
+$delivery = new Delivery();
+$game = new Game();
 
 $cart = null;
 $total_price = null;
+$userid = $_SESSION['user_id'];
+
+date_default_timezone_set('Europe/Paris');
+$date = date('Y-m-d H:i:s');
 
 if(isset($_SESSION['finalcart'])){
     $cart_encoded = $_SESSION['finalcart'];
     $cart_json = base64_decode($cart_encoded);
     $cart = json_decode($cart_json, true);
+
+    //On ajoute la commande et on récupère son id dans lastDelivery
+    $lastDelivery = $delivery->postDelivery($date, 'Commandé', $userid);
+    //On ajoute les jeux commandés à la commande
+    foreach($cart as $item){
+        $thisGame = $game->getGamesBy('name', $item['name']);
+        foreach($thisGame as $thisone){
+            $gameId = $thisone['id'];
+            $delivery->addGamesToDelivery($lastDelivery, $gameId);
+        }
+    }
 }
+
+
 
 ?>
 
