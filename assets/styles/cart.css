@@ -58,3 +58,99 @@
   height: 2px;
   background-color: #646567;
 }
+
+#cart-section{
+  display: flex;
+  padding: 10svw 5svw 0 5svw;
+  color: aliceblue;
+
+}
+
+#cart-items-list{
+  background-color: #383838 ;
+  width: 40svw;
+  overflow-y: scroll;
+  max-height: 50svh;
+  border-radius: 20px;
+  padding: 0svw 2svw 2svw 2svw;
+  
+}
+
+.item-details{
+  display: flex;
+  align-items: center;
+  padding: 2svw 1svw 2svw 1svw ;
+  border-bottom: solid 1px #0FB953;
+}
+
+.item-price{
+  text-decoration: line-through;
+}
+
+.item-name-price-platform-name-quantity{
+  width: 100%;
+  padding-left: 2svw;
+}
+
+.cart-item img{
+  width: 200px ;
+  height: auto;
+  border-radius: 10px;
+}
+
+.item-price{
+  text-align: end;
+}
+
+#cart-summary{
+  margin-left: 5svw;
+
+}
+
+#cart-summary-prices{
+  background-color: #1A1B1E ;
+  width: 30svw;
+  max-height: 50svh;
+  border:solid 1px #0FB953;
+  border-radius: 10px;
+  padding: 2svw 2svw 2svw 2svw;
+  font-size: 1.5rem;
+}
+
+#discounted-price-final{
+  text-decoration: underline;
+}
+
+#go-back-paiement-links{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+#go-back-paiement-links p{
+  margin: 0;
+}
+
+#price-ammount{
+  display: flex;
+}
+
+#prices{
+  width: 100%;  
+  text-align: end;
+}
+
+#price-titles{
+  width: 100%;
+}
+
+.total-price,
+.total-savings{
+  color: #646567;
+}
+
+#checkout,
+#continue-shopping{
+  color: inherit;
+  text-decoration: underline;
+}
