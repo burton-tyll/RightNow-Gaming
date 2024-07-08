@@ -11,7 +11,7 @@ if (!isset($_SESSION['user_id'])) {
 
 $db = new Database();
 $user = new User();
-$delivery = new Delivery($db->getConnection());
+$delivery = new Delivery();
 
 $userId = $_SESSION['user_id'];
 $userInfo = $user->getUser('id', $userId);

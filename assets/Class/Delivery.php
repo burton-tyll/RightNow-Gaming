@@ -16,16 +16,16 @@ class Delivery extends Database{
                   JOIN game_delivery ON delivery.id = game_delivery.id_delivery
                   JOIN game ON game_delivery.id_game = game.id
                   WHERE delivery.id_user = :user_id";
-        $stmt = $this->db->prepare($query);
+        $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function postDelivery($date, $status, $userid){
-        $query = "INSERT INTO delivery (created_at, statut, id_user) VALUES (:date, :status, :userid)";
+    public function postDelivery($date, $status, $total_price, $userid){
+        $query = "INSERT INTO delivery (created_at, statut, total_price, id_user) VALUES (:date, :status, :total_price, :userid)";
         $stmt = $this->conn->prepare($query);
-        $stmt->execute(['date' => $date, 'status' => $status, 'userid' => $userid]);
+        $stmt->execute(['date' => $date, 'status' => $status, 'total_price' => $total_price, 'userid' => $userid]);
         $deliveryId = $this->conn->lastInsertId();
 
         return($deliveryId);

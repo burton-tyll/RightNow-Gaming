@@ -19,20 +19,7 @@ if(isset($_SESSION['finalcart'])){
     $cart_encoded = $_SESSION['finalcart'];
     $cart_json = base64_decode($cart_encoded);
     $cart = json_decode($cart_json, true);
-
-    //On ajoute la commande et on récupère son id dans lastDelivery
-    $lastDelivery = $delivery->postDelivery($date, 'Commandé', $userid);
-    //On ajoute les jeux commandés à la commande
-    foreach($cart as $item){
-        $thisGame = $game->getGamesBy('name', $item['name']);
-        foreach($thisGame as $thisone){
-            $gameId = $thisone['id'];
-            $delivery->addGamesToDelivery($lastDelivery, $gameId);
-        }
-    }
 }
-
-
 
 ?>
 
@@ -88,6 +75,20 @@ if(isset($_SESSION['finalcart'])){
                 </div>
                 <a href="../../index.php" class="back-link">Revenir à l'accueil</a>
             </div>
+            <?php
+            if(isset($_SESSION['finalcart'])){
+                //On ajoute la commande et on récupère son id dans lastDelivery
+                $lastDelivery = $delivery->postDelivery($date, 'Commandé', $total_price, $userid);
+                //On ajoute les jeux commandés à la commande
+                foreach($cart as $item){
+                    $thisGame = $game->getGamesBy('name', $item['name']);
+                    foreach($thisGame as $thisone){
+                        $gameId = $thisone['id'];
+                        $delivery->addGamesToDelivery($lastDelivery, $gameId);
+                    }
+                }
+            }
+            ?>
         </div>
     </main>
 </body>
